@@ -1,4 +1,4 @@
-/***************************************** BREAKPOINT for Large devices ********************************************************/
+
 .Mobile-MenuNav{
     display: none;
 }
@@ -8,7 +8,13 @@
     align-items: center;
     width: 100vw !important;
 }
+/***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
+    /*Menu logo*/
+    .menu-logo{
+        min-width: 100%;
+        height: 270px;
+    }
     /*Menu nav*/
     .Desktop-MenuNavlist{
         display: flex;
@@ -20,6 +26,7 @@
     .Desktop-MenuNavlist li{
         border-left: 2px solid var(--color-yellow);
         color: var(--color-yellow);
+        cursor: pointer;
         padding: 0em 1em;
         font-size: 1.5em;
     }

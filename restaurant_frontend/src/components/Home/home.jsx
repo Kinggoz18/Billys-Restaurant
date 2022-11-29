@@ -17,7 +17,7 @@ function Home(){
      <div className='homepage'>
         <video className="background_vid" src={backgroundvideo} autoPlay loop muted/>
           <div className='logo_name'>
-            <img className='logo' src={DrumRockJerk}/>
+            <img className='logo' src={DrumRockJerk} alt='Drum Rock Jerk Logo'/>
             <p>Number 1. Island Cusine in Peterborough</p>
             <PlaceOrderButton />
           </div>

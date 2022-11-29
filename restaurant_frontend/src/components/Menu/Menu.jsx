@@ -1,6 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
-
+import DrumRockJerk from '../Images/logo.png'
 import foodItem1 from '../Images/food1.jpg';
 import foodItem2 from '../Images/food2.jpg';
 
@@ -20,6 +19,9 @@ let MenuItems = {
 function MenuNav(props){
   return(
     <div>
+      <div>
+        <img className='menu-logo' src={DrumRockJerk} alt='Drum Rock Jerk Logo'/>
+      </div>
       <nav className='Desktop-MenuNav'>
       <ul className='Desktop-MenuNavlist'>
         <li>All</li>

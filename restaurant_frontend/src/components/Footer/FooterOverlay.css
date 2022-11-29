@@ -1,0 +1,21 @@
+/***************************************** BREAKPOINT for Large devices ********************************************************/
+@media screen and (min-width: 1010px)  {
+    footer{
+        background: black;
+        color: aliceblue;
+        padding: 1em 0em;
+        bottom: 0px;
+        height: 70px; 
+        left: 0px;
+        position:relative;
+        width: 100%;
+        z-index: 1;
+    }
+}
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {
+
+}
+/***************************************** BREAKPOINT for small devices ********************************************************/
+@media screen and (max-width: 670px) {
+}

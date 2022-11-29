@@ -13,8 +13,7 @@ export default function Navbar(props){
           </ul>
     <div className='app__navbar-login'>
         <a href="#login" className='p__opensans'><i className="fa fa-fw fa-user"></i>Login</a>
-        <div />
-          <a href="#cart"className='p__opensans'><i className="fa fa-shopping-cart"></i>Cart</a>
+        <a href="#cart"className='p__opensans'><i className="fa fa-shopping-cart"></i>Cart</a>
       </div>
         </nav>
     </div>

@@ -1,7 +1,3 @@
-import mysql from 'mysql'
-
-
-
 export function ConnectMongoDB(){
     //Mongoose Connection setup
     const url = "mongodb+srv://chigozie_M:raphael2002@cluster0.1xu9qqp.mongodb.net/Ish_haircut"

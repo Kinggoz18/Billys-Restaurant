@@ -4,7 +4,7 @@ import Navbar from './Navbar/Navbar';
 import Home from './Home/home';
 import Location from './Location/Location';
 import ContactUs from './ContactUs/ContactUs';
-
+import AboutUs from './About/About';
 /*Exports */
 export {
   Footer,
@@ -12,5 +12,6 @@ export {
   Home,
   Menu,
   Location,
-  ContactUs
+  ContactUs,
+  AboutUs
 };

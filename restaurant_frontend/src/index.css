@@ -15,7 +15,7 @@
   --color-yellow: #FFAA22;
 }
 
-/* default styling background  */
+/* default styling  */
 body{
   font-family: 'Anek Devanagari', sans-serif;
 }
@@ -23,7 +23,9 @@ a {
   color: unset;
   text-decoration: none;
 }
-
+textarea {
+  resize: none;
+}
 /*Utility styles*/
 .main{
   width: 100%;

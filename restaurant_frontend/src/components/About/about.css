@@ -1,0 +1,28 @@
+
+/***************************************** BREAKPOINT for Large devices ********************************************************/
+@media screen and (min-width: 1010px)  {
+    .AboutPage{
+        height: 80vh;
+    }
+    .about-logo{
+        height: 220px;
+    }
+    .AboutPage h1{
+        color: var(--color-yellow);
+        font-weight: bolder;
+        font-size: 2em;
+        margin-bottom: 1.8em;
+    }
+    .about-text{
+        text-align: center;
+        font-size: 1.5em;
+        width: 60%;
+    }
+}
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {
+
+}
+/***************************************** BREAKPOINT for small devices ********************************************************/
+@media screen and (max-width: 670px) {
+}

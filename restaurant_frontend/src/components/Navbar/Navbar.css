@@ -1,18 +1,14 @@
 .app__navbar{
-    width: 100%;
-    display: flex;
     align-items: center;
     background: var(--color-yellow);
-    list-style: none;
-    padding: 1rem 4rem;
-    justify-content: center;
-    align-content: flex-start;
+    display: flex;
     flex-wrap: nowrap;
+    padding: 0.5em 0em;
     flex-direction: row;
-    
-    
+    list-style: none;
+    opacity: 0.8;
+    width: 100vw;
 }
-
 .app__navbar-links{
     flex: 1;
     display: flex;
@@ -20,14 +16,11 @@
 
     list-style: none;
 }
-
-
 .app__navbar-links li{
     margin: 0 2rem;
     cursor:pointer;
     transition: 0.5s ease;
 }
-
 .app__navbar-links li:hover{
    color: var(--color-gray);
    border-bottom: 1px solid var(--color-golden);
@@ -37,16 +30,15 @@
     justify-content: flex-end;
     align-items: flex-end;
     padding: 1rem 4rem;
-    
-
+}
+.app__navbar a{
+    font-size: 1.7em;
 }
 
 .app__navbar-login a{
     margin: 0 1rem;
     text-decoration: none;
     transition: 0.5s ease;
-    
-
 }
 
 .app__navbar-login a:hover{

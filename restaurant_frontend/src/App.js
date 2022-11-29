@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Laurels, SpecialMenu } from './container';
-import { Navbar } from './components';
+import { Navbar } from './components/index';
 import './App.css';
 import backgroundvideo from './Videos/chicken1.mp4'
+
 
 const App = () => {
   return (
@@ -13,14 +14,6 @@ const App = () => {
         <video className="background_vid" src={backgroundvideo} autoPlay loop muted/>
         
       </div>
-      
-      <Header />
-      <AboutUs />
-      <SpecialMenu />
-      <Chef />
-      <Intro />
-      <Laurels />
-      <Gallery />
 
       <div className='logo_name'>
         <p>DRUM ROCK JERK</p>

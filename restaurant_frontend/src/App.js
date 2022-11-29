@@ -21,7 +21,12 @@ const App = () => {
         <p>Number 1. Island Cusine in Peterborough</p>
       </div>
 
+<<<<<<< HEAD
      <button type="button"> Place order</button>
+=======
+     <button type="button" className='button'> Place order</button>
+
+>>>>>>> d30d26d149fb6c0faa1306abd0fd4678afa501df
       <FindUs />
       <Footer />
     </div>

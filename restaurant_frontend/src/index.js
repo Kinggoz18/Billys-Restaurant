@@ -1,20 +1,10 @@
-//Import Modules
 import React from 'react';
-import  ReactDOM  from 'react-dom/client';
-import './Styles/index.css';
-import $ from 'jquery';
-import {UpperSection} from './components/backgroundComponents.js'
+import ReactDOM from 'react-dom';
 
-//Main Component for rendering the app
-class Body extends React.Component{
-    render(){
-        return(
-           <UpperSection />
-        );
-    }
-}
+import './index.css';
+import App from './App';
 
 
-const Root = ReactDOM.createRoot(document.getElementById('root'));
-Root.render(<Body />);
+
+ReactDOM.render(<App />, document.getElementById('root'));
 

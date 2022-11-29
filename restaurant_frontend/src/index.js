@@ -2,8 +2,10 @@ import { Navbar, Home, Footer, Menu} from './components/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+import $ from 'jquery'
 let slideIndex = 0;
+
+/*Component to handle rendering the current page */
 class LoadPage extends React.Component{
   render(){
       /*NOTE: REMEMBER A COMPONEMNT RERENDERS WHENEVER A STATE IS CHANGED */
@@ -22,6 +24,25 @@ class App extends React.Component {
       current: Home
     }
   }
+  //Method to handle dynamic navbar
+  LoadNavbar(){
+    //Display evenry nav item
+    $('#home').removeClass('hide');
+    $('#menu').removeClass('hide');
+    
+    //then use an if statement to filter them
+    if(this.state.current === Home){
+      $('#home').addClass('hide');
+    }
+    else{
+      $('#home').removeClass('hide');
+      if(this.state.current === Menu)
+      {
+        $('#menu').addClass('hide');
+      }
+    }
+  }
+  //method to handle changing current index
   renderPage(i){
     LoadSlideIndex(i);
     this.setState({
@@ -29,6 +50,7 @@ class App extends React.Component {
     });
   }
   render(){
+    this.LoadNavbar();
     return (
       <div>
         <Navbar onClick={(i)=>{this.renderPage(i)}}/>

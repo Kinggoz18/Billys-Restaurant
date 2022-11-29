@@ -1,7 +1,7 @@
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
     footer{
-        background: black;
+        background: var(--color-yellow);
         color: aliceblue;
         padding: 1em 0em;
         bottom: 0px;

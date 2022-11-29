@@ -2,11 +2,12 @@
 .Mobile-MenuNav{
     display: none;
 }
-.MenuPage{
+.Page{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw !important;
+    min-height: 80%;
 }
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {

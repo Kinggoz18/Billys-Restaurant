@@ -87,7 +87,7 @@ class Menu extends React.Component{
   }
   render(){
     return(
-      <div className='MenuPage'>
+      <div className='Page'>
         <MenuNav></MenuNav>
         <div className='Menu'>
         {

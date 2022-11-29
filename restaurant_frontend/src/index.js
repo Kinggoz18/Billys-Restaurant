@@ -1,4 +1,4 @@
-import { Navbar, Home, Footer, Menu} from './components/index';
+import { Navbar, Home, Footer, Menu, Location, ContactUs} from './components/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -20,7 +20,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      pages: [Home, Menu],
+      pages: [Home, Menu, Location, null, ContactUs],
       current: Home
     }
   }
@@ -29,7 +29,8 @@ class App extends React.Component {
     //Display evenry nav item
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
-    
+    $('#location').removeClass('hide');
+
     //then use an if statement to filter them
     if(this.state.current === Home){
       $('#home').addClass('hide');
@@ -39,6 +40,10 @@ class App extends React.Component {
       if(this.state.current === Menu)
       {
         $('#menu').addClass('hide');
+      }
+      else if(this.state.current === Location)
+      {
+        $('#location').addClass('hide');
       }
     }
   }
@@ -71,14 +76,14 @@ function LoadSlideIndex(i)
     {
         slideIndex = 1;
     }
-    else if(i === "ChangeMe")
+    else if(i === "Location")
     {
         slideIndex = 2;
     }
     else if(i === "ChangeMe"){
         slideIndex = 3;
     }
-    else if(i === "ChangeMe")
+    else if(i === "ContactUs")
     {
         slideIndex = 4;
     }

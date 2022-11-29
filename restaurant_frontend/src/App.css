@@ -210,3 +210,18 @@
   color: var(--color-white);
   font-size: 3rem;
 }
+
+.button{
+  background-color: var(--color-yellow);
+  border: none;
+  color: white;
+  padding: 1rem 4rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-top: 10px;
+ 
+}

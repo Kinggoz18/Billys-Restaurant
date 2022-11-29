@@ -1,0 +1,85 @@
+/***************************************** BREAKPOINT for Large devices ********************************************************/
+.Mobile-MenuNav{
+    display: none;
+}
+.MenuPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw !important;
+}
+@media screen and (min-width: 1010px)  {
+    /*Menu nav*/
+    .Desktop-MenuNavlist{
+        display: flex;
+        margin-top: 3em;
+    }
+    .Desktop-MenuNavlist li:nth-child(1){
+        border-left: none !important;
+    }
+    .Desktop-MenuNavlist li{
+        border-left: 2px solid var(--color-yellow);
+        color: var(--color-yellow);
+        padding: 0em 1em;
+        font-size: 1.5em;
+    }
+    /*Entire Menu styling*/
+    .Menu{
+        display: grid;
+        grid-template-columns: 40% 40%;
+        justify-items: center;
+        justify-content: center;
+        padding-top: 2em;
+        width: 100%;
+    }
+    /*Menu item styling*/
+    .AddToBasket{
+        background-color: var(--color-yellow);
+        border: none;
+        border-radius: 0.4em;
+        color: var(--color-white);
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0.4em;
+        transition: 0.5s ease;
+        width: 100%;
+    }
+    button.AddToBasket:hover{
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+    }
+    .Menu img{
+        border-top-left-radius: 0.4em;
+        border-top-right-radius: 0.4em;
+        height: 250px;
+        margin-bottom: 1em;
+        width: 370px !important;
+    }
+    .MenuItem{
+        align-items: center;
+        border-radius: 0.5em;
+        border: solid 2px var(--color-yellow);
+        color: var(--color-yellow);
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 1em;
+        max-width: 370px;
+        padding-bottom: 1em;
+    }
+    .MenuItem div{
+        width: 95%;
+    }
+    .MenuItem p{
+        margin: 0.4em;
+    }
+}
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {
+
+}
+/***************************************** BREAKPOINT for small devices ********************************************************/
+@media screen and (max-width: 670px) {
+}

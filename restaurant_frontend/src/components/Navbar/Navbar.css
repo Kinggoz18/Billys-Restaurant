@@ -19,6 +19,8 @@
         list-style: none;
     }
     .app__navbar-links li{
+        font-size: 1.7em;
+        font-weight: 700;
         margin: 0 2rem;
         cursor:pointer;
         transition: 0.5s ease;
@@ -26,31 +28,24 @@
     .app__navbar-links li:hover{
        color: var(--color-white);
     }
-    .app__navbar-login{
+    .app__navbar-right{
         display:flex;
         justify-content: flex-end;
         align-items: flex-end;
         padding: 1rem 4rem;
     }
-    .app__navbar a{
-        font-size: 1.7em;
-    }
     
-    .app__navbar-login a{
+    .app__navbar-right p{
         margin: 0 1rem;
+        font-size: 1.7em;
+        font-weight: 700;
+        cursor: pointer;
         text-decoration: none;
         transition: 0.5s ease;
     }
     
-    .app__navbar-login a:hover{
+    .app__navbar-right p:hover{
       color: var(--color-white);
-    
-    }
-    
-    .app__navbar-login div{
-        width: 1px;
-        height: 30px;
-        background-color: var(--color-gray);
     }
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/

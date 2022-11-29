@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Laurels, SpecialMenu } from './container';
+import { FindUs, Footer } from './container';
 import { Navbar } from './components/index';
 import './App.css';
 import backgroundvideo from './Videos/chicken1.mp4'
@@ -22,18 +22,9 @@ const App = () => {
       </div>
 
      <button type="button"> Place order</button>
-
       <FindUs />
       <Footer />
-      
-     
-
-    
     </div>
-    
-
-    
-  
 
   );
 }

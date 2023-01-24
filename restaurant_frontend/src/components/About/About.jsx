@@ -8,7 +8,11 @@ export default function AboutUs(){
             <img className='about-logo' src={logo} alt='Drum Rock Jerk Logo'></img>
             <h1>About Us</h1>
             <span className='about-text'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula leo, ullamcorper ut dapibus at, dignissim in elit. Aenean porttitor turpis ac eros mollis venenatis. Mauris justo quam, lobortis vitae erat laoreet, dictum elementum purus. Proin varius elit at consequat tristique. Fusce finibus, purus in rutrum mattis, nibh metus semper ipsum, in eleifend ligula purus suscipit arcu. Nunc accumsan vel nisi at sodales. Phasellus dolor dolor, feugiat sed lorem at, finibus tincidunt augue.
+            Peterborough's Best Jamaican Restaurant!<br></br>
+Are you craving the flavors of Jamaica? Look no further than Drum Rock Jerk, Peterborough's premier destination for authentic Jamaican cuisine. Our restaurant is the perfect place to experience the rich flavors and spices of the Caribbean, all in the heart of Peterborough.
+At Drum Rock Jerk, we take pride in our commitment to using fresh, high-quality ingredients in all of our dishes. From our signature jerk chicken to our mouth-watering oxtail stew, our menu is sure to have something for everyone. Our Chef is originally from Jamaica and has more than 10 years of experience in Caribbean cuisine, so you can be sure that the flavors and recipes are authentic.
+In addition to our delicious food, our restaurant also boasts a warm and inviting atmosphere. The interior design is inspired by Jamaica's vibrant culture, with colorful decorations and a laid-back atmosphere. Whether you're looking for a casual meal with friends or a romantic dinner for two, we have the perfect setting for you.
+If you're looking for a taste of Jamaica in Peterborough, look no further than Drum Rock Jerk. Visit us today and experience the flavors of the Caribbean for yourself. We are located at 123 Main street, Peterborough.
             </span>
         </div>
     );

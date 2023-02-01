@@ -1,0 +1,16 @@
+{
+  "name": "test-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./Objects/TestFile.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bson": "^4.7.2",
+    "mongodb": "^4.13.0"
+  },
+  "description": ""
+}

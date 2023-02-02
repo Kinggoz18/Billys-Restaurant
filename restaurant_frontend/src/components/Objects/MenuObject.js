@@ -13,3 +13,13 @@
 |
 |------------------------------------------------------------------
 */
+export class MenuObject{
+    constructor(){
+
+    }
+    //Get all Menu
+    //Get a Menu
+    //Delete A Menu 
+    //Update a menu 
+    //Add a Menu
+}

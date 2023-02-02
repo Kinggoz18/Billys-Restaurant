@@ -13,3 +13,18 @@
 |
 |------------------------------------------------------------------
 */
+
+export class MenuItemObject{
+    constructor(){
+
+    }
+    //Get all MenuItems
+    async GetAllMenuItems(){
+        
+    }
+    //Delete A Menu Item
+    //Update a menu item
+    //Add an Image to menu item : called after Add menu item
+    //Create MenuItem
+    //Get a MenuItem
+}

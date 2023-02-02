@@ -8,14 +8,20 @@ const reviews = new ReviewObject();
 reviews.createReview('John Doe', 'This is a great product!', 5);
 reviews.createReview('Jane Doe', 'I love this product!', 4);
 reviews.createReview('Jim Smith', 'I was not impressed with this product.', 2);
-reviews.createReview('Dio Brando', 'Your Food Sucks Nigga.', 1);
+reviews.createReview('Dio Brando', 'Your Food Sucks nigga.', 1);
+reviews.createReview('Sakura Haruno', 'Wasteman your food Sucks', 1);
+reviews.createReview('Nina Einstein', 'I love this Peterborough Food!', 4.5);
+reviews.createReview('Naruto Uzumaki', 'The food is alright i Guess add Ramen to the menu.', 2);
+
 
 // Get all reviews
 console.log(reviews.getAllReviews());
 
 
 // Delete a review
-reviews.deleteReview('Jim Smith');
+console.log("==================================================")
+//reviews.deleteReview('Dio Brando');
 
 // Get all reviews again
+console.log("===================================================")
 console.log(reviews.getAllReviews());

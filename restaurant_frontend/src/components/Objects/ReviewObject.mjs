@@ -14,78 +14,71 @@
 |------------------------------------------------------------------
 */
 
-export class ReviewObject {
-    constructor() {
-      // Initialize an empty array to store reviews
-      this.reviews = [];
-      this.badWords = ["4r5e", "5h1t", "5hit", "a55", "anal", "anus", 
-      "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole",
-       "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack",
-        "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch",
-         "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", 
-         "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs",
-          "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker",
-           "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk",
-            "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface",
-             "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker",
-              "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon",
-               "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus",
-               "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck",
-                "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates",
-                 "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck",
-                  "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers",
-                   "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged",
-                    "gangbangs", "gaylord", "gaysex", "goatse",
-                    "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar",
-                    "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8",
-                     "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff",
-                      "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker",
-                      "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser",
-                       "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse",
-                       "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen",
-                       "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite",
-                     "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead",
-                      "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se",
-       "wang", "wank", "wanker", "wanky", "whoar", "whore","wasteman", "willies", "willy", "xrated", "xxx"];
-    }
-  
-    createReview(customer, review, rating) {
-      // Check if the customer name and review are provided
-      if (!customer || !review) {
-        throw new Error('Invalid review: customer name and review must be provided');
-      }
-  
-      // Check if the rating is within the desired range
-      if (rating < 1 || rating > 5) {
-        throw new Error('Invalid rating: rating must be between 1 and 5');
-      }
-      review = review.toLowerCase();
-      const lowercaseBadWords = this.badWords.map(w => w.toLowerCase());
+const apiBaseURL = 'https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/';
 
-      // Check if the review contains a bad word
-      if (lowercaseBadWords.some(w => review.includes(w))) {
-        console.log(customer + ' Sorry, your review contains a bad word and cannot be added.');
-          return;
-    }
-      // Adds a new review to the reviews array with the specified rating
-      this.reviews.push({ customer, review, rating });
-    }
-  
-    deleteReview(customer) {
-      // Remove the review for the specified customer
-      this.reviews = this.reviews.filter(r => r.customer !== customer);
-    }
-  
-    getAllReviews() {
-      // Sorts the reviews array in descending order by the rating property
-      this.reviews.sort((a, b) => b.rating - a.rating);
-      // Returns all reviews stored in the reviews array
-      return this.reviews;
-    }
+// create a new review
+async function createReview(review) {
+  try {
+    const endpoint = `${apiBaseURL}Reviews/CreateReviews`;
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(review)
+  });
+
+  if (!response.ok) {
+    throw new Error(`Unable to create review: ${response.statusText}`);
   }
-  
-  
-  
-  
-  
-  
+
+  const data = await response.json();
+  console.log('Created Review:', data);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// get all reviews
+async function getAllReviews() {
+  const endpoint = `${apiBaseURL}Reviews/GetAllReviews`;
+  const response = await fetch(endpoint);
+
+  if (response.status!=200) {
+    throw new Error(`Unable to get all reviews: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log('All Reviews:', JSON.stringify(data));
+}
+
+// get reviews by user ID
+async function getReviewsByUser(userId) {
+  const endpoint = `${apiBaseURL}Reviews/GetReviews/${userId}`;
+  const response = await fetch(endpoint);
+
+  if (!response.ok) {
+    throw new Error(`Unable to get reviews by user "${userId}": ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log(`Reviews by user "${userId}":`, data);
+}
+
+// delete review by ID
+async function deleteReview(id) {
+  const endpoint = `${apiBaseURL}Reviews/Delete?id=${id}`;
+  const response = await fetch(endpoint, { method: 'DELETE' });
+
+  if (!response.ok) {
+    throw new Error(`Unable to delete review with ID "${id}": ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log(`Deleted review with ID "${id}":`, data);
+}
+
+
+//getAllReviews();
+
+//getReviewsByUser('1');
+
+//deleteReview('1');

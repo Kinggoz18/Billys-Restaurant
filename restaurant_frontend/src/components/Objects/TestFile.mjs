@@ -1,44 +1,63 @@
-import { AdminAccount, EmployeeAccount, CustomerAccount} from './AccountObject.js';
-let AccountToCreate = {
-    _id: {},
-    firstName: "Chigozie",
-    lastName: "M",
-    phoneNumber: "6472251047",
-    emailAddress: "cmuonagolu@outlook.com",
-    password: "chigozie123"
-}
-let admin = new AdminAccount();
-let employee = new EmployeeAccount();
-let customer = new EmployeeAccount();
-let AdminInfo;
+import fs from 'fs'
+import { MenuItemObject } from "./MenuItemObject.mjs";
 
-await TestCreateAccount();
-await TestUpdateAccount();
-//TestLoginAccount();
-//TestDeleteAccount();
+let Mains = ["Chicken and Peas", "Chicken and Rice", "Chicken and salad", "Jerk Meal", "BBQ Meal"];
+let Sides = ["BBQ Chicken", "Jerk Chicken", "Fish", "Cookies", "Brownies"];
+let Drinks = ["Coca Cola", "Orange Juice", "Apple Juice", "Sprite", "Fanta", "Energy Drink"];
+let menuItemsArray = [];
+let menuItem = new MenuItemObject();
+const imagePath = '/Users/chigoziemuonagolu/Desktop/Billys-Restaurant/restaurant_frontend/src/components/Images/food1.jpg'; 
 
-async function TestCreateAccount(){
-    return admin.CreateAdmin(AccountToCreate).then(()=>{
-        AdminInfo = admin.GetAdminInfo;
-        //console.log(`Admin Info: ${JSON.stringify(AdminInfo)}`);
-    })
-}
+generateMenuItems();
+let imageFile;
 
-async function TestUpdateAccount(){
-    return admin.UpdateAdmin(AdminInfo).then(()=>{
-        AdminInfo._id = "63c9c5a9c46657c2c5ad0ff7";
-        AdminInfo = admin.GetAdminInfo;
-        //console.log(`Admin Info: ${JSON.stringify(AdminInfo)}`);
+await fs.promises.readFile(imagePath)
+  .then(data => {
+    imageFile = data;
+    menuItemsArray.forEach(async Element=>{
+        await menuItem.AddMenuItem(Element, imageFile);
+        let data = JSON.stringify(menuItem.ReturnItemData);
+        console.log(data);
     });
-}
-async function TestLoginAccount(){
-    let login = {
-        EmailAddress: AccountToCreate.EmailAddress,
-        Password: AccountToCreate.Password
-    }
-    let loginResult = await admin.AdminLogin(login);
-    console.log(JSON.stringify(loginResult));
-}
-async function TestDeleteAccount(){
-    admin.DeleteAdmin(AdminInfo._id);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+
+function generateMenuItems(){
+
+    Mains.forEach(Element=>{
+        let temp = {
+            _id: null,
+            Name: Element,
+            Price: 12.50,
+            Menu: "Mains",
+            OrderCount: null,
+            ImageLink: null,
+        }
+        menuItemsArray.push(temp);
+    })
+    Sides.forEach(Element=>{
+        let temp = {
+            _id: null,
+            Name: Element,
+            Price: 7.80,
+            Menu: "Sides",
+            OrderCount: null,
+            ImageLink: null,
+        }
+        menuItemsArray.push(temp);
+    })
+    Drinks.forEach(Element=>{
+        let temp = {
+            _id: null,
+            Name: Element,
+            Price: 3.50,
+            Menu: "Drinks",
+            OrderCount: null,
+            ImageLink: null,
+        }
+        menuItemsArray.push(temp);
+    })
 }

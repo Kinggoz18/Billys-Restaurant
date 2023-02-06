@@ -13,17 +13,17 @@
 |
 |------------------------------------------------------------------
 */
-
+import fs from 'fs'
 export class MenuItemObject{
     //The items Information
     #MenuItem = null;
     //API urls
     #urls = {
-        Get: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerkMenuItem/GetMenuItem",
-        GetAll: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerkMenuItem/GetAllMenuItems",
-        Delete: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerkMenuItem/RemoveMenuItem",
-        Create: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/AddMenuItem",
-        Update: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerkMenuItem/UpdateMenuItem",
+        Get: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/GetMenuItem",
+        GetAll: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/GetAllMenuItems",
+        Delete: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/RemoveMenuItem",
+        Create: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/AddMenuItem/",
+        Update: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/MenuItem/UpdateMenuItem",
     }
     //Default constructor
     constructor(){
@@ -68,9 +68,7 @@ export class MenuItemObject{
     async GetMenuItem(id){
         let dataToReturn;
         try{
-            const params = new URLSearchParams();
-            params.append("itemId", id);
-            await fetch(`${this.#urls["Get"]}?${params}`, {
+            await fetch(`${this.#urls["Get"]}/${id}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             }).then((response)=>{
@@ -97,18 +95,21 @@ export class MenuItemObject{
     //Create MenuItem
     async AddMenuItem(menuItem, image){
         let dataToReturn;
-        let formData = new FormData();
-        const imageBase64 = Buffer.from(image).toString("base64");
-        formData.append('item', JSON.stringify(menuItem));
-        formData.append('File', imageBase64);
+        let imageBase64 = await this.#convertImageToBase64_Path(image);
+        let menuItemModel ={
+            item: menuItem,
+            file: imageBase64
+        }
         try{
             await fetch(this.#urls["Create"], {
                 method: "POST",
-                body: formData,
-                headers: {'Content-Type': 'multipart/form-data'}
+                body: JSON.stringify(menuItemModel),
+                headers: { "Content-Type": "application/json" }
             }).then((response)=>{
                 if(response.status!=200){
-                    console.error(response.statusText);
+                    response.text().then(text=>{
+                        throw new Error(text);
+                    })
                     return null
                 }
                 return response.json();
@@ -131,9 +132,7 @@ export class MenuItemObject{
     async UpdateMenuItem(id, item){
         let dataToReturn;
         try{
-            const params = new URLSearchParams();
-            params.append("itemId", id);
-            await fetch(`${this.#urls["Update"]}?${params}`, {
+            await fetch(`${this.#urls["Update"]}/${id}`, {
                 method: "PUT",
                 body: JSON.stringify(item),
                 headers: { "Content-Type": "application/json" }
@@ -142,7 +141,7 @@ export class MenuItemObject{
                     console.log(response.statusText);
                     return null
                 }
-                return response.json();
+               return response.json();
             }).then((data)=>{
                 if (data == null) {
                     return false;
@@ -161,9 +160,7 @@ export class MenuItemObject{
     //Delete A Menu Item
     async DeleteMenuItem(id){
         try{
-            const params = new URLSearchParams();
-            params.append("itemId", id);
-            await fetch(`${this.#urls["Delete"]}?${params}`, {
+            await fetch(`${this.#urls["Delete"]}/${id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             }).then((response)=>{
@@ -171,7 +168,7 @@ export class MenuItemObject{
                     console.log(response.statusText);
                     return null
                 }
-                return response.json();
+                return true;
             }).then(()=>{
                 this.#MenuItem = null;
             });
@@ -181,7 +178,13 @@ export class MenuItemObject{
             return null;
         }
     }
-
+    //Convert an image to Base64 using its path
+   async #convertImageToBase64_Path(path) {
+    const contents = fs.readFileSync(path);
+    var decodedImage = new Buffer.from(contents).toString('base64');
+    return decodedImage;
+    }
+     
     get ReturnItemData(){
         return this.#MenuItem;
     }

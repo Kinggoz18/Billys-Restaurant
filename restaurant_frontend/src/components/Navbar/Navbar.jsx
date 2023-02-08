@@ -14,8 +14,8 @@ export default function Navbar(props){
             <li className='p__opensans' id ="contact" onClick={()=>{props.onClick('ContactUs')}}>Contact us</li>
           </ul>
     <div className='app__navbar-right'>
-        <p href="#login" className='p__opensans'><i className="fa fa-fw fa-user"></i>Login</p>
-        <p href="#cart"className='p__opensans'><i className="fa fa-shopping-cart"></i>Cart</p>
+        <p href="#login" onClick={()=>{props.onClick('Login')}} className='p__opensans'><i className="fa fa-fw fa-user"></i>Login</p>
+        <p href="#cart" onClick={()=>{props.onClick('Cart')}} className='p__opensans'><i className="fa fa-shopping-cart"></i>Cart</p>
       </div>
         </nav>
     </div>

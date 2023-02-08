@@ -5,6 +5,7 @@ import Home from './Home/home';
 import Location from './Location/Location';
 import ContactUs from './ContactUs/ContactUs';
 import AboutUs from './About/About';
+import {loginComponents} from './Accounts/AccIndex.js'
 /*Exports */
 export {
   Footer,
@@ -13,5 +14,6 @@ export {
   Menu,
   Location,
   ContactUs,
-  AboutUs
+  AboutUs,
+  loginComponents
 };

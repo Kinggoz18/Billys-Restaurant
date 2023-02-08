@@ -1,6 +1,6 @@
-import { Navbar, Home, Footer, Menu, Location, ContactUs, AboutUs} from './components/index';
+import { Navbar, Home, Footer, Menu, Location, ContactUs, AboutUs, loginComponents} from './components/index';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import $ from 'jquery'
 let slideIndex = 0;
@@ -10,7 +10,6 @@ class LoadPage extends React.Component{
   render(){
       /*NOTE: REMEMBER A COMPONEMNT RERENDERS WHENEVER A STATE IS CHANGED */
       let Current = this.props.current;
-      console.log(Current);
       return(
           <Current></Current>
       );
@@ -20,18 +19,20 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      pages: [Home, Menu, Location, AboutUs, ContactUs],
+      pages: [Home, Menu, Location, AboutUs, ContactUs, loginComponents.Login],
       current: Home
     }
   }
   //Method to handle dynamic navbar
   LoadNavbar(){
-    //Display evenry nav item
+    //Display every nav item
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
     $('#location').removeClass('hide');
     $('#contact').removeClass('hide');
     $('#about').removeClass('hide');
+    $('#Login').removeClass('hide');
+
 
     //then use an if statement to filter them
     if(this.state.current === Home){
@@ -55,6 +56,10 @@ class App extends React.Component {
       {
         $('#about').addClass('hide');
       }
+      else if(this.state.current === AboutUs)
+      {
+        $('#login').addClass('hide');
+      }
     }
   }
   //method to handle changing current index
@@ -76,6 +81,7 @@ class App extends React.Component {
   }
 }
 
+//On click function to change current component
 function LoadSlideIndex(i)
 {
     if(i === "Home")
@@ -97,9 +103,18 @@ function LoadSlideIndex(i)
     {
         slideIndex = 4;
     }
+    else if(i === "Login")
+    {
+        slideIndex = 5;
+    }
 }
-//On click function to change current component
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
 

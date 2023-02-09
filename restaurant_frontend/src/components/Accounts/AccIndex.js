@@ -1,2 +1,2 @@
-import * as loginComponents from "./Login";
-export { loginComponents};
+import {AccountController} from "./Account";
+export { AccountController};

@@ -1,8 +1,9 @@
-import { Navbar, Home, Footer, Menu, Location, ContactUs, AboutUs, loginComponents} from './components/index';
+import { Navbar, Home, Footer, Menu, Location, ContactUs, AboutUs, AccountController} from './components/index';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import $ from 'jquery'
+import { Login } from './components/Accounts/Login';
 let slideIndex = 0;
 
 /*Component to handle rendering the current page */
@@ -19,7 +20,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      pages: [Home, Menu, Location, AboutUs, ContactUs, loginComponents.Login],
+      pages: [Home, Menu, Location, AboutUs, ContactUs, AccountController],
       current: Home
     }
   }
@@ -31,7 +32,7 @@ class App extends React.Component {
     $('#location').removeClass('hide');
     $('#contact').removeClass('hide');
     $('#about').removeClass('hide');
-    $('#Login').removeClass('hide');
+    $('#login').removeClass('hide');
 
 
     //then use an if statement to filter them
@@ -56,7 +57,7 @@ class App extends React.Component {
       {
         $('#about').addClass('hide');
       }
-      else if(this.state.current === AboutUs)
+      else if(this.state.current === AccountController)
       {
         $('#login').addClass('hide');
       }

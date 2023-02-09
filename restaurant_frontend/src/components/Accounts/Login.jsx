@@ -13,10 +13,8 @@
 |
 |------------------------------------------------------------------
 */
-import  $  from "jquery";
 import React from "react";
 import logo from '../Images/logo.png'
-import { Accounts } from "../Objects/ObjectExports";
 import './css/login.css'
 
 let slideIndex;
@@ -44,15 +42,19 @@ function RegisterBox(props){
                     <input type="text" id="Reg-LastName" placeholder="Enter first name"></input>
                 </div>
                 <div>
-                    <label htmlFor="Login-Email">Email Address</label>
-                    <input type="text" id="Login-Email" placeholder="Enter email"></input>
+                    <label htmlFor="Reg-Email">Email Address</label>
+                    <input type="text" id="Reg-Email" placeholder="Enter email"></input>
                 </div>
                 <div>
                     <label htmlFor="Reg-Password">Password</label>
                     <input type="password" id="Reg-Password" placeholder="Enter password"></input>
                 </div>
                 <div>
-                    <button className="reg-login-btn">Create Account</button>
+                    <label htmlFor="Reg-Phone">Phone</label>
+                    <input type="text" id="Reg-Phone" placeholder="___ ___ ___"></input>
+                </div>
+                <div>
+                    <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.create(event)}>Create Account</button>
                 </div>
                 <div><p>Already have an account? <span className="swap-box" onClick={()=>props.onClick("Login")}>login</span></p></div>
             </form>
@@ -75,7 +77,7 @@ function LoginBox(props){
                 <input type="password" id="Login-Password" placeholder="Enter password"></input>
             </div>
             <div>
-                <button className="reg-login-btn" onClick={(event)=>props.LoginFunc(event)}>Login</button>
+                <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.login(event)}>Login</button>
             </div>
             <div><p>Don't have an account? <span className="swap-box" onClick={()=>props.onClick("Register")}>Create one now.</span></p></div>
         </form>
@@ -110,23 +112,6 @@ export class Login extends React.Component{
             current: RegisterBox
         }
     }
-    async LoginUser(event){
-        event.preventDefault();
-        let account = new Accounts.CustomerAccount();
-        //prevent default action
-            //Create credentials
-            let loginCred = {
-                EmailAddress: document.querySelector('#Login-Email').value,
-                Password: document.querySelector('#Login-Password').value
-            }
-            await account.CustomerLogin(loginCred);
-            let result = account.GetCustomerInfo;
-            //Check result  
-            if(result!=null){
-                console.log(JSON.stringify(result));
-                //set page to load the customers page, pass the results as props
-            }
-        }
     LoadBox(i){
         LoadSlides(i);
         this.setState({
@@ -136,7 +121,7 @@ export class Login extends React.Component{
     render(){
         return(
             <div className="login-Section">
-                <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={(event)=>this.LoginUser(event)}/>
+                <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={this.props.LoginFunc}/>
             </div>
         )
     }

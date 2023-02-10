@@ -1,6 +1,7 @@
 import { Navbar, Home, Footer, Menu, Location, ContactUs, AboutUs, AccountController} from './components/index';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import $ from 'jquery'
 import { Login } from './components/Accounts/Login';
@@ -87,11 +88,16 @@ class App extends React.Component {
   }
     this.LoadNavbar();
     return (
-      <div>
-        <Navbar onClick={(i)=>{this.renderPage(i)}}/>
-        <LoadPage current={this.state.current} AccountData={accountData}/>
-        <Footer />
-      </div>
+      <BrowserRouter>
+        <Routes>
+              < Route path="/" element = {
+              <div>
+                <Navbar onClick={(i)=>{this.renderPage(i)}}/>
+                <LoadPage current={this.state.current} AccountData={accountData}/>
+                <Footer />
+              </div>}/>
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

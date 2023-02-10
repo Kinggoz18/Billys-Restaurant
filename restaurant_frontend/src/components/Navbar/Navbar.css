@@ -1,5 +1,8 @@
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
+    #nav-logo{
+        height: 90px;
+    }
     .app__navbar{
         align-items: center;
         background: var(--color-yellow);

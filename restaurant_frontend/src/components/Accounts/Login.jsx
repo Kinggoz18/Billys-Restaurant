@@ -36,27 +36,37 @@ function RegisterBox(props){
                 <div>
                     <label htmlFor="Reg-FirstName">First Name</label>
                     <input type="text" id="Reg-FirstName" placeholder="Enter first name"></input>
+                    <span id="Reg-FirstNameErr" className='error'>Please enter your first name.</span>
                 </div>
                 <div>
                     <label htmlFor="Reg-LastName">Last Name</label>
                     <input type="text" id="Reg-LastName" placeholder="Enter first name"></input>
+                    <span id="Reg-LastNameErr" className='error'>Please enter your last name.</span>
                 </div>
                 <div>
                     <label htmlFor="Reg-Email">Email Address</label>
                     <input type="text" id="Reg-Email" placeholder="Enter email"></input>
+                    <span id ='Reg-EmailAddressErr' className='error'>Please enter a valid email address.</span>
                 </div>
                 <div>
                     <label htmlFor="Reg-Password">Password</label>
                     <input type="password" id="Reg-Password" placeholder="Enter password"></input>
+                    <span id ='Reg-PasswordErr' className='error'>Please enter a password.</span>
+                </div>
+                <div>
+                    <label htmlFor="Reg-Password">Confrim Password</label>
+                    <input type="password" id="Reg-ConfPassword" placeholder="Enter password"></input>
+                    <span id ='Reg-ConPasswordErr' className='error'>Passwords do not match.</span>
                 </div>
                 <div>
                     <label htmlFor="Reg-Phone">Phone</label>
                     <input type="text" id="Reg-Phone" placeholder="___ ___ ___"></input>
+                    <span id ='Reg-PhoneErr' className='error'>Please enter a valid Phone number.</span>
                 </div>
-                <div>
+                <div style={{display: "flex"}}>
                     <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.create(event)}>Create Account</button>
                 </div>
-                <div><p>Already have an account? <span className="swap-box" onClick={()=>props.onClick("Login")}>login</span></p></div>
+                <div style={{display: "flex"}}><p>Already have an account? <span className="swap-box" onClick={()=>props.onClick("Login")}>login</span></p></div>
             </form>
         </div>
     )
@@ -71,15 +81,17 @@ function LoginBox(props){
             <div>
                 <label htmlFor="Login-Email">Email Address</label>
                 <input type="email" id="Login-Email" placeholder="Enter email"></input>
+                <span className='error'>Please enter a valid email.</span>
             </div>
             <div>
                 <label htmlFor="Login-FirstName">Password</label>
                 <input type="password" id="Login-Password" placeholder="Enter password"></input>
+                <span className='error'>Invalid password. Please enter a valid password.</span>
             </div>
-            <div>
+            <div style={{display: "flex"}}>
                 <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.login(event)}>Login</button>
             </div>
-            <div><p>Don't have an account? <span className="swap-box" onClick={()=>props.onClick("Register")}>Create one now.</span></p></div>
+            <div style={{display: "flex"}}><p>Don't have an account? <span className="swap-box" onClick={()=>props.onClick("Register")}>Create one now.</span></p></div>
         </form>
     </div>)
 }

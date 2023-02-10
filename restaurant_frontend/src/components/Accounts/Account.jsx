@@ -50,6 +50,10 @@ export class AccountController extends React.Component{
             EmailAddress: document.querySelector('#Login-Email').value,
             Password: document.querySelector('#Login-Password').value
         }
+        if(!ValidateLogin(loginCred))
+        {
+            return;
+        }
         await account.CustomerLogin(loginCred);
         let result = account.GetCustomerInfo;
         //Check result  
@@ -62,17 +66,21 @@ export class AccountController extends React.Component{
     }
     };
     //Function to handle Creating a user : Props for Login Components
-    async CreateUser(event){
+    CreateUser = async(event)=>{
     event.preventDefault();
     let account = new Accounts.CustomerAccount();
     //prevent default action
     //Create credentials
     let AccountInfo = {
         FirstName: document.querySelector('#Reg-FirstName').value,
-        LirstName: document.querySelector('#Reg-LastName').value,
+        LastName: document.querySelector('#Reg-LastName').value,
         PhoneNumber: document.querySelector('#Reg-Phone').value,
         EmailAddress: document.querySelector('#Reg-Email').value,
         Password: document.querySelector('#Reg-Password').value
+    }
+    if(!ValidateCreate(AccountInfo))
+    {
+        return;
     }
     let self = this;
     await account.CreateCustomer(AccountInfo);
@@ -100,4 +108,106 @@ export class AccountController extends React.Component{
         }
         return(<LoadAccount Current={this.state.Current} Login={LoginFuncs} AccountInfo={this.state.AccountInfo}></LoadAccount>);
     }
+}
+/****************** Utility Functions  ***********************/
+//Function to validate phone number
+function ValidateEmail(email){
+    var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(mail.test(email)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//Function to validate phone number
+function validatePhone(phone) {
+    var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    return re.test(phone);
+}
+//Function to validate login details
+
+function ValidateLogin(loginCred){
+    //Validate passowrd
+    if(loginCred['Password']==="" ||loginCred['Password']===null || loginCred['Password']===undefined){
+        $('#Login-Password').addClass('form-show');
+        return false;
+    }
+    //Validate email
+    if(loginCred['EmailAddress']==="" ||loginCred['EmailAddress']===null || loginCred['EmailAddress']===undefined){
+        $('#Login-Email').addClass('form-show');
+        return false;
+    }
+    else if(!ValidateEmail(loginCred['EmailAddress'])){
+        $('#Login-Email').addClass('form-show');
+        return false;
+    }
+}
+//Function to validate validate
+function ValidateCreate(AccountInfo){
+    ValidateConfrimPassword(AccountInfo['Password'])
+    let valid = true;
+    //Validate first name
+    if(AccountInfo['FirstName']==="" ||AccountInfo['FirstName']===null || AccountInfo['FirstName']===undefined){
+        $('#Reg-FirstNameErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-FirstNameErr').removeClass('form-show');
+    }
+    //Validate last name
+    if(AccountInfo['LastName']==="" ||AccountInfo['LastName']===null || AccountInfo['LastName']===undefined){
+        $('#Reg-LastNameErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-LastNameErr').removeClass('form-show');
+    }
+    //Validate phone
+    if(AccountInfo['PhoneNumber']==="" ||AccountInfo['PhoneNumber']===null || AccountInfo['PhoneNumber']===undefined){
+        $('#Reg-PhoneErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else if(!validatePhone(AccountInfo['PhoneNumber'])){
+        $('#Reg-PhoneErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-PhoneErr').removeClass('form-show');
+    }
+    //Validate email
+    if(AccountInfo['EmailAddress']==="" ||AccountInfo['EmailAddress']===null || AccountInfo['EmailAddress']===undefined){
+        $('#Reg-EmailAddressErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else if(!ValidateEmail(AccountInfo['EmailAddress'])){
+        $('#Reg-EmailAddressErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-EmailAddressErr').removeClass('form-show');
+    }
+    //Validate passowrd
+    if(AccountInfo['Password']==="" ||AccountInfo['Password']===null || AccountInfo['Password']===undefined){
+        $('#Reg-PasswordErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-PasswordErr').removeClass('form-show');
+    }
+    return valid
+}
+
+function ValidateConfrimPassword(password){
+    let passInput = document.querySelector('#Reg-ConfPassword');
+   
+    passInput.addEventListener('input',()=>{
+        if(passInput.value!==password)
+        {
+            $('#Reg-ConPasswordErr').addClass('form-show')
+        }
+        else{
+            $('#Reg-ConPasswordErr').removeClass('form-show')
+        }
+    })
 }

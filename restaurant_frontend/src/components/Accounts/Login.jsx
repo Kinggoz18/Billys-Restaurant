@@ -54,7 +54,7 @@ function RegisterBox(props){
                     <span id ='Reg-PasswordErr' className='error'>Please enter a password.</span>
                 </div>
                 <div>
-                    <label htmlFor="Reg-Password">Confrim Password</label>
+                    <label htmlFor="Reg-ConfPassword">Confrim Password</label>
                     <input type="password" id="Reg-ConfPassword" placeholder="Enter password"></input>
                     <span id ='Reg-ConPasswordErr' className='error'>Passwords do not match.</span>
                 </div>
@@ -95,14 +95,12 @@ function LoginBox(props){
         </form>
     </div>)
 }
-//Class to handle switching between login and Register
-class ToggleBox extends React.Component{
-    render(){
-        let Current = this.props.current;
-        return(
-            <Current onClick={this.props.onClick} LoginFunc={this.props.LoginFunc}></Current>
-        )
-    }
+//function to handle switching between login and Register
+function ToggleBox(props){
+    let Current = props.current;
+    return(
+        <Current onClick={props.onClick} LoginFunc={props.LoginFunc}></Current>
+    )
 }
 //Onclick function to set current box
 function LoadSlides(i){
@@ -121,9 +119,11 @@ export class Login extends React.Component{
         super(props);
         this.state ={
             slides: [LoginBox, RegisterBox],
-            current: RegisterBox
+            current: RegisterBox,
+            AccountInfo: this.props.AccountData['AccountInfo']
         }
     }
+    
     LoadBox(i){
         LoadSlides(i);
         this.setState({
@@ -133,7 +133,7 @@ export class Login extends React.Component{
     render(){
         return(
             <div className="login-Section">
-                <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={this.props.LoginFunc}/>
+                <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={this.props.LoginFunc} AccountInfo={this.state.AccountInfo}/>
             </div>
         )
     }

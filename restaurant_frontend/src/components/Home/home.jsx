@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css'
 import backgroundvideo from '../Videos/chicken1.mp4'
-import DrumRockJerk from '../Images/logo.png'
+import DrumRockJerk from '../Images/logo4.png'
 //Button to place an order
 function PlaceOrderButton(props){
   return(

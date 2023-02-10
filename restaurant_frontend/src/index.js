@@ -7,21 +7,24 @@ import { Login } from './components/Accounts/Login';
 let slideIndex = 0;
 
 /*Component to handle rendering the current page */
-class LoadPage extends React.Component{
-  render(){
-      /*NOTE: REMEMBER A COMPONEMNT RERENDERS WHENEVER A STATE IS CHANGED */
-      let Current = this.props.current;
-      return(
-          <Current></Current>
-      );
+function LoadPage(props){
+  /*NOTE: REMEMBER A COMPONEMNT RERENDERS WHENEVER A STATE IS CHANGED */
+  let Current = props.current;
+  if(Current === AccountController){
+    return(<Current AccountData={props.AccountData}></Current>);
+  }
+  else{
+    return(<Current></Current>);
   }
 }
+
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state ={
       pages: [Home, Menu, Location, AboutUs, ContactUs, AccountController],
-      current: Home
+      current: Home,
+      AccountInfo: null
     }
   }
   //Method to handle dynamic navbar
@@ -71,11 +74,22 @@ class App extends React.Component {
     });
   }
   render(){
+    //Object to for global account services
+    let accountData ={
+      //Property to pass Account Info down
+      AccountInfo: this.state.AccountInfo,
+      //Method to get Account Info up
+      GetAccountInfo: (results)=>{
+        this.setState({
+          AccountInfo: results
+        });
+      }
+  }
     this.LoadNavbar();
     return (
       <div>
         <Navbar onClick={(i)=>{this.renderPage(i)}}/>
-        <LoadPage current={this.state.current}/>
+        <LoadPage current={this.state.current} AccountData={accountData}/>
         <Footer />
       </div>
     );

@@ -18,17 +18,21 @@ import React from "react";
 import  $  from "jquery";
 import { Accounts } from "../Objects/ObjectExports";
 import * as LoginComponents from './Login'
-import * as CustomerComponents from './Customer'
+import { CustomerAccount } from "./Customer";
 let slideIndex = 0;
 
 function LoadAccount(props){
+    //if an exitsting login exists
+    if(props.AccountInfo!=null){
+        return(<CustomerAccount AccountInfo={props.AccountInfo} AccountData={props.AccountData}></CustomerAccount>)
+    }
     let Current = props.Current;
     if(Current === LoginComponents.Login){
         return(
-            <Current AccountInfo={props.AccountInfo} LoginFunc={props.Login}></Current>)
+            <Current AccountInfo={props.AccountInfo} LoginFunc={props.Login} AccountData={props.AccountData}></Current>)
     }
     else{
-        return(<Current AccountInfo={props.AccountInfo}></Current>)
+        return(<Current AccountInfo={props.AccountInfo} AccountData={props.AccountData}></Current>)
     }
 }
 //Controller for switching account components
@@ -37,7 +41,7 @@ export class AccountController extends React.Component{
         super(props)
         this.state ={
             Current: LoginComponents.Login,
-            AccountInfo: null,
+            AccountInfo: props.AccountData['AccountInfo'],
         }
     }
     //Function to handle loggin in a user : Props for Login Components
@@ -58,9 +62,11 @@ export class AccountController extends React.Component{
         let result = account.GetCustomerInfo;
         //Check result  
         if(result!=null){
+            //Pass the account information back to the parent
+            this.props.AccountData.GetAccountInfo(result);
             //set page to load the customers page, pass the results as props
             this.setState({
-                Current: CustomerComponents.CustomerAccount,
+                Current: CustomerAccount,
                 AccountInfo: result
         })
     }
@@ -82,14 +88,15 @@ export class AccountController extends React.Component{
     {
         return;
     }
-    let self = this;
     await account.CreateCustomer(AccountInfo);
     let result = account.GetCustomerInfo;
     //Check result  
     if(result!=null){
+        //Pass the account information back to the parent
+        this.props.AccountData.GetAccountInfo(result);
         //set page to load the customers page, pass the results as props
-        self.setState({
-            Current: CustomerComponents.CustomerAccount,
+        this.setState({
+            Current: CustomerAccount,
             AccountInfo: result
         })
     }
@@ -106,7 +113,7 @@ export class AccountController extends React.Component{
                 create(event)
             }
         }
-        return(<LoadAccount Current={this.state.Current} Login={LoginFuncs} AccountInfo={this.state.AccountInfo}></LoadAccount>);
+        return(<LoadAccount Current={this.state.Current} Login={LoginFuncs} AccountInfo={this.state.AccountInfo} AccountData={this.props.AccountData}></LoadAccount>);
     }
 }
 /****************** Utility Functions  ***********************/
@@ -128,10 +135,11 @@ function validatePhone(phone) {
 //Function to validate login details
 
 function ValidateLogin(loginCred){
+    let valid = true;
     //Validate passowrd
     if(loginCred['Password']==="" ||loginCred['Password']===null || loginCred['Password']===undefined){
         $('#Login-Password').addClass('form-show');
-        return false;
+        valid = (valid === true)? false : valid;
     }
     //Validate email
     if(loginCred['EmailAddress']==="" ||loginCred['EmailAddress']===null || loginCred['EmailAddress']===undefined){
@@ -140,13 +148,14 @@ function ValidateLogin(loginCred){
     }
     else if(!ValidateEmail(loginCred['EmailAddress'])){
         $('#Login-Email').addClass('form-show');
-        return false;
+        valid = (valid === true)? false : valid;
     }
+    return valid;
 }
 //Function to validate validate
 function ValidateCreate(AccountInfo){
-    ValidateConfrimPassword(AccountInfo['Password'])
     let valid = true;
+
     //Validate first name
     if(AccountInfo['FirstName']==="" ||AccountInfo['FirstName']===null || AccountInfo['FirstName']===undefined){
         $('#Reg-FirstNameErr').addClass('form-show');
@@ -194,20 +203,20 @@ function ValidateCreate(AccountInfo){
     }
     else{
         $('#Reg-PasswordErr').removeClass('form-show');
+        valid = (ValidateConfrimPassword(AccountInfo['Password']) === false)? false : valid;
     }
     return valid
 }
 
 function ValidateConfrimPassword(password){
     let passInput = document.querySelector('#Reg-ConfPassword');
-   
-    passInput.addEventListener('input',()=>{
-        if(passInput.value!==password)
-        {
-            $('#Reg-ConPasswordErr').addClass('form-show')
-        }
-        else{
-            $('#Reg-ConPasswordErr').removeClass('form-show')
-        }
-    })
+    if(passInput.value!==password)
+    {
+        $('#Reg-ConPasswordErr').addClass('form-show')
+        return false;
+    }
+    else{
+        $('#Reg-ConPasswordErr').removeClass('form-show')
+        return true
+    }
 }

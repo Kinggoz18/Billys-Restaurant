@@ -1,0 +1,100 @@
+.user-home{
+    display: flex;
+    flex-direction: row;
+}
+#user-form h1{
+    font-size: 2em !important;
+    grid-column: 1 / 3;
+}
+#user-deteleAcc button{
+    background-color: var(--delete-red) !important;
+}
+/***************************************** BREAKPOINT for Large devices ********************************************************/
+@media screen and (min-width: 1010px)  {
+    /* Account Infor stylings*/
+    .CustomerHome-Left{
+        background-color: var(--color-yellow);
+        display: flex;
+        flex-direction: column;
+        padding: 0em 3em;
+        width: 300px;
+    }
+    .user-img{
+        width: 260px;
+    }
+    .CustomerHome-Left div{
+        font-size: 1.3em;
+        flex-direction: column;
+        margin: 1.3em 0em;
+    }
+    .CustomerHome-Left div span{
+        transition: 0.5s;
+        cursor: pointer;
+    }
+    .CustomerHome-Left div span:hover{
+        color: white;
+    }
+    .user-name, .user-pts{
+        color: white;
+        font-weight: 900;
+        font-size: 2.5em;
+        padding: 0.1em 0em;
+    }
+    #user-form{
+        display: grid;
+        flex-grow: 1;
+        justify-items: center;
+        align-items: center;
+        grid-template-columns: 50% 50%;
+        margin-left: 4em;
+    }
+    #user-form div{
+        display: flex;
+        flex-direction: column;
+        font-size: 1.5em;
+    }
+    #user-form div *{
+        margin: 0.3em 0em;
+    }
+    #user-form div input{
+        border-radius: 0.3em;
+        border: solid 1px black;
+        font-size: 1em;
+        padding: 0.3em;
+    }
+    #user-passdiv{
+        grid-column: 1 / 3;
+    }
+    #user-updatebtn{
+        justify-self: baseline;
+    }
+    #user-form button{
+        color: white;
+        background-color: var(--color-yellow);
+        border-radius: 0.3em;
+        border: none;
+        grid-column: 1 / 3;
+        padding: 0.4em;
+        font-size: 1em;
+    }
+    #user-notification{
+        font-size: 0.7em;
+    }
+    /**/
+}
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {
+
+}
+/***************************************** BREAKPOINT for small devices ********************************************************/
+@media screen and (max-width: 670px) {
+}
+
+@keyframes myHover {
+    0% {
+      color: white;
+    }
+    100% {
+      color: #0C0C0C;
+    }
+}

@@ -12,7 +12,8 @@ function PlaceOrderButton(props){
 }
 
 //Returns the home page
-function Home(){
+class Home extends React.Component{
+  render(){
     return(
      <div className='homepage'>
         <video className="background_vid" src={backgroundvideo} autoPlay loop muted/>
@@ -23,6 +24,7 @@ function Home(){
           </div>
      </div>
     );
+  }
 }
 
 export default Home;

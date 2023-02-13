@@ -1,13 +1,17 @@
-.user-home{
-    display: flex;
-    flex-direction: row;
-}
 #user-form h1{
     font-size: 2em !important;
     grid-column: 1 / 3;
 }
-#user-deteleAcc button{
+#user-deteleAcc *{
+    color: white;
     background-color: var(--delete-red) !important;
+    border-radius: 0.3em;
+    border: none;
+    justify-items: center;
+    grid-column: 1 / 3;
+    padding: 0.3em 0.5em;
+    padding-top: 0.7em;
+    font-size: 1em;
 }
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
@@ -18,6 +22,7 @@
         flex-direction: column;
         padding: 0em 3em;
         width: 300px;
+        height: 800px;
     }
     .user-img{
         width: 260px;
@@ -70,6 +75,7 @@
     }
     #user-form button{
         color: white;
+        cursor: pointer;
         background-color: var(--color-yellow);
         border-radius: 0.3em;
         border: none;

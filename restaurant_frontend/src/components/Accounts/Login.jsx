@@ -15,7 +15,11 @@
 */
 import React from "react";
 import logo from '../Images/logo.png'
+import {GetFromStorage, IsInStorage, AddToStorage} from '../LocalStorage'
+import{Navigate} from 'react-router-dom'
 import './css/login.css'
+import $ from 'jquery'
+import { Accounts } from "../Objects/ObjectExports";
 
 let slideIndex;
 
@@ -33,6 +37,7 @@ function RegisterBox(props){
             </div>
             <form>
                 <Header title="Create your Account"></Header>
+                <span id="Reg-Invalid" className='error'>An error occurred, please try with a different email.</span>
                 <div>
                     <label htmlFor="Reg-FirstName">First Name</label>
                     <input type="text" id="Reg-FirstName" placeholder="Enter first name"></input>
@@ -78,15 +83,16 @@ function LoginBox(props){
             </div>
         <form>
             <Header title="Login now"></Header>
+            <span id="Reg-Invalid" className='error'>Invalid login credentials entered</span>
             <div>
                 <label htmlFor="Login-Email">Email Address</label>
                 <input type="email" id="Login-Email" placeholder="Enter email"></input>
-                <span className='error'>Please enter a valid email.</span>
+                <span id="Login-EmailErr" className='error'>Please enter a valid email.</span>
             </div>
             <div>
                 <label htmlFor="Login-FirstName">Password</label>
                 <input type="password" id="Login-Password" placeholder="Enter password"></input>
-                <span className='error'>Invalid password. Please enter a valid password.</span>
+                <span id="Login-PasswordErr" className='error'>Invalid password. Please enter a valid password.</span>
             </div>
             <div style={{display: "flex"}}>
                 <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.login(event)}>Login</button>
@@ -99,7 +105,7 @@ function LoginBox(props){
 function ToggleBox(props){
     let Current = props.current;
     return(
-        <Current onClick={props.onClick} LoginFunc={props.LoginFunc}></Current>
+        <Current onClick={props.onClick} LoginFunc={props.LoginFunc} AccountInfo={props.AccountInfo}></Current>
     )
 }
 //Onclick function to set current box
@@ -120,10 +126,68 @@ export class Login extends React.Component{
         this.state ={
             slides: [LoginBox, RegisterBox],
             current: RegisterBox,
-            AccountInfo: this.props.AccountData['AccountInfo']
+            AccountInfo: null
         }
     }
-    
+    //Function to handle loggin in a user : Props for Login Components
+    LoginUser = async (event)=>{
+        event.preventDefault();
+        let account = new Accounts.CustomerAccount();
+        //prevent default action
+        //Create credentials
+        let loginCred = {
+            EmailAddress: document.querySelector('#Login-Email').value,
+            Password: document.querySelector('#Login-Password').value
+        }
+        if(!ValidateLogin(loginCred))
+        {
+            return;
+        }
+        await account.CustomerLogin(loginCred).then(()=>{
+            let result = account.GetCustomerInfo;
+            //Check result  
+            if(result!=null){
+                AddToStorage('AccountData', JSON.stringify(result));
+                this.setState({
+                    AccountInfo: result,
+                })
+            }
+            else{
+                $('#Reg-Invalid').addClass('form-show')
+            }
+        });
+    };
+    //Function to handle Creating a user : Props for Login Components
+    CreateUser = async(event)=>{
+    event.preventDefault();
+    let account = new Accounts.CustomerAccount();
+    //prevent default action
+    //Create credentials
+    let AccountInfo = {
+        FirstName: document.querySelector('#Reg-FirstName').value,
+        LastName: document.querySelector('#Reg-LastName').value,
+        PhoneNumber: document.querySelector('#Reg-Phone').value,
+        EmailAddress: document.querySelector('#Reg-Email').value,
+        Password: document.querySelector('#Reg-Password').value
+    }
+    if(!ValidateCreate(AccountInfo))
+    {
+        return;
+    }
+    await account.CreateCustomer(AccountInfo).then(()=>{
+        let result = account.GetCustomerInfo;
+        //Check result  
+        if(result!=null){
+            AddToStorage('AccountData', JSON.stringify(result));
+            this.setState({
+                AccountInfo: result,
+            })
+        }
+        else{
+            $('#Reg-Invalid').addClass('form-show')
+        }
+    });
+    }
     LoadBox(i){
         LoadSlides(i);
         this.setState({
@@ -131,10 +195,136 @@ export class Login extends React.Component{
         });
     }
     render(){
-        return(
-            <div className="login-Section">
-                <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={this.props.LoginFunc} AccountInfo={this.state.AccountInfo}/>
-            </div>
-        )
+        let create = this.CreateUser;
+        let login = this.LoginUser;
+        let LoginFunc ={
+            create: function(event){
+                create(event);
+            },
+            login: function(event){
+                login(event);
+            }
+        }
+        //If AccountData cookie exists
+        console.log(IsInStorage('AccountData'))
+        if(IsInStorage('AccountData')){
+            return(
+                <Navigate to="/Account"/>
+            )
+        }
+        else{
+            return(
+                <div className="login-Section">
+                    <ToggleBox current={this.state.current} onClick={(i)=>this.LoadBox(i)} LoginFunc={LoginFunc} AccountInfo={this.state.AccountInfo}/>
+                </div>
+            )
+        }
     }
 }
+
+/****************** Utility Functions  ***********************/
+//Function to validate phone number
+function ValidateEmail(email){
+    var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(mail.test(email)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//Function to validate phone number
+function validatePhone(phone) {
+    var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    return re.test(phone);
+}
+//Function to validate login details
+
+function ValidateLogin(loginCred){
+    let valid = true;
+    //Validate passowrd
+    if(loginCred['Password']==="" ||loginCred['Password']===null || loginCred['Password']===undefined){
+        $('#Login-PasswordErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    //Validate email
+    if(loginCred['EmailAddress']==="" ||loginCred['EmailAddress']===null || loginCred['EmailAddress']===undefined){
+        $('#Login-EmailErr').addClass('form-show');
+        return false;
+    }
+    else if(!ValidateEmail(loginCred['EmailAddress'])){
+        $('#Login-EmailErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    return valid;
+}
+//Function to validate validate
+function ValidateCreate(AccountInfo){
+    let valid = true;
+
+    //Validate first name
+    if(AccountInfo['FirstName']==="" ||AccountInfo['FirstName']===null || AccountInfo['FirstName']===undefined){
+        $('#Reg-FirstNameErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-FirstNameErr').removeClass('form-show');
+    }
+    //Validate last name
+    if(AccountInfo['LastName']==="" ||AccountInfo['LastName']===null || AccountInfo['LastName']===undefined){
+        $('#Reg-LastNameErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-LastNameErr').removeClass('form-show');
+    }
+    //Validate phone
+    if(AccountInfo['PhoneNumber']==="" ||AccountInfo['PhoneNumber']===null || AccountInfo['PhoneNumber']===undefined){
+        $('#Reg-PhoneErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else if(!validatePhone(AccountInfo['PhoneNumber'])){
+        $('#Reg-PhoneErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-PhoneErr').removeClass('form-show');
+    }
+    //Validate email
+    if(AccountInfo['EmailAddress']==="" ||AccountInfo['EmailAddress']===null || AccountInfo['EmailAddress']===undefined){
+        $('#Reg-EmailAddressErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else if(!ValidateEmail(AccountInfo['EmailAddress'])){
+        $('#Reg-EmailAddressErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-EmailAddressErr').removeClass('form-show');
+    }
+    //Validate passowrd
+    if(AccountInfo['Password']==="" ||AccountInfo['Password']===null || AccountInfo['Password']===undefined){
+        $('#Reg-PasswordErr').addClass('form-show');
+        valid = (valid === true)? false : valid;
+    }
+    else{
+        $('#Reg-PasswordErr').removeClass('form-show');
+        valid = (ValidateConfrimPassword(AccountInfo['Password']) === false)? false : valid;
+    }
+    return valid
+}
+
+//Function to check confirm password matches enetred password
+function ValidateConfrimPassword(password){
+    let passInput = document.querySelector('#Reg-ConfPassword');
+    if(passInput.value!==password)
+    {
+        $('#Reg-ConPasswordErr').addClass('form-show')
+        return false;
+    }
+    else{
+        $('#Reg-ConPasswordErr').removeClass('form-show')
+        return true
+    }
+}
+

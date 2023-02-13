@@ -5,7 +5,8 @@ import Home from './Home/home';
 import Location from './Location/Location';
 import ContactUs from './ContactUs/ContactUs';
 import AboutUs from './About/About';
-import {AccountController} from './Accounts/AccIndex.js'
+import * as CustomerAcc from './Accounts/Customer'
+import {Accounts} from './Objects/ObjectExports.mjs'
 /*Exports */
 export {
   Footer,
@@ -15,5 +16,6 @@ export {
   Location,
   ContactUs,
   AboutUs,
-  AccountController
+  Accounts,
+  CustomerAcc
 };

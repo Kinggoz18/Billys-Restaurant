@@ -1,2 +1,2 @@
-import {AccountController} from "./Account";
-export { AccountController};
+import * as CustomerAcc from "./Customer";
+export { CustomerAcc};

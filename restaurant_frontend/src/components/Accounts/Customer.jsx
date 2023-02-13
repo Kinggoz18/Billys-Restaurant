@@ -1,49 +1,61 @@
+//React Imports
 import React from "react";
+import {Link} from "react-router-dom";
+//Jquery import
 import  $  from "jquery";
+//Css import
 import './css/customer.css'
+
 import profilePic from '../Images/profileLogo.png'
+import {AddToStorage, GetFromStorage, RemoveFromStorage} from '../LocalStorage'
 import { Accounts } from "../Objects/ObjectExports";
+
+//Global Account Variable
+let AccountData;
+let CustomerAccount = new Accounts.CustomerAccount();
+
 //Defaul customer home
-function CustomerNav(props){
+export function CustomerNav(props){
+    AccountData = LoadAccountInfo();
     return(<div>
         <div className="CustomerHome-Left">
             <img className="user-img" src={profilePic} alt="User Profile" />
-            <span className="user-name">{props.AccountInfo["firstName"]} {props.AccountInfo["lastName"]}</span>
-            <span className="user-pts">Points: {props.AccountInfo['points']}</span>
+            <span className="user-name">{AccountData['firstName']} {AccountData['lastName']}</span>
+            <span className="user-pts">Points: {AccountData['points']} </span>
             <div>
-                <span>Account Information</span>
+                <Link to="/Account">Account Information</Link>
             </div>
             <div>
-                <span>Past Orders</span>
+                <Link to="/Account/PastOrders">Past Orders</Link>
             </div>
             <div>
-                <span>Past Reviews</span>
+                <Link to="/Account/PastReviews">Past Reviews</Link>
             </div>
             <div>
-                <span onClick={(event)=>{props.SwitchTab(event, 'Logout')}}>Logout</span>
+                <Link to="/Login" onClick={()=>LogoutUser()}>Logout</Link>
             </div>
         </div>
     </div>)
 }
 //Account Info Tab
-function AccountInformation(props){
+export function AccountInformation(props){
     return(<form id="user-form">
         <h1>Account Settings</h1>
         <div>
             <label htmlFor="user-firstName">First Name</label>
-            <input id="user-firstName" type="text" placeholder={props.AccountInfo['firstName']}></input>
+            <input id="user-firstName" type="text" placeholder={AccountData['firstName']}></input>
         </div>
         <div>
             <label htmlFor="user-lastName">Last Name</label>
-            <input id="user-lastName" type="text" placeholder={props.AccountInfo['lastName']}></input>
+            <input id="user-lastName" type="text" placeholder={AccountData['lastName']}></input>
         </div>
         <div>
             <label htmlFor="user-phone">Phone Number</label>
-            <input id="user-phone" type="text" placeholder={props.AccountInfo['phoneNumber']}></input>
+            <input id="user-phone" type="text" placeholder={AccountData['phoneNumber']}></input>
         </div>
         <div>
             <label htmlFor="user-email">Email Address</label>
-            <input id="user-email" type="text" placeholder={props.AccountInfo['emailAddress']}></input>
+            <input id="user-email" type="text" placeholder={AccountData['emailAddress']}></input>
         </div>
         <div id="user-passdiv">
             <label htmlFor="user-password">Password</label>
@@ -51,17 +63,17 @@ function AccountInformation(props){
             <span id="user-notification">Enter existing password or a new password to confrim account Update.</span>
         </div>
         <div id="user-updatebtn">
-            <button>Update Account</button>
+            <button onClick={()=>UpdateAccount()}>Update Account</button>
         </div>
         <div id="user-deteleAcc">
-            <button>Delete Account</button>
+            <Link to="/" onClick={()=>DeleteAccount()}>Delete Account</Link>
         </div>
     </form>
     )
 }
 //Past Orders Tab
-function PastOrders(props){
-    let pastOrders = props.AccountInfo['pastOrders'];
+export function PastOrders(props){
+    let pastOrders = AccountData['pastOrders'];
     return(<div className="user-pastOrders">
         <ul className="user-orders">
             {pastOrders.forEach(element => {
@@ -70,8 +82,8 @@ function PastOrders(props){
     </div>)
 }
 //Past Reviews Tab
-function PastReviews(props){
-    let pastOrders = props.AccountInfo['Reviews'];
+export function PastReviews(props){
+    let pastOrders = AccountData['pastOrders'];
     return(<div className="user-ReviewBox">
         <ul className="user-Reviews">
             {pastOrders.forEach(element => {
@@ -79,43 +91,36 @@ function PastReviews(props){
         </ul>
     </div>)
 }
-//Controller for account components
-function LoadCustomerComponent(props){
-    let Current = props.Current;
-    return(
-        <div className="user-home">
-            <CustomerNav AccountInfo={props.AccountInfo} SwitchTab={(event, section)=>props.SwitchTab(event, section)}></CustomerNav>
-            <Current AccountInfo={props.AccountInfo}></Current>
-        </div>
-    );
+//Function to clear cookies and log user our
+function LogoutUser(){
+    RemoveFromStorage('AccountData');
 }
-
-//Controller for customer account components
-export class CustomerAccount extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            AccountInfo: this.props.AccountInfo,
-            Current: AccountInformation
-        }
+//Functiont to get acount info from cookies
+function LoadAccountInfo(){
+    let Account = GetFromStorage('AccountData')
+    if(Account!=null){
+        return JSON.parse(Account);
     }
-    SwicthUserComponents(event, section){
-        event.preventDefault();
-        if(section === 'AccountInformation'){
-            this.setState({Current: AccountInformation})
-        }
-        else if(section === 'PastOrders'){
-            this.setState({Current: PastOrders})
-        }
-        else if(section === 'PastReviews'){
-            this.setState({Current: PastReviews})
-        }
-        else if( section === 'Logout'){
-            this.props.AccountData.GetAccountInfo(null);
-        }
+}
+//Delete
+async function DeleteAccount() {
+    await CustomerAccount.DeleteCustomer(AccountData['_id']);
+    RemoveFromStorage('AccountData');
+}
+//Update 
+async function UpdateAccount(){
+    let AccountInfo = {
+        FirstName: document.querySelector('#user-firstName').value,
+        LastName: document.querySelector('#user-lastName').value,
+        PhoneNumber: document.querySelector('#user-phone').value,
+        EmailAddress: document.querySelector('#user-email').value,
+        Password: document.querySelector('#user-password').value
     }
-    render(){
-        return(<LoadCustomerComponent Current={this.state.Current} AccountInfo={this.state.AccountInfo} SwitchTab={(event, section)=>this.SwicthUserComponents(event, section)}></LoadCustomerComponent>)
+    await CustomerAccount.UpdateCustomer(AccountData['_id'], AccountInfo);
+    let result = CustomerAccount.GetCustomerInfo;
+    if(result!=null){
+        AddToStorage('AccountData', JSON.stringify(result));
+        window.location.reload(); 
     }
-
+    
 }

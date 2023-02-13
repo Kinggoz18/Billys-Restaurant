@@ -1,0 +1,74 @@
+body {
+    height: 100%;
+    margin: 0;
+  }
+
+header{
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+section {
+    font-size: 2em;
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    width: 11.5%;
+    height: 100%;
+    float: left;
+    position: fixed;
+    top: 0;
+}
+
+#image-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+  
+#image-container img {
+    width: 18%;
+  }
+
+#wrapper div {
+    text-align: center;
+    margin-bottom: 1.5em;
+  }
+  
+#wrapper a {
+    color: white;
+    text-decoration: none;
+  }
+  
+#wrapper a:hover {
+    color: black;
+  }
+  
+  
+  
+main {
+    width: 80%;
+    height: 100%;
+    float: right;
+    padding: 10px;
+    text-align: center;
+    margin-top: 25%;
+    padding: 10px;
+  }
+  
+h2, h3, h4 {
+    margin: 0;
+    display: inline-block;
+  }
+  
+#profile, #menu, #sale {
+    background-color: white;
+    color: black;
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: left;
+  }

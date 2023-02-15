@@ -49,6 +49,11 @@ textarea {
 .hide{
   display: none;
 }
+.loading-icon{
+  height: 200px !important;
+  margin-top: 4em;
+  width: 150px !important;
+}
 /*Animation Styling*/
 @-webkit-keyframes slide-bottom {
   0% {

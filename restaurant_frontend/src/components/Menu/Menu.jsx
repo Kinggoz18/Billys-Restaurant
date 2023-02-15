@@ -1,8 +1,6 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import {Loading} from '../LoadingIcon'
 import {Link} from 'react-router-dom'
-import foodItem1 from '../Images/food1.jpg';
-import foodItem2 from '../Images/food2.jpg';
 //Object Import
 import {MenuItem} from '../Objects/ObjectExports.mjs'
 //Logo Imports
@@ -76,14 +74,23 @@ export function DrinkMenu(){
 }
 
 //Main menu component
-export function AllMenu(){
-  return(
-      <div className='Menu'>
-      {
-        loadAllMenuItem()
-      }
+export function AllMenu(props){
+  const [menuItems, setMenuItems] = useState(null);
+
+  useEffect(() => {
+    loadAllMenuItem().then((data) => {
+      setMenuItems(data);
+    });
+  }, []);
+
+  if (!menuItems) {
+    return <Loading/>;
+  }
+  return (
+    <div className='Menu'>
+      {menuItems}
     </div>
-  )
+  );
 }
 //Main menu component
 export function MainMenu(){
@@ -96,11 +103,11 @@ export function MainMenu(){
   )
 }
 //Main menu component
-export function SideMenu(){
+export async function SideMenu(props){
   return(
       <div className='Menu'>
       {
-        loadAllMenuItem()
+        await loadAllMenuItem()
       }
     </div>
   )
@@ -115,19 +122,17 @@ async function loadAllMenuItem(){
         itemName: element['name'],
         itemPrice: element['price'],
         itemImage: element['imageLink'],
+        itemRating: element['orderCount'],
         category: element['menu']
       }
       MenuItemArray.push(item);
-        //Pass the array through the prop
-  //Change test implementation
-  let id =0;
-  MenuItemArray.forEach(element => {
-    id+=1;
-    let current = <MenuItemComponent image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} key={id}/>
-    items.push(current);
-  });
-  return items;
+    });
+    let i = 0;
+    MenuItemArray.forEach((element, index) => {
+      let current = <MenuItemComponent key={index} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+      items.push(current);
+      i+=1;
     });
   })
-
+  return items;
 }

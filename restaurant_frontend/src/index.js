@@ -4,6 +4,7 @@ import { Login } from './components/Accounts/Login';
 
 //React imports
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -13,6 +14,7 @@ import './index.css';
 //layout import
 import {RootLayout} from './rootLayout';
 import {CustomerLayout} from './components/Layouts/CustomerLayout'
+import { MenuLayout } from './components/Layouts/MenuLayout';
 
 
 const App = () =>  {
@@ -27,7 +29,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
       <Route index element={<Home/>}/>
-      <Route path='Menu' element={<Menu/>}/>
+      <Route path='Menu' element={<MenuLayout/>}>
+        <Route index element={<Menu.AllMenu/>}/>
+        <Route path='Main' element={<Menu.MainMenu/>}/>
+        <Route path='Sides' element={<Menu.SideMenu/>}/>
+        <Route path='Drinks' element={<Menu.DrinkMenu/>}/>
+      </Route>
       <Route path='Location' element={<Location/>}/>
       <Route path='About' element={<AboutUs/>}/>
       <Route path='Contact' element={<ContactUs/>}/>
@@ -44,7 +51,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <HelmetProvider>
       <App />
+    </HelmetProvider>
   </React.StrictMode>
 );
 

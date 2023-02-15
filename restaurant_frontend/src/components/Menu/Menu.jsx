@@ -1,33 +1,34 @@
 import React from 'react';
-import DrumRockJerk from '../Images/logo.png'
+
+import {Link} from 'react-router-dom'
 import foodItem1 from '../Images/food1.jpg';
 import foodItem2 from '../Images/food2.jpg';
+//Object Import
+import {MenuItem} from '../Objects/ObjectExports.mjs'
+//Logo Imports
+import DefaultHeader from '../Images/Headers.mp4'
 
 import './Menu.css';
-let MenuItems = {
-  items:[
-    {itemName: "Famous Jerk Chicken", itemPrice: "$15.50", itemImage: foodItem1, category: 'Meal'},
-    {itemName: "Famous BBQ Chicken", itemPrice: "$10.50", itemImage: foodItem1, category: 'Meal'},
-    {itemName: "Famous Rice & Chicken", itemPrice: "$15.50", itemImage: foodItem2, category: 'Meal'},
-    {itemName: "Famous Beans & Chicken", itemPrice: "$12.50", itemImage: foodItem2, category: 'Meal'},
-    {itemName: "Famous BBQ Chicken", itemPrice: "$10.50", itemImage: foodItem1, category: 'Meal'},
-    {itemName: "Famous Jerk Chicken", itemPrice: "$15.50", itemImage: foodItem1, category: 'Meal'},
-  ]
-}
+
+//Global variables
+let  GlobalMenu = new MenuItem.MenuItemObject()
+let MenuItemArray = []
 
 //Menu Navbar component
-function MenuNav(props){
+export function MenuNav(){
   return(
     <div>
       <div>
-        <img className='menu-logo' src={DrumRockJerk} alt='Drum Rock Jerk Logo'/>
+      <video className='menu-logo' autoPlay>
+        <source src={DefaultHeader} type="video/mp4"/>
+      </video>
       </div>
       <nav className='Desktop-MenuNav'>
       <ul className='Desktop-MenuNavlist'>
-        <li>All</li>
-        <li>Main Dish</li>
-        <li>Sides</li>
-        <li>Drinks</li>
+        <li><Link to='/Menu'>All</Link></li>
+        <li><Link to='/Menu/Main'>Main Dish</Link></li>
+        <li><Link to='/Menu/Sides'>Sides</Link></li>
+        <li><Link to='/Menu/Drinks'>Drinks</Link></li>
       </ul>
     </nav>
     <nav className='Mobile-MenuNav'>
@@ -42,7 +43,7 @@ function MenuNav(props){
   );
 }
 
-//Function to send add food item to users cart
+//Component to send add food item to users cart
 function AddToBasket(props){
   return(
     <div>
@@ -52,7 +53,7 @@ function AddToBasket(props){
 }
 
 //Temlpate for menu items
-function MenuItem(props){
+function MenuItemComponent(props){
   return(
     <div className='MenuItem'>
       <img src={props.image} alt={props.name}></img>
@@ -64,39 +65,69 @@ function MenuItem(props){
 }
 
 //Main menu component
-class Menu extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      anystate: null, //change later
-    }
-
-  }
-  LoadMenuItems(){
-    //Make an API call to fecth all menu items in Index.js and store them in an Object
-    //Pass the array through the prop
-    //Change test implementation
-    let items = [];
-    let id =0;
-    MenuItems['items'].forEach(element => {
-      id+=1;
-      let current = <MenuItem image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} key={id}/>
-      items.push(current);
-    });
-    return items;
-  }
-  render(){
+export function DrinkMenu(){
     return(
-      <div className='Page'>
-        <MenuNav></MenuNav>
         <div className='Menu'>
         {
-          this.LoadMenuItems()
+          loadAllMenuItem()
         }
-        </div>
       </div>
     )
-  }
 }
 
-export default Menu;
+//Main menu component
+export function AllMenu(){
+  return(
+      <div className='Menu'>
+      {
+        loadAllMenuItem()
+      }
+    </div>
+  )
+}
+//Main menu component
+export function MainMenu(){
+  return(
+      <div className='Menu'>
+      {
+        loadAllMenuItem()
+      }
+    </div>
+  )
+}
+//Main menu component
+export function SideMenu(){
+  return(
+      <div className='Menu'>
+      {
+        loadAllMenuItem()
+      }
+    </div>
+  )
+}
+//Function load a specific menu
+async function loadAllMenuItem(){
+  let items = [];
+  await GlobalMenu.GetAllMenuItems().then((data)=>{
+    data.forEach(element=>{
+      var item = {
+        itemId: element['_id'],
+        itemName: element['name'],
+        itemPrice: element['price'],
+        itemImage: element['imageLink'],
+        category: element['menu']
+      }
+      MenuItemArray.push(item);
+        //Pass the array through the prop
+  //Change test implementation
+  let id =0;
+  MenuItemArray.forEach(element => {
+    id+=1;
+    let current = <MenuItemComponent image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} key={id}/>
+    items.push(current);
+  });
+  return items;
+    });
+  })
+
+}

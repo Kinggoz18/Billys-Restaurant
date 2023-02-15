@@ -1,5 +1,5 @@
 import Footer from './Footer/FooterOverlay';
-import Menu from './Menu/Menu';
+import * as Menu from './Menu/Menu';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/home';
 import Location from './Location/Location';

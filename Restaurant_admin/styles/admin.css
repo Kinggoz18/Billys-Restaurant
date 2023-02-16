@@ -9,7 +9,10 @@ header{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-section {
+  /***************************************** BREAKPOINT for Large devices ********************************************************/
+@media screen and (min-width: 1010px)  {
+
+  section {
     font-size: 2em;
     background-color: orange;
     color: white;
@@ -45,9 +48,6 @@ section {
 #wrapper a:hover {
     color: black;
   }
-  
-  
-  
 main {
     width: 80%;
     height: 100%;
@@ -72,3 +72,11 @@ h2, h3, h4 {
     padding: 10px;
     text-align: left;
   }
+}
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {
+
+}
+/***************************************** BREAKPOINT for small devices ********************************************************/
+@media screen and (max-width: 670px) {
+}

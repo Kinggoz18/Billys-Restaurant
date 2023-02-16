@@ -15,7 +15,7 @@
 */
 import React from "react";
 import logo from '../Images/logo.png'
-import {GetFromStorage, IsInStorage, AddToStorage} from '../LocalStorage'
+import {IsInStorage, AddToStorage} from '../LocalStorage'
 import{Navigate} from 'react-router-dom'
 import './css/login.css'
 import $ from 'jquery'
@@ -92,7 +92,7 @@ function LoginBox(props){
             <div>
                 <label htmlFor="Login-FirstName">Password</label>
                 <input type="password" id="Login-Password" placeholder="Enter password"></input>
-                <span id="Login-PasswordErr" className='error'>Invalid password. Please enter a valid password.</span>
+                <span id="Login-PasswordErr" className='error'>Please enter a valid password.</span>
             </div>
             <div style={{display: "flex"}}>
                 <button className="reg-login-btn" onClick={(event)=>props.LoginFunc.login(event)}>Login</button>

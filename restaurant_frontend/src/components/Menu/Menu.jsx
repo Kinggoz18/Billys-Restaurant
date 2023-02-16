@@ -64,13 +64,22 @@ function MenuItemComponent(props){
 
 //Main menu component
 export function DrinkMenu(){
-    return(
-        <div className='Menu'>
-        {
-          loadAllMenuItem()
-        }
-      </div>
-    )
+  const [menuItems, setMenuItems] = useState(null);
+
+  useEffect(() => {
+    loadAllMenuItem().then((data) => {
+      setMenuItems(data);
+    });
+  }, []);
+
+  if (!menuItems) {
+    return <Loading/>;
+  }
+  return (
+    <div className='Menu'>
+      {menuItems}
+    </div>
+  );
 }
 
 //Main menu component
@@ -94,23 +103,41 @@ export function AllMenu(props){
 }
 //Main menu component
 export function MainMenu(){
-  return(
-      <div className='Menu'>
-      {
-        loadAllMenuItem()
-      }
+  const [menuItems, setMenuItems] = useState(null);
+
+  useEffect(() => {
+    loadAllMenuItem().then((data) => {
+      setMenuItems(data);
+    });
+  }, []);
+
+  if (!menuItems) {
+    return <Loading/>;
+  }
+  return (
+    <div className='Menu'>
+      {menuItems}
     </div>
-  )
+  );
 }
 //Main menu component
-export async function SideMenu(props){
-  return(
-      <div className='Menu'>
-      {
-        await loadAllMenuItem()
-      }
+export function SideMenu(props){
+  const [menuItems, setMenuItems] = useState(null);
+
+  useEffect(() => {
+    loadAllMenuItem().then((data) => {
+      setMenuItems(data);
+    });
+  }, []);
+
+  if (!menuItems) {
+    return <Loading/>;
+  }
+  return (
+    <div className='Menu'>
+      {menuItems}
     </div>
-  )
+  );
 }
 //Function load a specific menu
 async function loadAllMenuItem(){

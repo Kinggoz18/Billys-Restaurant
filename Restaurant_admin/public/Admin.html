@@ -7,67 +7,74 @@
   </head>
 
   <body id="page-top">
-    <header>Drum Rock Jerk Chicken</header>
-    <div id="image-container">
-        <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
-    </div>
-
     <!-- Navigation -->
-    <section>
-        <nav>
+    <div>
         <h1>Hello Billy, </h1>
-        </nav>
-
-        <div id="wrapper">
+        <nav>        
+        <ul id="wrapper">
             <!-- Sidebar -->
-            <div><a href="">Profile</a></div>
-            <div><a href="">Menu</a></div>
-            <div><a href="">Sales</a></div>
-          </div>
-    </section>
+            <li><a href="">Profile</a></li>
+            <li><a href="">Menu</a></li>
+            <li><a href="">Sales</a></li>
+            <li><button>Logout</button></li>
+          </ul>
+        </nav>
+    </div>
+    <!-- Title -->
+    <header>
+         <!-- Logo -->
+        <div id="image-container">
+            <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+        </div>
+        <h1>Drum Rock Jerk Chicken</h1>
+    </header>
 
+    <!-- Main -->
     <main>
-        <h2>Profile</h2>
-        <form id = "Profile">
-          <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"><br><br>
-          </div>
+        <section class="Profile-Section">
+            <h2>Profile</h2>
+            <form id = "Profile">
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+              </div>
 
-          <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email"><br><br>
-          </div>
+              <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br><br>
+              </div>
 
-          <div>
+              <div>
             <label for="password">Old Password:</label>
-            <input type="password" id="password" name="password"><br><br>
-          </div>
+                <input type="password" id="password" name="password"><br><br>
+              </div>
 
-          <div>
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="new-password"><br><br>
-          </div>
+              <div>
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new-password"><br><br>
+              </div>
 
-          <div>
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone"><br><br>
-          </div>
+              <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone"><br><br>
+              </div>
 
-          <input type="submit" value="Save">
-          <input type="button" value="Cancel" onclick="resetForm()">
-          <br><br>
+            <input type="submit" value="Save">
+            <input type="button" value="Cancel" onclick="resetForm()">
         </form>
-
-        <h3>Menu</h3>
-        <div id = "menu">
-
-        </div>
-
-        <h4>Sales</h4>
-        <div id = "sale">
-            
-        </div>
+        </section>
+        <section class="Menu-Section">
+            <h3>Menu</h3>
+            <div id = "menu">
+    
+            </div>
+        </section>
+        <section class="Sales-Section">
+            <h4>Sales</h4>
+            <div id = "sale">
+                
+            </div>
+        </section>
     </main>
 
     <script>

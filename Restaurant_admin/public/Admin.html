@@ -16,7 +16,7 @@
             <li><a href="">Profile</a></li>
             <li><a href="">Menu</a></li>
             <li><a href="">Sales</a></li>
-            <li><button>Logout</button></li>
+            <li><input type="button">Logout</input></li>
           </ul>
     </nav>
     <!-- Title -->
@@ -70,7 +70,7 @@
                         <label for="MenuName">Menu Name</label>
                         <input id ="MenuName" type="text">
                     </div>
-                    <button>Add Menu</button>
+                    <input type="button" value="Add Menu"/>
                 </form>
             </div>
             <div id = "menuItem">
@@ -82,10 +82,14 @@
                     </div>
                     <div>
                         <label for="MenuItemMenu"></label>
-                        <select>
+                        <select id="MenuItemMenu">
                         </select>
                     </div>
-                    <button>Add Item</button>
+                    <div>
+                        <label for="MenuItemImage"></label>
+                        <input type="image" id="MenuItemImage">
+                    </div>
+                    <input type="button" value="Add Item"/>
                 </form>
             </div>
         </section>

@@ -11,7 +11,7 @@ import './Menu.css';
 //Global variables
 let  GlobalMenu = new MenuItem.MenuItemObject()
 let MenuItemArray = []
-
+let items = [];
 //Menu Navbar component
 export function MenuNav(){
   return(
@@ -141,25 +141,25 @@ export function SideMenu(props){
 }
 //Function load a specific menu
 async function loadAllMenuItem(){
-  let items = [];
-  await GlobalMenu.GetAllMenuItems().then((data)=>{
-    data.forEach(element=>{
-      var item = {
-        itemId: element['_id'],
-        itemName: element['name'],
-        itemPrice: element['price'],
-        itemImage: element['imageLink'],
-        itemRating: element['orderCount'],
-        category: element['menu']
-      }
-      MenuItemArray.push(item);
-    });
-    let i = 0;
-    MenuItemArray.forEach((element, index) => {
-      let current = <MenuItemComponent key={index} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
-      items.push(current);
-      i+=1;
-    });
-  })
+  //If item has not been defined
+  if(items.length === 0){
+    await GlobalMenu.GetAllMenuItems().then((data)=>{
+      data.forEach(element=>{
+        var item = {
+          itemId: element['_id'],
+          itemName: element['name'],
+          itemPrice: element['price'],
+          itemImage: element['imageLink'],
+          itemRating: element['orderCount'],
+          category: element['menu']
+        }
+        MenuItemArray.push(item);
+      });
+      MenuItemArray.forEach((element, index) => {
+        let current = <MenuItemComponent key={index} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+        items.push(current);
+      });
+    })
+  }
   return items;
 }

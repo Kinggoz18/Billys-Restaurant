@@ -10,9 +10,7 @@ header{
 }
 
   /***************************************** BREAKPOINT for Large devices ********************************************************/
-@media screen and (min-width: 1010px)  {
-
-  section {
+section {
     font-size: 2em;
     background-color: orange;
     color: white;
@@ -48,6 +46,7 @@ header{
 #wrapper a:hover {
     color: black;
   }
+  
 main {
     width: 80%;
     height: 100%;
@@ -56,13 +55,13 @@ main {
     text-align: center;
     margin-top: 25%;
     padding: 10px;
-  }
+ }
   
 h2, h3, h4 {
     margin: 0;
     display: inline-block;
-  }
-  
+}
+
 #profile, #menu, #sale {
     background-color: white;
     color: black;
@@ -71,8 +70,36 @@ h2, h3, h4 {
     margin: 0 auto;
     padding: 10px;
     text-align: left;
-  }
 }
+
+form div{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: auto;
+  margin-left: 0;
+  text-align: left;
+}
+
+input[type="submit"], input[type="button"] {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover {
+  background-color: #007bff;
+}
+
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
 

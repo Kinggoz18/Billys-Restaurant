@@ -28,11 +28,36 @@
 
     <main>
         <h2>Profile</h2>
-        <div id = "profile">
-            
+        <form id = "Profile">
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+          </div>
 
-        </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+          </div>
 
+          <div>
+            <label for="password">Old Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+          </div>
+
+          <div>
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" name="new-password"><br><br>
+          </div>
+
+          <div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone"><br><br>
+          </div>
+
+          <input type="submit" value="Save">
+          <input type="button" value="Cancel" onclick="resetForm()">
+          <br><br>
+        </form>
 
         <h3>Menu</h3>
         <div id = "menu">
@@ -45,5 +70,41 @@
         </div>
     </main>
 
+    <script>
+      function resetForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("phone").value = "";
+      }
+
+      document.getElementById("Profile").addEventListener("submit", function(event) {
+        event.preventDefault();
+        checkPassword();
+      });
+
+      function checkPassword() {
+        var oldPassword = document.getElementById("password").value;
+        var newPassword = document.getElementById("new-password").value;
+        if (oldPassword === newPassword) {
+          alert("The old password and the new password cannot be the same.");
+        }
+        else {
+          // If the old and new passwords are not the same, you can submit the form
+          document.getElementById("Profile").submit();
+        }
+      }
+      function isValidEmail(email) {
+        // Regular expression for validating email
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        // Check if the email matches the pattern
+        if(emailPattern.test(email)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
   </body>
 </html>

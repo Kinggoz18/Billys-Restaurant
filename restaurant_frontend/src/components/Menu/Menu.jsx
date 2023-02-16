@@ -11,7 +11,6 @@ import './Menu.css';
 //Global variables
 let  GlobalMenu = new MenuItem.MenuItemObject()
 let MenuItemArray = []
-let items = [];
 //Menu Navbar component
 export function MenuNav(){
   return(
@@ -141,8 +140,9 @@ export function SideMenu(props){
 }
 //Function load a specific menu
 async function loadAllMenuItem(){
-  //If item has not been defined
-  if(items.length === 0){
+  let items = [];
+    //If item has not been defined
+  if(MenuItemArray.length === 0){
     await GlobalMenu.GetAllMenuItems().then((data)=>{
       data.forEach(element=>{
         var item = {
@@ -160,6 +160,12 @@ async function loadAllMenuItem(){
         items.push(current);
       });
     })
+  }
+  else{
+    MenuItemArray.forEach((element, index) => {
+      let current = <MenuItemComponent key={index} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+      items.push(current);
+    });
   }
   return items;
 }

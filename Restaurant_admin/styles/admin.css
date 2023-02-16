@@ -4,13 +4,12 @@ body {
   }
 
 header{
-    text-align: center;
     font-size: 2em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
   /***************************************** BREAKPOINT for Large devices ********************************************************/
-section {
+nav {
     font-size: 2em;
     background-color: orange;
     color: white;
@@ -27,6 +26,7 @@ section {
     position: fixed;
     top: 0;
     right: 0;
+    
   }
   
 #image-container img {
@@ -67,7 +67,7 @@ h2, h3, h4 {
     color: black;
     width: 60%;
     height: 100%;
-    margin: 0 auto;
+    margin:  auto;
     padding: 10px;
     text-align: left;
 }
@@ -100,6 +100,12 @@ input[type="submit"]:hover, input[type="button"]:hover {
   background-color: #007bff;
 }
 
+ul {
+  list-style-type: none;
+}
+h1{
+  text-align: center;
+}
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
 

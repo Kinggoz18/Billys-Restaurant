@@ -38,7 +38,7 @@
         padding: 1rem 4rem;
     }
     
-    .app__navbar-right p{
+    .app__navbar-right p, #cart{
         margin: 0em 1rem;
         font-size: 1.7em;
         font-weight: 700;

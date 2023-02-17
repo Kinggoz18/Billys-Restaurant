@@ -33,7 +33,7 @@ export function OrderComponent() {
       <Modal className={"usercart"} isOpen={modalIsOpen} onRequestClose={closeModal}>
         <h2 id='Carttitle'>Your Cart</h2>
         <p>You have {orderCount} items in your cart.</p>
-        <ul>
+        <ul id='Users-Cart'>
           {/* Display the items in the cart here */}
         </ul>
         <button className='checkoutbtn' onClick={closeModal}>Checkout</button>

@@ -21,7 +21,7 @@ export default function Navbar(props){
           </ul>
     <div className='app__navbar-right'>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i>Login</NavLink></p>
-        <p id="cart"  className='p__opensans'><NavLink><OrderComponent></OrderComponent></NavLink></p>
+        <div id="cart"  className='p__opensans'><NavLink><OrderComponent></OrderComponent></NavLink></div>
       </div>
         </nav>
     </div>

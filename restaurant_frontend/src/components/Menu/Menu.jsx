@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Loading} from '../LoadingIcon'
 import {Link} from 'react-router-dom'
+import $ from 'jquery';
 //Object Import
 import {MenuItem} from '../Objects/ObjectExports.mjs'
 //Logo Imports
@@ -44,7 +45,7 @@ export function MenuNav(){
 function AddToBasket(props){
   return(
     <div>
-      <button className='AddToBasket'>Add to cart</button>
+      <button onClick={(event)=>AddToCart(event)} className='AddToBasket'>Add to cart</button>
     </div>
   );
 }
@@ -54,8 +55,8 @@ function MenuItemComponent(props){
   return(
     <div className='MenuItem'>
       <img src={props.image} alt={props.name}></img>
-      <p>{props.name}</p>
-      <p>{props.price}</p>
+      <span>{props.name}</span>
+      <span>{props.price}</span>
       < AddToBasket/>
     </div>
   );
@@ -160,4 +161,9 @@ async function loadAllMenuItem(){
       });
     })
   return items;
+}
+//Function to add the menu Item to cart
+function AddToCart(event){
+  let parent = $(event.target).parent()
+  console.log(parent);
 }

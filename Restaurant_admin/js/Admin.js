@@ -1,3 +1,34 @@
+'use strict'
+//imports
+import {Menu, MenuItem} from './Objects/ObjectExports.mjs'
+
+//Global variables
+let MenuObj = new Menu.MenuObject();
+let MenuItemObj = new MenuItem.MenuItemObject();
+
+
+window.addEventListener("DOMContentLoaded", async ()=>{
+    let CreatMenuBtn = document.getElementById('createMenuBTN')
+    //Event listner for .....
+    document.getElementById("Profile").addEventListener("submit", function(event) {
+        event.preventDefault();
+        checkPassword();
+    });
+
+    //Populate the menu ItemList
+    let menuList = document.getElementById('MenuItemMenu');
+    let current
+    await MenuObj.GetAllMenu().then((data)=>{
+        let current = "<option value=0>Select Item Menu</option>";
+        data.forEach(element => {
+            let name = element['name'];
+            current +=  `<option value=${name}>${name}</option>`
+        });
+        menuList.innerHTML = current;
+    })
+    //Event Listener to create a menu
+    CreatMenuBtn.addEventListener('click', CreateMenu());
+});
 
 function resetForm() {
   document.getElementById("name").value = "";
@@ -6,11 +37,6 @@ function resetForm() {
   document.getElementById("new-password").value = "";
   document.getElementById("phone").value = "";
 }
-
-document.getElementById("Profile").addEventListener("submit", function(event) {
-  event.preventDefault();
-  checkPassword();
-});
 
 function checkPassword() {
   var oldPassword = document.getElementById("password").value;
@@ -33,4 +59,16 @@ function isValidEmail(email) {
   } else {
     return false;
   }
+}
+
+//Function to Add a menu
+function CreateMenu(){
+    let menuName = document.getElementById('MenuName');
+    if(menuName === "" || menuName.length === 0 || menuName=== null){
+        console.log('Throw error here');
+        return;
+    }
+    else{
+        MenuObj.AddMenu();
+    }
 }

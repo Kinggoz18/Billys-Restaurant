@@ -13,9 +13,10 @@
         <h1>Hello Billy, </h1>       
         <ul id="wrapper">
             <!-- Sidebar -->
-            <li><a href="">Profile</a></li>
-            <li><a href="">Menu</a></li>
-            <li><a href="">Sales</a></li>
+            <li><a href="#Profile-Section">Profile</a></li>
+            <li><a href="#Menu-Section">Menu</a></li>
+            <li><a href="#Orders-Section">Orders</a></li>
+            <li><a href="#Sales-Section">Sales</a></li>
             <li><input type="button" value ="Logout"></li>
           </ul>
     </nav>
@@ -29,7 +30,7 @@
     </header>
     <!-- Main -->
     <main>
-        <section class="Profile-Section">
+        <section class="Profile-Section" id="Profile-Section">
             <h2>Profile</h2>
             <form id = "Profile">
               <div>
@@ -61,7 +62,7 @@
             <input type="button" value="Cancel" onclick="resetForm()">
         </form>
         </section>
-        <section class="Menu-Section">
+        <section class="Menu-Section" id="Menu-Section">
             <h2>Edit Your Menu</h2>
             <div id = "menu">
                 <h3>Create Menu</h3>
@@ -93,7 +94,13 @@
                 </form>
             </div>
         </section>
-        <section class="Sales-Section">
+        <section class="Orders-Section" id="Orders-Section">
+          <h2>Sales</h2>
+          <div id = "order">
+              
+          </div>
+      </section>
+        <section class="Sales-Section" id="Sales-Section">
             <h2>Sales</h2>
             <div id = "sale">
                 

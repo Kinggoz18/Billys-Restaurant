@@ -55,6 +55,7 @@ function MenuItemComponent(props){
   return(
     <div className='MenuItem'>
       <img src={props.image} alt={props.name}></img>
+      <span className='hide'>{props.id}</span>
       <span>{props.name}</span>
       <span>{props.price}</span>
       < AddToBasket/>
@@ -156,7 +157,7 @@ async function loadAllMenuItem(){
         MenuItemArray.push(item);
       });
       MenuItemArray.forEach((element, index) => {
-        let current = <MenuItemComponent key={index} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+        let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
         items.push(current);
       });
     })
@@ -164,6 +165,16 @@ async function loadAllMenuItem(){
 }
 //Function to add the menu Item to cart
 function AddToCart(event){
-  let parent = $(event.target).parent()
-  console.log(parent);
+  let price = $(event.target).parent().prev().text();
+  let name = $(event.target).parent().prev().prev().text();
+  let id =  $(event.target).parent().prev().prev().prev().text();
+  let current = $('#Users-Cart').html();
+
+  current+=`  <li>
+  <div className='Order-ItemId hide'>${id}</div>
+  <div className="Order-ItemName">${name}</div>
+  <div className='Order-ItemPrice'>${price}</div>
+  </li>`
+
+  $('#Users-Cart').html(current);
 }

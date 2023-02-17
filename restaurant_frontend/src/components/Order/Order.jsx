@@ -14,8 +14,6 @@ export function OrderComponent() {
     const [shipping, setShipping] = useState(0);
     const [total, setTotal] = useState(0);
 
-  
-
   function openModal() {
     setModalIsOpen(true);
   }
@@ -23,9 +21,6 @@ export function OrderComponent() {
   function closeModal() {
     setModalIsOpen(false);
   }
-
-  
-
 
   return (
     <div className='cartmodal' >

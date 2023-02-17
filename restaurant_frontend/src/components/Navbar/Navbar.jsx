@@ -4,6 +4,7 @@ import './Navbar.css';
 import navlogo from '../Images/DRM.png'
 import { NavLink } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
+import { OrderComponent } from '../Order/Order';
 /*Navbar component */
 export default function Navbar(props){
   LoadDynamicNavbar();
@@ -20,7 +21,7 @@ export default function Navbar(props){
           </ul>
     <div className='app__navbar-right'>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i>Login</NavLink></p>
-        <p id="cart"  className='p__opensans'><NavLink><i className="fa fa-shopping-cart"></i>Cart</NavLink></p>
+        <p id="cart"  className='p__opensans'><NavLink><OrderComponent></OrderComponent></NavLink></p>
       </div>
         </nav>
     </div>

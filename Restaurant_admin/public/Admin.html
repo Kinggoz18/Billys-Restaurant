@@ -3,7 +3,7 @@
   <head>
     <title>Admin Panel</title>
     <link rel = "stylesheet" href = "/Restaurant_admin/styles/admin.css">
-    <script src="../js//Admin.js" async defer type="module"></script>
+    <script src="../js//Admin.js" defer type="module"></script>
     <!-- Add any CSS and JavaScript files needed -->
   </head>
 
@@ -82,6 +82,10 @@
                         <input id ="MenuItemName" type="text">
                     </div>
                     <div>
+                      <label for="MenuItemPrice">Item Price</label>
+                      <input id ="MenuItemPrice" type="text">
+                  </div>
+                    <div>
                         <label for="MenuItemMenu">Item Menu</label>
                         <select id="MenuItemMenu">
                         </select>
@@ -90,7 +94,7 @@
                         <label for="MenuItemImage">Please select an Item Image to upload</label>
                         <input type="file" id="MenuItemImage" name="img" accept="image/*">
                     </div>
-                    <input type="button" value="Add Item"/>
+                    <input type="button" id="AddMenuItemBTN" value="Add Item"/>
                 </form>
             </div>
         </section>

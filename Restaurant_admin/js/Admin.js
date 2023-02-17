@@ -8,7 +8,8 @@ let MenuItemObj = new MenuItem.MenuItemObject();
 
 
 window.addEventListener("DOMContentLoaded", async ()=>{
-    let CreatMenuBtn = document.getElementById('createMenuBTN')
+    let CreatMenuBtn = document.getElementById('createMenuBTN');
+    let AddMenuItem = document.getElementById('AddMenuItemBTN')
     //Event listner for .....
     document.getElementById("Profile").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -17,7 +18,6 @@ window.addEventListener("DOMContentLoaded", async ()=>{
 
     //Populate the menu ItemList
     let menuList = document.getElementById('MenuItemMenu');
-    let current
     await MenuObj.GetAllMenu().then((data)=>{
         let current = "<option value=0>Select Item Menu</option>";
         data.forEach(element => {
@@ -27,7 +27,9 @@ window.addEventListener("DOMContentLoaded", async ()=>{
         menuList.innerHTML = current;
     })
     //Event Listener to create a menu
-    CreatMenuBtn.addEventListener('click', CreateMenu());
+    CreatMenuBtn.addEventListener('click', CreateMenu);
+    //Event Listener to Add a menu
+    AddMenuItem.addEventListener('click', AddItem);
 });
 
 function resetForm() {
@@ -62,13 +64,51 @@ function isValidEmail(email) {
 }
 
 //Function to Add a menu
-function CreateMenu(){
-    let menuName = document.getElementById('MenuName');
+async function CreateMenu(){
+    let menuName = document.getElementById('MenuName').value;
     if(menuName === "" || menuName.length === 0 || menuName=== null){
-        console.log('Throw error here');
+        console.log('Throw error here! No Menu Selected');
         return;
     }
     else{
-        MenuObj.AddMenu();
+        await MenuObj.AddMenu(menuName).then(()=>{
+            console.log('Throw Success here! Menu Created');
+            window.location.reload();
+        });
+        
     }
+}
+
+//Function to Add a menu item
+async function AddItem(){
+    let name = document.getElementById('MenuItemName').value;
+    let price = document.getElementById('MenuItemPrice').value;
+    let menu = document.getElementById('MenuItemMenu').value;
+    let image = document.getElementById('MenuItemImage').files[0];;
+    if(name === ''){
+        console.log('Name not selected. Throwing Error!');
+        return;
+    }
+    if(price === ''){
+        console.log('Price not selected. Throwing Error!');
+        return;
+    }
+    if(menu == 0){
+        console.log('Menu not selected. Throwing Error!');
+        return;
+    }
+    if(image === "" || image === null)
+    {
+        console.log('Image not selected. Throwing Error!');
+        return;
+    }
+    let ItemToCreate = {
+        _id: null,
+        Name: name,
+        Price: price,
+        Menu: menu,
+        OrderCount: 0,
+        ImageLink: ""
+    }
+    MenuItemObj.AddMenuItem(ItemToCreate, image);
 }

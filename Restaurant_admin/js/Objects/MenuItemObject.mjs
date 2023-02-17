@@ -179,16 +179,14 @@ export class MenuItemObject{
     }
     //Convert an image to Base64 using its path
    async #convertImageToBase64_Path(file) {
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = () => {
-            const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-            resolve(base64String);
+          const base64 = reader.result.replace(/^data:.+;base64,/, '');
+          resolve(base64);
         };
-        reader.onerror = () => {
-        reject(new Error('Failed to read file.'));
-    };
-    reader.readAsDataURL(file);
-  });
+        reader.onerror = reject;
+      });
 }
 }

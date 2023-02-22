@@ -78,6 +78,7 @@ form div{
   margin: auto;
   margin-left: 0;
   text-align: left;
+  margin: 2em;
 }
 
 input[type="submit"], input[type="button"] {

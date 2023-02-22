@@ -1,11 +1,56 @@
   /***************************************** BREAKPOINT for Large devices ********************************************************/
-  @media screen and (min-width: 1010px)  {
+  @media screen and (min-width: 1010px) {}
 
+  body {
+    background-color: orange;
+    font-family: Arial, sans-serif;
+    color: white;
   }
+
+  .container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: orange;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+  }
+
+  button[type="submit"] {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #333;
+  }
+
+
   /***************************************** BREAKPOINT for Medium devices ********************************************************/
-  @media screen and (max-width: 1010px) {
-  
-  }
+  @media screen and (max-width: 1010px) {}
+
   /***************************************** BREAKPOINT for small devices ********************************************************/
-  @media screen and (max-width: 670px) {
-  }
+  @media screen and (max-width: 670px) {}

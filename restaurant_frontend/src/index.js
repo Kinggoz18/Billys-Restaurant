@@ -27,7 +27,7 @@ const App = () =>  {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<RootLayout/>}>
+    <Route path='/' element={<RootLayout />}>
       <Route index element={<Home/>}/>
       <Route path='Menu' element={<MenuLayout/>}>
         <Route index element={<Menu.AllMenu/>}/>
@@ -49,6 +49,7 @@ const router = createBrowserRouter(
     </Route>
   )
 )
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Employee Panel</title>
+    <link rel = "stylesheet" href = "/Restaurant_admin/styles/admin.css">
+    <script src="../js//Admin.js" defer type="module"></script>
+    <!-- Add any CSS and JavaScript files needed -->
+  </head>
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav>
+        <h1>Hello Employee ,</h1>
+        <ul id="wrapper">
+            <!-- Sidebar -->
+            <li><a href="#Profile-Section">Profile</a></li>
+            <li><a href="#Orders-Section">Orders</a></li>
+            <li><input type="button" value="Logout"></li>
+          </ul>
+    </nav>
+    <!-- Title -->
+    <header>
+         <!-- Logo -->
+        <div id="image-container">
+            <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+        </div>
+        <h1>Employee Account</h1>
+    </header>
+    <!-- Main -->
+    <main>
+        <section class="Profile-Section" id="Profile-Section">
+            <h2>Profile</h2>
+            <form id = "Profile">
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+              </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+          </div>
+
+          <div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone"><br><br>
+          </div>
+
+        <input type="submit" value="Save">
+        <input type="button" value="Cancel" onclick="resetForm()">
+    </form>
+    </section>
+    
+    <section class="Orders-Section" id="Orders-Section">
+      <br><h2>Order</h2>
+      <div id = "order">
+          
+      </div>
+  </section>
+</main>
+  </body>
+</html>
+
+

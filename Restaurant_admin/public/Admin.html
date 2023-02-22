@@ -63,52 +63,63 @@
         </form>
         </section>
         <section class="Menu-Section" id="Menu-Section">
-            <h2>Edit Your Menu</h2>
-            <div id = "menu">
-                <h3>Create Menu</h3>
-                <form action="">
-                    <div>
-                        <label for="MenuName">Menu Name</label>
-                        <input id ="MenuName" type="text">
-                    </div>
-                    <input type="button" id ="createMenuBTN" value="Add Menu"/>
-                </form>
-            </div>
-            <div id = "menuItem">
-                <h3>Add a Menu Item</h3>
-                 <form action="">
-                    <div>
-                        <label for="MenuItemName">Item Name</label>
-                        <input id ="MenuItemName" type="text">
-                    </div>
-                    <div>
-                      <label for="MenuItemPrice">Item Price</label>
-                      <input id ="MenuItemPrice" type="text">
-                  </div>
-                    <div>
-                        <label for="MenuItemMenu">Item Menu</label>
-                        <select id="MenuItemMenu">
-                        </select>
-                    </div>
-                    <div>
-                        <label for="MenuItemImage">Please select an Item Image to upload</label>
-                        <input type="file" id="MenuItemImage" name="img" accept="image/*">
-                    </div>
-                    <input type="button" id="AddMenuItemBTN" value="Add Item"/>
-                </form>
-            </div>
+          <br><h2>Edit Your Menu</h2>
+          <div id="menu">
+            <h3>Create Menu</h3>
+            <form>
+              <div>
+                <label for="MenuName">Menu Name</label>
+                <input id="MenuName" type="text" required>
+              </div>
+              <button id="createMenuBTN">Add Menu</button>
+            </form>
+          </div>
+          <div id="menuItem">
+            <br><h3>Add a Menu Item</h3>
+            <form>
+              <div>
+                <label for="MenuItemName">Item Name</label>
+                <input id="MenuItemName" type="text" required>
+              </div>
+              <div>
+                <label for="MenuItemPrice">Item Price</label>
+                <input id="MenuItemPrice" type="text" required>
+              </div>
+              <div>
+                <label for="MenuItemMenu">Item Menu</label>
+                <select id="MenuItemMenu"></select>
+              </div>
+              <div>
+                <label for="MenuItemImage">Please select an Item Image to upload</label>
+                <input type="file" id="MenuItemImage" name="img" accept="image/*">
+              </div>
+              <button id="AddMenuItemBTN">Add Item</button>
+            </form>
+          </div>
+          <div id="deleteMenu">
+            <br><h3>Delete a Menu</h3>
+            <form>
+              <div>
+                <label for="DeleteMenuName">Menu Name</label>
+                <select id="DeleteMenuName"></select>
+              </div>
+              <button id="DeleteMenuBTN">Delete Menu</button>
+            </form>
+          </div>
         </section>
+        
         <section class="Orders-Section" id="Orders-Section">
-          <h2>Sales</h2>
+          <br><h2>Order</h2>
           <div id = "order">
               
           </div>
       </section>
         <section class="Sales-Section" id="Sales-Section">
-            <h2>Sales</h2>
-            <div id = "sale">
-                
+          <br><h2>Sales</h2>
+            <div id="sales">
+              <br><span id="total-sales"></span>
             </div>
+           
         </section>
     </main>
   </body>

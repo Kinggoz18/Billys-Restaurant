@@ -1,4 +1,4 @@
-export class Sales{
+export class SalesObject{
   apiBaseURL = 'https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/';
   
 
@@ -11,13 +11,16 @@ export class Sales{
       }
       const data = await response.json();
       console.log('Total Sales:', data);
+      return data;
     } catch (error) {
       console.log(error);
     }
   }
  
 }
+
 // test the functions
-let sales = new Sales();
+let sales = new SalesObject();
 await sales.getTotalSales();
 //getNumberOfOrders();
+

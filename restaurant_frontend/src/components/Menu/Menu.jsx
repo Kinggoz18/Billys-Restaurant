@@ -3,14 +3,14 @@ import {Loading} from '../LoadingIcon'
 import {Link} from 'react-router-dom'
 import $ from 'jquery';
 //Object Import
-import {MenuItem} from '../Objects/ObjectExports.mjs'
+import {MenuItem, Menu} from '../Objects/ObjectExports.mjs'
 //Logo Imports
 import DefaultHeader from '../Images/Headers.mp4'
 
 import './Menu.css';
 
 //Global variables
-let  GlobalMenu = new MenuItem.MenuItemObject()
+let  GlobalMenu = new Menu.MenuObject();
 
 //Menu Navbar component
 export function MenuNav(){
@@ -68,7 +68,7 @@ export function DrinkMenu(){
   const [menuItems, setMenuItems] = useState(null);
 
   useEffect(() => {
-    loadAllMenuItem().then((data) => {
+    LoadDrinks().then((data) => {
       setMenuItems(data);
     });
   }, []);
@@ -107,7 +107,7 @@ export function MainMenu(){
   const [menuItems, setMenuItems] = useState(null);
 
   useEffect(() => {
-    loadAllMenuItem().then((data) => {
+    LoadMain().then((data) => {
       setMenuItems(data);
     });
   }, []);
@@ -126,7 +126,7 @@ export function SideMenu(props){
   const [menuItems, setMenuItems] = useState(null);
 
   useEffect(() => {
-    loadAllMenuItem().then((data) => {
+    LoadSides().then((data) => {
       setMenuItems(data);
     });
   }, []);
@@ -140,12 +140,40 @@ export function SideMenu(props){
     </div>
   );
 }
-//Function load a specific menu
+//Function load all the menus
 async function loadAllMenuItem(){
   let items = [];
   let MenuItemArray = []
-    await GlobalMenu.GetAllMenuItems().then((data)=>{
-      data.forEach(element=>{
+    await GlobalMenu.GetAllMenu().then((data)=>{
+      data.forEach((element)=>{
+        let menu = element['foodList'];
+        menu.forEach(element=>{
+        var item = {
+          itemId: element['_id'],
+          itemName: element['name'],
+          itemPrice: element['price'],
+          itemImage: element['imageLink'],
+          itemRating: element['orderCount'],
+          category: element['menu']
+        }
+        MenuItemArray.push(item);
+       })
+      });
+      MenuItemArray.forEach((element) => {
+        let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+        items.push(current);
+      });
+    })
+  return items;
+}
+
+//Function to load all  drinks
+async function LoadDrinks(){
+  let items = [];
+  let MenuItemArray = []
+    await GlobalMenu.GetAllMenu().then((data)=>{
+      let DrinksMenu = data.find(element => element['name'] === 'Drinks');
+      DrinksMenu['foodList'].forEach((element)=>{
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
@@ -156,7 +184,57 @@ async function loadAllMenuItem(){
         }
         MenuItemArray.push(item);
       });
-      MenuItemArray.forEach((element, index) => {
+      MenuItemArray.forEach((element) => {
+        let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+        items.push(current);
+      });
+    })
+  return items;
+}
+
+//Function to load all sides
+async function LoadSides(){
+  let items = [];
+  let MenuItemArray = []
+    await GlobalMenu.GetAllMenu().then((data)=>{
+      let SidesMenu = data.find(element => element['name'] === 'Sides');
+      SidesMenu['foodList'].forEach((element)=>{
+        var item = {
+          itemId: element['_id'],
+          itemName: element['name'],
+          itemPrice: element['price'],
+          itemImage: element['imageLink'],
+          itemRating: element['orderCount'],
+          category: element['menu']
+        }
+        MenuItemArray.push(item);
+      });
+      MenuItemArray.forEach((element) => {
+        let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
+        items.push(current);
+      });
+    })
+  return items;
+}
+
+//Function to load all main meals
+async function LoadMain(){
+  let items = [];
+  let MenuItemArray = []
+    await GlobalMenu.GetAllMenu().then((data)=>{
+      let MainMenu = data.find(element => element['name'] === 'Main');
+      MainMenu['foodList'].forEach((element)=>{
+        var item = {
+          itemId: element['_id'],
+          itemName: element['name'],
+          itemPrice: element['price'],
+          itemImage: element['imageLink'],
+          itemRating: element['orderCount'],
+          category: element['menu']
+        }
+        MenuItemArray.push(item);
+      });
+      MenuItemArray.forEach((element) => {
         let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
         items.push(current);
       });

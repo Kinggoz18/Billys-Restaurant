@@ -30,6 +30,8 @@ window.addEventListener("DOMContentLoaded", async ()=>{
     CreatMenuBtn.addEventListener('click', CreateMenu);
     //Event Listener to Add a menu
     AddMenuItem.addEventListener('click', AddItem);
+    //Event Listener to delete a menu
+    DeleteMenuBtn.addEventListener('click', DeleteMenu);
 });
 
 function resetForm() {
@@ -78,6 +80,22 @@ async function CreateMenu(){
         
     }
 }
+//Function to delete a menu
+async function DeleteMenu(){
+  let menuName = document.getElementById('MenuName').value;
+  if(menuName === "" || menuName.length === 0 || menuName=== null){
+      console.log('Throw error here! No Menu Selected');
+      return;
+  }
+  else{
+      await MenuObj.DeleteMenu(menuName).then(()=>{
+          console.log('Throw Success here! Menu Deleted');
+          window.location.reload();
+      });
+      
+  }
+}
+
 
 //Function to Add a menu item
 async function AddItem(){
@@ -112,3 +130,16 @@ async function AddItem(){
     }
     MenuItemObj.AddMenuItem(ItemToCreate, image);
 }
+
+
+//function to Get Sales and Number of orders from api
+import { SalesObject } from './Objects/SalesObject.mjs';
+
+let sales = new SalesObject();
+
+sales.getTotalSales().then(data => {
+  let totalSalesElement = document.getElementById("total-sales");
+  totalSalesElement.textContent = `Total Sales: ${JSON.stringify(data)}`;
+}).catch(error => {
+  console.log(error);
+});

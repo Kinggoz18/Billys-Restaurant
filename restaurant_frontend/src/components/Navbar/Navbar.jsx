@@ -1,12 +1,17 @@
-import React from 'react';
+import React,{useState,} from 'react';
 import $ from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
 import { NavLink } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
-import { OrderComponent } from '../Order/Order';
+
 /*Navbar component */
 export default function Navbar(props){
+  function openbasket(){
+
+  }
+
+
   LoadDynamicNavbar();
   return(
     <div>
@@ -21,9 +26,10 @@ export default function Navbar(props){
           </ul>
     <div className='app__navbar-right'>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i>Login</NavLink></p>
-        <div id="cart"  className='p__opensans'><NavLink><OrderComponent></OrderComponent></NavLink></div>
+        <div id="cart"  className='p__opensans'><NavLink to ='/Checkout'><i onClick={openbasket} className="fa fa-shopping-cart"></i> </NavLink> </div>
       </div>
         </nav>
+       <Basket className='Basket'/>
     </div>
   );
 };
@@ -64,4 +70,73 @@ async function LoadDynamicNavbar(){
       {
         $('#login').addClass('hide');
       }
-    }}
+      else if(CurrentPage.includes('Checkout')){
+        $('#checkout').addClass('hide');
+      }
+    }
+  
+  }
+  function ProductList({ products, onChangeProductQuantity, onRemoveProduct }) {
+    return (
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>
+            {product.name} - {product.price}
+            <input
+              type="number"
+              min="0"
+              value={product.quantity}
+              onChange={(event) => onChangeProductQuantity(index, event)}
+            />
+            <button onClick={() => onRemoveProduct(index)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  
+  
+  
+
+
+  
+
+  function Basket({ itemCount }) {
+    const [products, setProducts] = useState([
+      { name: 'Product 1', price: 10, quantity: 1 },
+      { name: 'Product 2', price: 20, quantity: 2 },
+      { name: 'Product 3', price: 30, quantity: 3 },
+    ]);
+  
+    function handleChangeProductQuantity(index, event) {
+      if (!event) {
+        return;
+      }
+      
+      const newProducts = [...products];
+      newProducts[index].quantity = parseInt(event.target.value);
+      setProducts(newProducts);
+    }
+    
+    
+  
+    function handleRemoveProduct(index) {
+      const newProducts = [...products];
+      newProducts.splice(index, 1);
+      setProducts(newProducts);
+    }
+  
+  
+    return (
+      <div className="Basket">
+        <h1>Shopping Cart</h1>
+        <span className="count">{itemCount} items in the bag</span>
+        <ProductList
+          products={products}
+          onChangeProductQuantity={handleChangeProductQuantity}
+          onRemoveProduct={handleRemoveProduct}
+        />
+      </div>
+    );
+  }
+  

@@ -7,6 +7,7 @@ import ContactUs from './ContactUs/ContactUs';
 import AboutUs from './About/About';
 import * as CustomerAcc from './Accounts/Customer'
 import {Accounts} from './Objects/ObjectExports.mjs'
+import Checkout from './Checkout/Checkout';
 /*Exports */
 export {
   Footer,
@@ -17,5 +18,6 @@ export {
   ContactUs,
   AboutUs,
   Accounts,
-  CustomerAcc
+  CustomerAcc,
+  Checkout
 };

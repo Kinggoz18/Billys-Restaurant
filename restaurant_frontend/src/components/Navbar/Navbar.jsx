@@ -1,3 +1,8 @@
+// cart card/module written by tobi and chigozie 
+// tobi worked on the design of the  cart card 
+// 
+// 
+// 
 import React,{useState,} from 'react';
 import $ from 'jquery'
 import './Navbar.css';
@@ -76,6 +81,7 @@ async function LoadDynamicNavbar(){
     }
   
   }
+  // ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
   function ProductList({ products, onChangeProductQuantity, onRemoveProduct }) {
     return (
       <ul>
@@ -95,30 +101,64 @@ async function LoadDynamicNavbar(){
     );
   }
   
-  
-  
+  function Summary({ subTotal, total, tax, }) {
+     total = subTotal  + tax;
 
-
+    
+  
+    return (
+      <section className="SumContainer">
+        <div className="discount">
+          
+        </div>
+  
+        <div className="pricesummary">
+          <ul>
+            <li>
+              Subtotal <span>{formatCurrency(subTotal)}</span>
+            </li>
+            
+            <li>
+              Tax <span>{formatCurrency(tax)}</span>
+            </li>
+            <li className="total">
+              Total <span>{formatCurrency(total)}</span>
+            </li>
+          </ul>
+        </div>
+  
+        <div className="checkoutbtn">
+          <button type="button">Check Out</button>
+        </div>
+      </section>
+    );
+  }
   
 
   function Basket({ itemCount }) {
-    const [products, setProducts] = useState([
-      { name: 'Product 1', price: 10, quantity: 1 },
-      { name: 'Product 2', price: 20, quantity: 2 },
-      { name: 'Product 3', price: 30, quantity: 3 },
+    const [products, setProducts,] = useState([
+      { name: 'Product 1', price: 100, quantity: 1 },
+      { name: 'Product 2', price: 50, quantity: 2 },
+      { name: 'Product 3', price: 25, quantity: 3 },
     ]);
+  
+     itemCount = products.reduce((quantity, product) => {
+      return quantity + +product.quantity;
+    }, 0);
+  
+     
+  
+    
   
     function handleChangeProductQuantity(index, event) {
       if (!event) {
         return;
       }
-      
+  
       const newProducts = [...products];
       newProducts[index].quantity = parseInt(event.target.value);
       setProducts(newProducts);
     }
-    
-    
   
     function handleRemoveProduct(index) {
       const newProducts = [...products];
@@ -126,6 +166,12 @@ async function LoadDynamicNavbar(){
       setProducts(newProducts);
     }
   
+    const subTotal = products.reduce((acc, product) => {
+      return acc + product.price * product.quantity;
+    }, 0);
+    const tax = subTotal * 0.1;
+    console.log(`Number of items: ${itemCount}`);
+    console.log(`Subtotal: $${subTotal}`);
   
     return (
       <div className="Basket">
@@ -136,7 +182,16 @@ async function LoadDynamicNavbar(){
           onChangeProductQuantity={handleChangeProductQuantity}
           onRemoveProduct={handleRemoveProduct}
         />
+  
+        <Summary subTotal={subTotal}  tax={tax} />
       </div>
     );
+  }
+  
+  function formatCurrency(value) {
+    return Number(value).toLocaleString("en-US", {
+      style: "currency",
+      currency: "CAD"
+    });
   }
   

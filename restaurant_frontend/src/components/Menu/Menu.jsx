@@ -252,6 +252,8 @@ function AddToCart(event){
   <div className='Order-ItemId hide'>${id}</div>
   <div className="Order-ItemName">${name}</div>
   <div className='Order-ItemPrice'>${price}</div>
+  <input className='Order-Count' type="number" min="0" value={1} />
+  <button className='Order-Remove' >Remove<button>
   </li>`
 
   $('#Users-Cart').html(current);

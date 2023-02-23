@@ -81,22 +81,11 @@ async function LoadDynamicNavbar(){
     }
   
   }
+
   // ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
-  function ProductList({ products, onChangeProductQuantity, onRemoveProduct }) {
+  export function ProductList({ products, onChangeProductQuantity, onRemoveProduct }) {
     return (
-      <ul>
-        {products.map((product, index) => (
-          <li key={index}>
-            {product.name} - {product.price}
-            <input
-              type="number"
-              min="0"
-              value={product.quantity}
-              onChange={(event) => onChangeProductQuantity(index, event)}
-            />
-            <button onClick={() => onRemoveProduct(index)}>Remove</button>
-          </li>
-        ))}
+      <ul id='Users-Cart'>
       </ul>
     );
   }
@@ -104,8 +93,6 @@ async function LoadDynamicNavbar(){
   function Summary({ subTotal, total, tax, }) {
      total = subTotal  + tax;
 
-    
-  
     return (
       <section className="SumContainer">
         <div className="discount">
@@ -113,7 +100,7 @@ async function LoadDynamicNavbar(){
         </div>
   
         <div className="pricesummary">
-          <ul>
+          <ul className=''>
             <li>
               Subtotal <span>{formatCurrency(subTotal)}</span>
             </li>

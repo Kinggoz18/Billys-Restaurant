@@ -37,6 +37,7 @@ export function MenuNav(){
         <li>Drinks</li>
       </ul>
     </nav>
+    <span className='Menu-Subtitle'>Choose from a variety of savory and satisfying menu options.</span>
   </div>
   );
 }
@@ -252,8 +253,7 @@ function AddToCart(event){
   <div class='Order-ItemId hide'>${id}</div>
   <div class="Order-ItemName">${name}</div>
   <div class='Order-ItemPrice'>${price}</div>
-  <div class='Order-ItemCount' id='CartItem-Count${id}'>1</div>
-  <input class='Order-Count' type="number" min="0" value={1} />
+  <input class='Order-Count' id='CartItem-Count${id}' type="number" min="0" value=1 />
   <button class='Order-Remove' >Remove<button>
   </li>`
 
@@ -264,8 +264,8 @@ function AddToCart(event){
   else{
       let queryId  = `#CartItem-Count${id}`;
       let item = document.querySelector(queryId);
-      let number = parseInt(item.innerText) + 1;
-      item.innerText = number;
+      let number = parseInt(item.value) + 1;
+      item.value = number;
   }
 }
 

@@ -22,19 +22,29 @@
         object-fit: cover;
     }
     /*Menu nav*/
+    .Menu-Subtitle{
+        display: inline-block;
+        color: var(--color-yellow);
+        font-size: 1.7em;
+        font-family: 'Cabin Sketch', cursive;
+        margin: 2em 0em 0em 5em;
+    }
     .Desktop-MenuNavlist{
         display: flex;
         margin-top: 3em;
     }
-    .Desktop-MenuNavlist li:nth-child(1){
-        border-left: none !important;
-    }
     .Desktop-MenuNavlist li{
-        border-left: 2px solid var(--color-yellow);
-        color: var(--color-yellow);
+        background-color: var(--color-crimson);
+        border-radius: 0.4em;
         cursor: pointer;
-        padding: 0em 1em;
         font-size: 1.5em;
+        padding: 0.4em 1.2em 0.2em 1.2em;
+        margin: 0em 1em;
+        transition: 0.3s;
+    }
+    .Desktop-MenuNavlist li:hover{
+        background-color: transparent;
+        color: var(--color-yellow);
     }
     /*Entire Menu styling*/
     .Menu{

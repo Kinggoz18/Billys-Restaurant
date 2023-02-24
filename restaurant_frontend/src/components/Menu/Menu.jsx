@@ -11,7 +11,7 @@ import './Menu.css';
 
 //Global variables
 let  GlobalMenu = new Menu.MenuObject();
-
+let cartItemValues = [];
 //Menu Navbar component
 export function MenuNav(){
   return(
@@ -247,9 +247,8 @@ function AddToCart(event){
   let price = $(event.target).parent().prev().text();
   let name = $(event.target).parent().prev().prev().text();
   let id =  $(event.target).parent().prev().prev().prev().text();
-  let current = $('#Users-Cart').html();
 
-  current+=`  <li class="cartItem">
+  let current =`  <li class="cartItem">
   <div class='Order-ItemId hide'>${id}</div>
   <div class="Order-ItemName">${name}</div>
   <div class='Order-ItemPrice'>${price}</div>
@@ -257,18 +256,28 @@ function AddToCart(event){
   <button class='Order-Remove' >Remove</button>
   </li>`
 
-  let cart = document.querySelector('#Users-Cart').innerHTML;
-  if(FindItemInList(cart, id) === false){
-    $('#Users-Cart').html(current);
+  let cart = document.querySelector('#Users-Cart');
+  let cartText = cart.innerHTML;
+  let queryId  = `#CartItem-Count${id}`;
+  if(FindItemInList(cartText, id) === false){
+    //add the item to the global array
+    let currItem = {id: queryId, value: 1};
+    cartItemValues.push(currItem);
+    //Update the html
+    cart.innerHTML+= current;
+    SetCartItemValues()
   }
   else{
-      let queryId  = `#CartItem-Count${id}`;
       let item = document.querySelector(queryId);
       let number = parseInt(item.value) + 1;
-      item.innerHTML = `<input class="Order-Count" id="CartItem-Count278554113223212023100646PM" type="number" min="0" value=${number}>`;
+      item.value = number;
+      //Update the item
+      let currItem = {id: queryId, value: number};
+      cartItemValues.push(currItem);
   }
 }
 
+//Function to check if an item already exists in the cart
 function FindItemInList(text, id){
   if(text.search(id)===-1){
     return false;
@@ -276,4 +285,11 @@ function FindItemInList(text, id){
   else{
     return true;
   }
+}
+
+//Function to set the cart item values 
+function SetCartItemValues(){
+  cartItemValues.forEach(element=>{
+    $(element.id).val(element.value);
+  })
 }

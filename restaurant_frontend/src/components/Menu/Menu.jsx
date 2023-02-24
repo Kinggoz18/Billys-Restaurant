@@ -254,7 +254,7 @@ function AddToCart(event){
   <div class="Order-ItemName">${name}</div>
   <div class='Order-ItemPrice'>${price}</div>
   <input class='Order-Count' id='CartItem-Count${id}' type="number" min="0" value=1 />
-  <button class='Order-Remove' >Remove<button>
+  <button class='Order-Remove' >Remove</button>
   </li>`
 
   let cart = document.querySelector('#Users-Cart').innerHTML;
@@ -265,7 +265,7 @@ function AddToCart(event){
       let queryId  = `#CartItem-Count${id}`;
       let item = document.querySelector(queryId);
       let number = parseInt(item.value) + 1;
-      item.value = number;
+      item.innerHTML = `<input class="Order-Count" id="CartItem-Count278554113223212023100646PM" type="number" min="0" value=${number}>`;
   }
 }
 

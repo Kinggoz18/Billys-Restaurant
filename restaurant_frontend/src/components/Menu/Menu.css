@@ -9,6 +9,10 @@
     width: 100vw !important;
     min-height: 80%;
 }
+.menunav-div{
+    background-color: var(--color-secyellow);
+
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
     /*Menu logo*/
@@ -24,7 +28,7 @@
     /*Menu nav*/
     .Menu-Subtitle{
         display: inline-block;
-        color: var(--color-yellow);
+        color: var(--color-white);
         font-size: 1.7em;
         font-family: 'Cabin Sketch', cursive;
         margin: 2em 0em 0em 5em;
@@ -38,26 +42,18 @@
         border-radius: 0.4em;
         cursor: pointer;
         font-size: 1.5em;
+        font-weight: bolder;
         padding: 0.4em 1.2em 0.2em 1.2em;
         margin: 0em 1em;
         transition: 0.3s;
     }
     .Desktop-MenuNavlist li:hover{
         background-color: transparent;
-        color: var(--color-yellow);
-    }
-    /*Entire Menu styling*/
-    .Menu{
-        display: grid;
-        grid-template-columns: 40% 40%;
-        justify-items: center;
-        justify-content: center;
-        padding-top: 2em;
-        width: 100%;
+        color: var(--color-white);
     }
     /*Menu item styling*/
     .AddToBasket{
-        background-color: var(--color-yellow);
+        background-color: var(--color-black);
         border: none;
         border-radius: 0.4em;
         color: var(--color-white);
@@ -65,7 +61,7 @@
         font-weight: bold;
         cursor: pointer;
         padding: 0.4em;
-        transition: 0.5s ease;
+        transition: 0.3s;
         width: 100%;
     }
     button.AddToBasket:hover{
@@ -73,27 +69,31 @@
         color: var(--color-yellow);
     }
     .Menu img{
-        border-top-left-radius: 0.4em;
-        border-top-right-radius: 0.4em;
+        border-radius: 0.4em;
         height: 250px;
         margin-bottom: 1em;
-        width: 370px !important;
+        width: 270px !important;
     }
     .MenuItem{
         align-items: center;
         border-radius: 0.5em;
-        border: solid 2px var(--color-yellow);
+        background-color: var(--color-white);
         color: var(--color-yellow);
         display: flex;
         flex-direction: column;
         font-size: 1.2em;
         font-weight: bold;
         margin: 1em;
-        max-width: 370px;
-        padding-bottom: 1em;
+        width: 370px;
+        padding: 1em;
     }
     .MenuItem div{
         width: 95%;
+    }
+    .MenuItem span{
+        font-weight: bold;
+        font-size: 1.2em;
+        margin: 0.3em;
     }
     .MenuItem p{
         margin: 0.4em;

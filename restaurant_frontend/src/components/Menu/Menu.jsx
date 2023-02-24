@@ -18,7 +18,7 @@ let CartItems = [];
 //Menu Navbar component
 export function MenuNav(){
   return(
-    <div>
+    <div className='menunav-div'>
       <div>
       <video className='menu-logo' autoPlay>
         <source src={DefaultHeader} type="video/mp4"/>
@@ -155,7 +155,7 @@ async function loadAllMenuItem(){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
-          itemPrice: element['price'],
+          itemPrice: `$${element['price'].toFixed(2)}`,
           itemImage: element['imageLink'],
           itemRating: element['orderCount'],
           category: element['menu']
@@ -181,7 +181,7 @@ async function LoadDrinks(){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
-          itemPrice: element['price'],
+          itemPrice: `$${element['price'].toFixed(2)}`,
           itemImage: element['imageLink'],
           itemRating: element['orderCount'],
           category: element['menu']
@@ -206,7 +206,7 @@ async function LoadSides(){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
-          itemPrice: element['price'],
+          itemPrice: `$${element['price'].toFixed(2)}`,
           itemImage: element['imageLink'],
           itemRating: element['orderCount'],
           category: element['menu']
@@ -231,7 +231,7 @@ async function LoadMain(){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
-          itemPrice: element['price'],
+          itemPrice: `$${element['price'].toFixed(2)}`,
           itemImage: element['imageLink'],
           itemRating: element['orderCount'],
           category: element['menu']

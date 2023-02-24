@@ -5,11 +5,13 @@
     width: 100vw !important;
     min-height: 80%;
 }
-.Menu{
-    display: grid;
-    grid-template-columns: 40% 40%;
-    justify-items: center;
-    justify-content: center;
-    padding-top: 2em;
-    width: 100%;
-}
+    /*Entire Menu styling*/
+    .Menu{
+        background-color: var(--color-secyellow);
+        display: grid;
+        grid-template-columns: 30% 30%;
+        justify-items: center;
+        justify-content: center;
+        padding-top: 2em;
+        width: 100%;
+    }

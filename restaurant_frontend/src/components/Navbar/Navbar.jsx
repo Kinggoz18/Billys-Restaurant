@@ -18,6 +18,9 @@ export default function Navbar(props){
 
 
   LoadDynamicNavbar();
+  //Remove basket items
+  document.addEventListener('click', (event)=>{RemoveCartItem(event)})
+
   return(
     <div>
         <nav className="app__navbar">
@@ -196,3 +199,12 @@ async function LoadDynamicNavbar(){
     });
   }
   
+  //Functiont to remove Cart item
+  function RemoveCartItem(event){
+    var element = event.target;
+      if(element.tagName == 'BUTTON' && element.classList.contains("Order-Remove"))
+      {
+        //Remove the item
+        $(element).parent().remove();
+      }
+  }

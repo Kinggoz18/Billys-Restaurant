@@ -11,7 +11,10 @@ import './Menu.css';
 
 //Global variables
 let  GlobalMenu = new Menu.MenuObject();
+
 let cartItemValues = [];
+let CartItems = [];
+  
 //Menu Navbar component
 export function MenuNav(){
   return(
@@ -247,18 +250,20 @@ function AddToCart(event){
   let price = $(event.target).parent().prev().text();
   let name = $(event.target).parent().prev().prev().text();
   let id =  $(event.target).parent().prev().prev().prev().text();
-
-  let current =`  <li class="cartItem">
+  let ElementId = `CartItem-${id}`;
+  let current =`  <li class="cartItem" id='${ElementId}'>
   <div class='Order-ItemId hide'>${id}</div>
   <div class="Order-ItemName">${name}</div>
   <div class='Order-ItemPrice'>${price}</div>
   <input class='Order-Count' id='CartItem-Count${id}' type="number" min="0" value=1 />
-  <button class='Order-Remove' >Remove</button>
+  <button class='Order-Remove'>Remove</button>
   </li>`
+
 
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
+
   if(FindItemInList(cartText, id) === false){
     //add the item to the global array
     let currItem = {id: queryId, value: 1};

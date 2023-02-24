@@ -252,9 +252,28 @@ function AddToCart(event){
   <div class='Order-ItemId hide'>${id}</div>
   <div class="Order-ItemName">${name}</div>
   <div class='Order-ItemPrice'>${price}</div>
+  <div class='Order-ItemCount' id='CartItem-Count${id}'>1</div>
   <input class='Order-Count' type="number" min="0" value={1} />
   <button class='Order-Remove' >Remove<button>
   </li>`
 
-  $('#Users-Cart').html(current);
+  let cart = document.querySelector('#Users-Cart').innerHTML;
+  if(FindItemInList(cart, id) === false){
+    $('#Users-Cart').html(current);
+  }
+  else{
+      let queryId  = `#CartItem-Count${id}`;
+      let item = document.querySelector(queryId);
+      let number = parseInt(item.innerText) + 1;
+      item.innerText = number;
+  }
+}
+
+function FindItemInList(text, id){
+  if(text.search(id)===-1){
+    return false;
+  }
+  else{
+    return true;
+  }
 }

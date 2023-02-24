@@ -248,12 +248,12 @@ function AddToCart(event){
   let id =  $(event.target).parent().prev().prev().prev().text();
   let current = $('#Users-Cart').html();
 
-  current+=`  <li>
-  <div className='Order-ItemId hide'>${id}</div>
-  <div className="Order-ItemName">${name}</div>
-  <div className='Order-ItemPrice'>${price}</div>
-  <input className='Order-Count' type="number" min="0" value={1} />
-  <button className='Order-Remove' >Remove<button>
+  current+=`  <li class="cartItem">
+  <div class='Order-ItemId hide'>${id}</div>
+  <div class="Order-ItemName">${name}</div>
+  <div class='Order-ItemPrice'>${price}</div>
+  <input class='Order-Count' type="number" min="0" value={1} />
+  <button class='Order-Remove' >Remove<button>
   </li>`
 
   $('#Users-Cart').html(current);

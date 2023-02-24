@@ -60,18 +60,69 @@
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {}
 
+
+/* css for the caritem  */
+#Users-Cart {
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--color-yellow);
+    color: var(--color-white);
+    border-radius: 12px;
+    overflow: scroll;
+  }
+  
+  .cartItem {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 10px;
+    border: #f44336;
+    display: flex;
+    flex-flow: row wrap;
+    flex-direction: row;
+    justify-content: center;
+    
+  }
+  
+  
+  
+  .Order-ItemName {
+    font-weight: bold;
+  }
+  
+  .Order-ItemPrice {
+    margin-left: 20px;
+  }
+  
+  .Order-Count {
+    margin-left: auto;
+  }
+  
+  .Order-Remove {
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+
 /* css for the basket  */
-.Basket {
+.BasketContainer {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     padding: 1em;
-    width: 300px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     position: absolute;
-    left: 80px;
+    right: 90px;
+    overflow: scroll;
+   top: 400px;
   }
   
   .Basket h2 {
@@ -129,7 +180,7 @@
   }
   
  #checkoutbtn{
-    background-color: var(--color-yellow);
+    
     border: none;
     color: black;
     padding: 1rem 4rem;

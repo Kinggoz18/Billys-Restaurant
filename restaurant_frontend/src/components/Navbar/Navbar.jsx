@@ -3,7 +3,7 @@
 // 
 // 
 // 
-import React,{useState,} from 'react';
+import React,{useState,useEffect} from 'react';
 import $ from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
@@ -83,33 +83,54 @@ async function LoadDynamicNavbar(){
   }
 
   // ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
-  export function ProductList({ products, onChangeProductQuantity, onRemoveProduct }) {
+  export function ProductList({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
     return (
-      <ul id='Users-Cart'>
+      <ul id="Users-Cart">
+        {cartItems &&
+          cartItems.map((item, index) => (
+            <div className="cartItemCard" key={index}>
+              <li className="cartItem">
+                <div className="Order-ItemName">{item.name}</div>
+                <div className="Order-ItemPrice">{item.price}</div>
+                <input
+                  className="Order-Count"
+                  type="number"
+                  min="0"
+                  value={item.quantity}
+                  onChange={(event) => onChangeProductQuantity(index, event)}
+                />
+                <button
+                  className="Order-Remove"
+                  onClick={() => onRemoveProduct(index)}
+                >
+                  Remove
+                </button>
+              </li>
+            </div>
+          ))}
       </ul>
     );
   }
   
-  function Summary({ subTotal, total, tax, }) {
-     total = subTotal  + tax;
-
+  
+  function Summary({ subTotal, tax, total }) {
+    console.log('subtoal',subTotal)
     return (
+      
       <section className="SumContainer">
-        <div className="discount">
-          
-        </div>
+        <div className="Summarry"></div>
   
         <div className="pricesummary">
-          <ul className=''>
+          <ul className="summaryli">
             <li>
-              Subtotal <span>{formatCurrency(subTotal)}</span>
+              Subtotal:  <span>{formatCurrency(subTotal)}</span>
             </li>
-            
+  
             <li>
-              Tax <span>{formatCurrency(tax)}</span>
+              Tax:  <span>{formatCurrency(tax)}</span>
             </li>
             <li className="total">
-              Total <span>{formatCurrency(total)}</span>
+              Total:  <span>{formatCurrency(total)}</span>
             </li>
           </ul>
         </div>
@@ -118,59 +139,52 @@ async function LoadDynamicNavbar(){
           <button type="button">Check Out</button>
         </div>
       </section>
+     
     );
   }
   
 
-  function Basket({ itemCount }) {
-    const [products, setProducts,] = useState([
-      { name: 'Product 1', price: 100, quantity: 1 },
-      { name: 'Product 2', price: 50, quantity: 2 },
-      { name: 'Product 3', price: 25, quantity: 3 },
-    ]);
+  function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
+    const [subTotal, setSubTotal] = useState(0);
+    const [tax, setTax] = useState(0);
+    const [total, setTotal] = useState(0);
   
-     itemCount = products.reduce((quantity, product) => {
-      return quantity + +product.quantity;
-    }, 0);
-  
-     
-  
-    
-  
-    function handleChangeProductQuantity(index, event) {
+    function handleProductQuantityChange(index, event) {
       if (!event) {
         return;
       }
   
-      const newProducts = [...products];
-      newProducts[index].quantity = parseInt(event.target.value);
-      setProducts(newProducts);
+      const newCartItems = [...cartItems];
+      newCartItems[index].quantity = parseInt(event.target.value);
+      onChangeProductQuantity(index, event); // call the function with the updated quantity value
     }
   
     function handleRemoveProduct(index) {
-      const newProducts = [...products];
-      newProducts.splice(index, 1);
-      setProducts(newProducts);
+      const newCartItems = [...cartItems];
+      newCartItems.splice(index, 0);
+      onRemoveProduct(newCartItems); // call the function with the new cart items
     }
   
-    const subTotal = products.reduce((acc, product) => {
-      return acc + product.price * product.quantity;
-    }, 0);
-    const tax = subTotal * 0.1;
-    console.log(`Number of items: ${itemCount}`);
-    console.log(`Subtotal: $${subTotal}`);
+    useEffect(() => {
+      let subtotal = 0;
+      if (cartItems) {
+        cartItems.forEach((item) => {
+          subtotal += item.price * item.quantity;
+        });
+      }
+      setSubTotal(subtotal);
+      setTax(subtotal * 0.13);
+      setTotal(subtotal + subtotal * 0.13);
+    }, [cartItems]);
   
     return (
-      <div className="Basket">
-        <h1>Shopping Cart</h1>
-        <span className="count">{itemCount} items in the bag</span>
+      <div className="BasketContainer">
         <ProductList
-          products={products}
-          onChangeProductQuantity={handleChangeProductQuantity}
+          cartItems={cartItems}
+          onChangeProductQuantity={handleProductQuantityChange}
           onRemoveProduct={handleRemoveProduct}
         />
-  
-        <Summary subTotal={subTotal}  tax={tax} />
+        <Summary subTotal={subTotal} tax={tax} total={total} />
       </div>
     );
   }

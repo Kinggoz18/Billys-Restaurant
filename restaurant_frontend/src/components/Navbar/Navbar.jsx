@@ -13,6 +13,12 @@ import {GetCurrentPage} from '../../rootLayout'
 /*Navbar component */
 export default function Navbar(props){
   function openbasket(){
+    const basket = document.getElementById("basketcontainer");
+    if (basket.style.display === "none" || basket.style.display === "") {
+      basket.style.display = "block";
+    } else {
+      basket.style.display = "none";
+    }
 
   }
 
@@ -34,7 +40,7 @@ export default function Navbar(props){
           </ul>
     <div className='app__navbar-right'>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i>Login</NavLink></p>
-        <div id="cart"  className='p__opensans'><NavLink to ='/Checkout'><i onClick={openbasket} className="fa fa-shopping-cart"></i> </NavLink> </div>
+        <div id="cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i>  </div>
       </div>
         </nav>
        <Basket className='Basket'/>
@@ -121,7 +127,7 @@ async function LoadDynamicNavbar(){
     return (
       
       <section className="SumContainer">
-        <div className="Summarry"></div>
+        
   
         <div className="pricesummary">
           <ul className="summaryli">
@@ -181,7 +187,7 @@ async function LoadDynamicNavbar(){
     }, [cartItems]);
   
     return (
-      <div className="BasketContainer">
+      <div className="BasketContainer hide " id='basketcontainer'>
         <ProductList
           cartItems={cartItems}
           onChangeProductQuantity={handleProductQuantityChange}

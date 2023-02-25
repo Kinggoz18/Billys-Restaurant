@@ -68,9 +68,9 @@
 background-color: #f5f5f5;
 border: 1px solid #ccc;
 padding: 1em;
-width: 400px;
+width: 486x;
 height: 400px;
-border-radius: 10px;
+border-radius: 20px;
 
 position: absolute;
 right: 0px;
@@ -82,9 +82,11 @@ height: 70vh;
 .cartItem{
     display: flex;
     flex-direction: row;
-    background-color: antiquewhite;
+    background-color: var(--color-yellow);
     justify-content: space-between;
     align-items: center;
+   border-radius: 10px;
+    
 }
 #Users-Cart {
     list-style: none;
@@ -101,19 +103,26 @@ height: 70vh;
   
   
   .Order-ItemName {
+    color: var(--color-white);
     font-weight: bold;
+    margin-right: 10px;
+    padding: 30px;
+    padding-left: 20px;
+    width:140px
+   
+  }
+  
+  .Order-ItemPrice {
     margin-right: 10px;
     padding: 30px;
     padding-left: 20px;
   }
   
-  .Order-ItemPrice {
-    margin-right: 10px;
-  }
-  
   .Order-Count {
     width: 50px;
     margin-right: 10px;
+    padding: 5px 30px;
+    padding-left: 20px;
   }
   
   .Order-Remove {
@@ -121,11 +130,75 @@ height: 70vh;
     color: #fff;
     border: none;
     padding: 5px 10px;
+    padding-left: 20px;
     border-radius: 5px;
     cursor: pointer;
+    width:140px
   }
   
   .Order-Remove:hover {
+    background-color: var(--color-yellow);
+  }
+  
+
+
+  .summaryli{
+    padding: auto;
+  }
+
+
+  .SumContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .pricesummary {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .summaryli {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .summaryli li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .summaryli li.total {
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+  
+  .summaryli li span {
+    font-weight: bold;
+  }
+  
+  .checkoutbtn button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .checkoutbtn button:hover {
     background-color: var(--color-yellow);
   }
   

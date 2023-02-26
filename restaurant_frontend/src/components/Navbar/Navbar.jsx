@@ -145,7 +145,9 @@ async function LoadDynamicNavbar(){
         </div>
   
         <div className="checkoutbtn">
-          <button type="button">Check Out</button>
+        <NavLink to="/Checkout">
+         <button type="button">Check Out</button>
+          </NavLink>
         </div>
       </section>
      

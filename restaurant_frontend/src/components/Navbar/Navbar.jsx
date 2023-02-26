@@ -7,17 +7,17 @@ import React,{useState,useEffect} from 'react';
 import $ from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
 
 /*Navbar component */
 export default function Navbar(props){
   function openbasket(){
     const basket = document.getElementById("basketcontainer");
-    if (basket.style.display === "none" || basket.style.display === "") {
-      basket.style.display = "block";
+    if (basket.classList.contains("hide-basket")) {
+      basket.classList.remove("hide-basket");
     } else {
-      basket.style.display = "none";
+      basket.classList.add('hide-basket');
     }
 
   }
@@ -125,10 +125,7 @@ async function LoadDynamicNavbar(){
   function Summary({ subTotal, tax, total }) {
     console.log('subtoal',subTotal)
     return (
-      
-      <section className="SumContainer">
-        
-  
+      <div className="SumContainer">
         <div className="pricesummary">
           <ul className="summaryli">
             <li>
@@ -144,13 +141,8 @@ async function LoadDynamicNavbar(){
           </ul>
         </div>
   
-        <div className="checkoutbtn">
-        <NavLink to="/Checkout">
-         <button type="button">Check Out</button>
-          </NavLink>
-        </div>
-      </section>
-     
+         <Link className="checkoutbtn" to="/Checkout">Check Out</Link>
+      </div>
     );
   }
   
@@ -189,12 +181,33 @@ async function LoadDynamicNavbar(){
     }, [cartItems]);
   
     return (
-      <div className="BasketContainer hide " id='basketcontainer'>
+      <div className="BasketContainer hide-basket" id='basketcontainer'>
         <ProductList
           cartItems={cartItems}
           onChangeProductQuantity={handleProductQuantityChange}
           onRemoveProduct={handleRemoveProduct}
         />
+        {/* DUMMY TEXT LIST becuase the API is down, Comment ProductList then comment out the list the test*/}
+        {/* <ul id='Users-Cart'>
+        <li className="cartItem" id='${ElementId}'>
+          <div className="Order-ItemName">Test 1</div>
+          <div className='Order-ItemPrice'>$10</div>
+          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
+          <button className='Order-Remove'>Remove</button>
+        </li>
+        <li className="cartItem" id='${ElementId}'>
+          <div className="Order-ItemName">Test 1</div>
+          <div className='Order-ItemPrice'>$10</div>
+          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
+          <button className='Order-Remove'>Remove</button>
+        </li>
+        <li className="cartItem" id='${ElementId}'>
+          <div className="Order-ItemName">Test 1</div>
+          <div className='Order-ItemPrice'>$10</div>
+          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
+          <button className='Order-Remove'>Remove</button>
+        </li>
+        </ul> */}
         <Summary subTotal={subTotal} tax={tax} total={total} />
       </div>
     );

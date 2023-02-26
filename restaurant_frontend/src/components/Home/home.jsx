@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import './home.css'
 import backgroundvideo from '../Videos/chicken1.mp4'
 import DrumRockJerk from '../Images/logo4.png'
@@ -6,7 +7,7 @@ import DrumRockJerk from '../Images/logo4.png'
 function PlaceOrderButton(props){
   return(
     <div> 
-       <button type="button" className='button'> Place order</button>
+       <Link to='/Menu' type="button" className='button'> Place order</Link>
     </div>
   )
 }

@@ -10,6 +10,7 @@
   .container {
     width: 400px;
     margin: 0 auto;
+    align-items: center;
     padding: 20px;
     background-color: orange;
     border-radius: 10px;
@@ -17,7 +18,13 @@
   }
 
   h1 {
+    text-align: 20px;
     text-align: center;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
   }
 
   label {
@@ -46,6 +53,18 @@
 
   button[type="submit"]:hover {
     background-color: #333;
+  }
+  a{
+    color: black;
+  }
+
+  a:hover{
+    color: #333;
+  }
+
+  footer{
+    text-align: center;
+    margin-top: 10px;
   }
 
 

@@ -1,5 +1,5 @@
 export class Sales{
-  apiBaseURL = 'https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/';
+  apiBaseURL = 'http://chigozie107-001-site1.itempurl.com/';
   
 
   async getTotalSales() {

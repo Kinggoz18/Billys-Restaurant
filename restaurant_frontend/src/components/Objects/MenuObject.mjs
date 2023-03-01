@@ -18,11 +18,11 @@ export class MenuObject{
      #MenuItem = null;
      //API urls
      #urls = {
-         Get: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Menu/GetMenu/",
-         GetAll: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Menu/GetAllMenu",
-         Delete: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Menu/DeleteMenu",
-         Create: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Menu/AddMenu",
-         Update: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Menu/UpdateMenu",
+         Get: "http://chigozie107-001-site1.itempurl.com/Menu/GetMenu/",
+         GetAll: "http://chigozie107-001-site1.itempurl.com/Menu/GetAllMenu",
+         Delete: "http://chigozie107-001-site1.itempurl.com/Menu/DeleteMenu",
+         Create: "http://chigozie107-001-site1.itempurl.com/Menu/AddMenu",
+         Update: "http://chigozie107-001-site1.itempurl.com/Menu/UpdateMenu",
      }
      //Default constructor
      constructor(){

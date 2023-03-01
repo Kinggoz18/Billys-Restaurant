@@ -39,7 +39,7 @@ export default function Navbar(props){
             <li className='p__opensans' id ="contact" ><NavLink to='/Contact'>Contact us</NavLink></li>
           </ul>
     <div className='app__navbar-right'>
-        <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i>Login</NavLink></p>
+        <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i><span className='logni-link'>Start Earning Points Now!</span></NavLink></p>
         <div id="cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i>  </div>
       </div>
         </nav>

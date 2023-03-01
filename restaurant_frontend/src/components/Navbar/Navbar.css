@@ -37,17 +37,28 @@
         align-items: flex-end;
         padding: 1rem 4rem;
     }
-    
+    #cart{
+      margin: 0em 1em;
+    }
+    .fa.fa-shopping-cart{
+      margin-bottom: 0.3em;
+    }
+    .fa.fa-fw.fa-user, .fa.fa-shopping-cart{
+      font-size: 1.7em !important;
+    }
+    .logni-link{
+      display: inline-block;
+      width: 140px;
+      padding: 0.3em;
+    }
     .app__navbar-right p, #cart{
-        margin: 0em 1rem;
-        font-size: 1.7em;
+        display: inline-block;
+        font-size: 1.3em;
+        margin: 0em 1rem 0em 0em;
         font-weight: 700;
         cursor: pointer;
         text-decoration: none;
         transition: 0.5s ease;
-    }
-    .app__navbar-right p i{
-        margin: 0em 0.5em;
     }
     .app__navbar-right p:hover{
       color: var(--color-white);

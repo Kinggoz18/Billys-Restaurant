@@ -100,7 +100,7 @@
 #Users-Cart {
   align-self: flex-start;
     list-style: none;
-    max-height: 40vh;
+    height: 40vh !important;
     overflow-y: scroll;
   }
   .cartItemCard {

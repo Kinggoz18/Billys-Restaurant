@@ -48,3 +48,96 @@
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
 }
+
+
+
+
+
+/* styling for checkout page */
+/* Checkout.css */
+
+.Checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.payment-label {
+  margin-bottom: 10px;
+}
+
+.payment-input {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.payment-button {
+  background-color: var(--color-yellow);
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.coupon-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.coupon-label {
+  margin-bottom: 10px;
+}
+
+.coupon-input {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.coupon-button {
+  background-color: var(--color-yellow);
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.confirmation-message {
+  font-size: 18px;
+  color: green;
+  margin-top: 20px;
+}

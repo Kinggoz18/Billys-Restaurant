@@ -16,27 +16,27 @@
 export class Account{
     //Stores the login account Url : Private
     #LoginUrls = {
-        Admin: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/LoginAdmin",
-        Customer: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/LoginCustomer",
-        Employee: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/LoginEmployee",
+        Admin: "http://chigozie107-001-site1.itempurl.com/Admin/LoginAdmin",
+        Customer: "http://chigozie107-001-site1.itempurl.com/Customer/LoginCustomer",
+        Employee: "http://chigozie107-001-site1.itempurl.com/Employee/LoginEmployee",
     };
     //Stores the create account Url : Private
     #CreateUrls ={
-        Admin: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/CreateAdmin",
-        Customer:"https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/CreateCustomer",
-        Employee: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/CreateEmployee",
+        Admin: "http://chigozie107-001-site1.itempurl.com/Admin/CreateAdmin",
+        Customer:"http://chigozie107-001-site1.itempurl.com/Customer/CreateCustomer",
+        Employee: "http://chigozie107-001-site1.itempurl.com/Employee/CreateEmployee",
     };
     //Stores the delete account Url : Private
     #DeleteUrls ={
-        Admin: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/DeleteAdmin",
-        Customer:"https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/DeleteCustomer",
-        Employee: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/DeleteEmployee",
+        Admin: "http://chigozie107-001-site1.itempurl.com/Admin/DeleteAdmin",
+        Customer:"http://chigozie107-001-site1.itempurl.com/Customer/DeleteCustomer",
+        Employee: "http://chigozie107-001-site1.itempurl.com/Employee/DeleteEmployee",
     };
     //Stores the update account Url : Private
     #UpdateUrls ={
-        Admin: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/UpdateAdmin",
-        Customer:"https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/UpdateCustomer",
-        Employee: "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/UpdateEmployee",
+        Admin: "http://chigozie107-001-site1.itempurl.com/Admin/UpdateAdmin",
+        Customer:"http://chigozie107-001-site1.itempurl.com/Customer/UpdateCustomer",
+        Employee: "http://chigozie107-001-site1.itempurl.com/Employee/UpdateEmployee",
     };
     //Gets the correct GetUser Url : Private
     #GetUserUrl(AccountType, id) {
@@ -44,13 +44,13 @@ export class Account{
         params.append("AdminId", id);
         switch(AccountType){
             case "Admin": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/GetAdmin?${params}`;
+                return `http://chigozie107-001-site1.itempurl.com/Admin/GetAdmin?${params}`;
             }
             case "Customer": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/GetCustomer?${params}`;
+                return `http://chigozie107-001-site1.itempurl.com/Customer/GetCustomer?${params}`;
             }
             case "Employee": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/GetEmployee?${params}`;
+                return `http://chigozie107-001-site1.itempurl.com/Employee/GetEmployee?${params}`;
             }
             default:{
                 break;
@@ -64,13 +64,13 @@ export class Account{
         params.append("AdminId", id);
         switch(AccountType){
             case "Admin": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Admin/GetAllAdmin/${id}`;
+                return `http://chigozie107-001-site1.itempurl.com/Admin/GetAllAdmin/${id}`;
             }
             case "Customer": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/GetAllCustomer/${id}`;
+                return `http://chigozie107-001-site1.itempurl.com/Customer/GetAllCustomer/${id}`;
             }
             case "Employee": {
-                return `https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Employee/GetAllEmployee/${id}`;
+                return `http://chigozie107-001-site1.itempurl.com/Employee/GetAllEmployee/${id}`;
             }
             default:{
                 break;
@@ -413,7 +413,7 @@ export class CustomerAccount extends Account{
     async UpdateCustomerPoint(id){
         let dataToReturn = null;
         try{
-            const apiUrl = "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/UpdatePoint";
+            const apiUrl = "http://chigozie107-001-site1.itempurl.com/MenuItem/GetAllMenuItemsCustomer/UpdatePoint";
             const params = new URLSearchParams();
             params.append("id", id);
             await fetch(`${apiUrl}?${params}`, {
@@ -437,7 +437,7 @@ export class CustomerAccount extends Account{
     async UseCustomersPoints(id){
         let dataToReturn = null;
         try{
-            const apiUrl = "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/Customer/ConsumePoint";
+            const apiUrl = "http://chigozie107-001-site1.itempurl.com/MenuItem/GetAllMenuItemsCustomer/ConsumePoint";
             const params = new URLSearchParams();
             params.append("id", id);
             await fetch(`${apiUrl}?${params}`, {

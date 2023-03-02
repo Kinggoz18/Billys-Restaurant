@@ -18,7 +18,8 @@
 export class NotificationObject{
 
     constructor(){
-        this.service_id = 'service_hnlujmq';
+        this.user_id = 'BAi5mP5KEn9mY2ZIg';
+        this.service_id = 'service_t1rkmus';
         this.Templates = ["template_obxckbj", "template_64iy8z9"];
         this.Event = ["Placed", "Completed", "Cancled"];
     }
@@ -27,7 +28,7 @@ export class NotificationObject{
         let data = {
             service_id: this.service_id,
             template_id: this.Templates[1],
-            user_id: 'BAi5mP5KEn9mY2ZIg',
+            user_id: this.user_id,
             template_params: {
                 to_name: sendName,
                 from_name: "Drum Rock Jerk",
@@ -35,14 +36,17 @@ export class NotificationObject{
                 send_to: sendEmail
             }
         };
+        let body = JSON.stringify(data);
        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
             method: 'POST',
-            data: JSON.stringify(data),
+            data: body,
             headers: { "Content-Type": "application/json" }
             }).then((response)=>{
-                if(!response.status){
-                    console.log("Error!");
-                    return;
+                if(!response.ok){
+                    response.text().then((text) => {
+                        console.log(text);
+                        return
+                    });
                 }
                 let Message = `
                 ${data.to_name}\n

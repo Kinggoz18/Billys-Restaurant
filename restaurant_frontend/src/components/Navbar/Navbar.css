@@ -50,6 +50,7 @@
       display: inline-block;
       width: 140px;
       padding: 0.3em;
+      text-align: left;
     }
     .app__navbar-right p, #cart{
         display: inline-block;
@@ -99,7 +100,7 @@
 #Users-Cart {
   align-self: flex-start;
     list-style: none;
-    max-height: 40vh;
+    height: 40vh !important;
     overflow-y: scroll;
   }
   .cartItemCard {

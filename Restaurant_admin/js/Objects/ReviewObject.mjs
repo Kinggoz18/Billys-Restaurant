@@ -15,7 +15,7 @@
 */
 
 export class Reviews {
-  apiBaseURL = 'https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/';
+  apiBaseURL = 'http://chigozie107-001-site1.itempurl.com/';
   
   // create a new review
   async createReview(review) {

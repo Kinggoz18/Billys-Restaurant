@@ -97,9 +97,9 @@ reviews.createReview({
   FirstName: 'Test User',
   UserId: '1'
 }) */
-//reviews.getAllReviews();
+reviews.getAllReviews();
 
 
-reviews.getReviewsByUser('1');
+//reviews.getReviewsByUser('1');
 
 //reviews.deleteReview('1');

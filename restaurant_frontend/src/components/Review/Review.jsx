@@ -108,7 +108,7 @@ function CreateReview(){
         let Account = GetFromStorage('AccountData')
             if(Account!=null){
             let account = JSON.parse(Account);
-            let userId = account['_id']
+            userId = account['_id']
         }
     }
     let reviewToPost = {

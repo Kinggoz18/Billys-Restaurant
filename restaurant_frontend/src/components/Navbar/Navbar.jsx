@@ -35,7 +35,7 @@ export default function Navbar(props){
             <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
             <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
             <li className='p__opensans' id ="location" ><NavLink to='/Location'>Location</NavLink></li>
-            <li className='p__opensans' id ="about" ><NavLink to="/About">About</NavLink></li>
+            <li className='p__opensans' id ="about" ><NavLink to="/About">About Us</NavLink></li>
             <li className='p__opensans' id ="review" ><NavLink to='/Review'>Reviews</NavLink></li>
           </ul>
     <div className='app__navbar-right'>

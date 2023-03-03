@@ -20,6 +20,10 @@ export class Reviews {
   // create a new review
   async createReview(review) {
     try {
+      let check = await this.CheckText(review.Description);
+      if(check === false){
+        return;
+      }
       const endpoint = `${this.apiBaseURL}Reviews/CreateReviews`;
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -78,5 +82,36 @@ export class Reviews {
 
     const data = await response.json();
     return data;
+  }
+  //Checks if a review contains profanity
+  async CheckText(review){
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", "9jHUleANM8gMFEjoAidBgENGAfmwxeCf");
+    let check = true;
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow',
+      headers: myHeaders,
+      body: review
+    };
+    
+    await fetch("https://api.apilayer.com/bad_words?censor_character=censor_character", requestOptions)
+      .then(response => {
+        if (!response.ok)
+        {
+          return;
+        }
+        return response.json();
+      })
+      .then(result =>{
+        if(result["bad_words_total"] > 0){
+          check = false;
+        }
+        else{
+          check = true;
+        }
+      })
+      .catch(error => console.log('error', error));
+      return check;
   }
 }

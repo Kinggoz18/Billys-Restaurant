@@ -206,7 +206,6 @@ export class Login extends React.Component{
             }
         }
         //If AccountData cookie exists
-        console.log(IsInStorage('AccountData'))
         if(IsInStorage('AccountData')){
             return(
                 <Navigate to="/Account"/>

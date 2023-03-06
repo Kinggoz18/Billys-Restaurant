@@ -35,8 +35,8 @@ export default function Navbar(props){
             <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
             <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
             <li className='p__opensans' id ="location" ><NavLink to='/Location'>Location</NavLink></li>
-            <li className='p__opensans' id ="about" ><NavLink to="/About">About</NavLink></li>
-            <li className='p__opensans' id ="contact" ><NavLink to='/Contact'>Contact us</NavLink></li>
+            <li className='p__opensans' id ="about" ><NavLink to="/About">About Us</NavLink></li>
+            <li className='p__opensans' id ="review" ><NavLink to='/Review'>Reviews</NavLink></li>
           </ul>
     <div className='app__navbar-right'>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i><span className='logni-link'>Start Earning Points Now!</span></NavLink></p>
@@ -55,7 +55,7 @@ async function LoadDynamicNavbar(){
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
     $('#location').removeClass('hide');
-    $('#contact').removeClass('hide');
+    $('#review').removeClass('hide');
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
         //then use an if statement to filter them
@@ -72,9 +72,9 @@ async function LoadDynamicNavbar(){
       {
         $('#location').addClass('hide');
       }
-      else if(CurrentPage.includes('Contact'))
+      else if(CurrentPage.includes('Review'))
       {
-        $('#contact').addClass('hide');
+        $('#review').addClass('hide');
       }
       else if(CurrentPage.includes('About'))
       {

@@ -1,5 +1,5 @@
 //Components imports
-import { Home, Menu, Location, ContactUs, AboutUs, CustomerAcc, Checkout } from './components/index';
+import { Home, Menu, Location, Review, AboutUs, CustomerAcc, Checkout } from './components/index';
 import { Login } from './components/Accounts/Login';
 
 //React imports
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='Location' element={<Location/>}/>
       <Route path='About' element={<AboutUs/>}/>
-      <Route path='Contact' element={<ContactUs/>}/>
+      <Route path='Review' element={<Review/>}/>
       <Route path='Login' element={<Login />} />
       <Route path='Checkout' element ={<Checkout/>}/>
 

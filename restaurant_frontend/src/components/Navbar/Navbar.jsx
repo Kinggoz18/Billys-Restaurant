@@ -147,7 +147,7 @@ async function LoadDynamicNavbar(){
   }
   
 
-  function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
+  export function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
     const [subTotal, setSubTotal] = useState(0);
     const [tax, setTax] = useState(0);
     const [total, setTotal] = useState(0);
@@ -187,27 +187,7 @@ async function LoadDynamicNavbar(){
           onChangeProductQuantity={handleProductQuantityChange}
           onRemoveProduct={handleRemoveProduct}
         />
-        {/* DUMMY TEXT LIST becuase the API is down, Comment ProductList then comment out the list the test*/}
-        {/* <ul id='Users-Cart'>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        </ul> */}
+        
         <Summary subTotal={subTotal} tax={tax} total={total} />
       </div>
     );
@@ -229,3 +209,4 @@ async function LoadDynamicNavbar(){
         $(element).parent().remove();
       }
   }
+  

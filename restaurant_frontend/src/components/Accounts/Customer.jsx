@@ -60,10 +60,11 @@ export function AccountInformation(props){
         <div id="user-passdiv">
             <label htmlFor="user-password">Password</label>
             <input id="user-password" type="text"></input>
-            <span id="user-notification">Enter existing password or a new password to confrim account Update.</span>
+            <span id="user-passError" className="error">Please enter your password to confrim update</span>
+            <span id="user-notification">Confrim with existing password or a new password to confrim account Update.</span>
         </div>
         <div id="user-updatebtn">
-            <button onClick={()=>UpdateAccount()}>Update Account</button>
+            <button onClick={(event)=>UpdateAccount(event)}>Update Account</button>
         </div>
         <div id="user-deteleAcc">
             <Link to="/" onClick={()=>DeleteAccount()}>Delete Account</Link>
@@ -101,6 +102,7 @@ function LoadAccountInfo(){
     if(Account!=null){
         return JSON.parse(Account);
     }
+    $('#user-passError').removeClass('show');
 }
 //Delete
 async function DeleteAccount() {
@@ -108,19 +110,34 @@ async function DeleteAccount() {
     RemoveFromStorage('AccountData');
 }
 //Update 
-async function UpdateAccount(){
-    let AccountInfo = {
-        FirstName: document.querySelector('#user-firstName').value,
-        LastName: document.querySelector('#user-lastName').value,
-        PhoneNumber: document.querySelector('#user-phone').value,
-        EmailAddress: document.querySelector('#user-email').value,
-        Password: document.querySelector('#user-password').value
+async function UpdateAccount(event){
+    event.preventDefault();
+    let firstname = document.querySelector('#user-firstName').value;
+    let lastname = document.querySelector('#user-lastName').value;
+    let phonenumber = document.querySelector('#user-phone').value;
+    let emailaddress = document.querySelector('#user-email').value;
+    let password = document.querySelector('#user-password').value;
+
+    if(password!=""){
+        let AccountInfo = {
+            firstName: (firstname == "")? AccountData['firstName'] : firstname,
+            lastName: (lastname == "")? AccountData['lastName'] : lastname,
+            phoneNumber: (phonenumber == "")? AccountData['phoneNumber'] : phonenumber,
+            emailAddress: (emailaddress == "")? AccountData['emailAddress'] : emailaddress,
+            password: password
+        }
+        //If any of them are null use the data from the storage
+    
+        await CustomerAccount.UpdateCustomer(AccountData['_id'], AccountInfo).then(()=>{
+            let result = CustomerAccount.GetCustomerInfo;
+            if(result!=null){
+                AddToStorage('AccountData', JSON.stringify(result));
+                window.location.reload(); 
+            }
+        });
     }
-    await CustomerAccount.UpdateCustomer(AccountData['_id'], AccountInfo);
-    let result = CustomerAccount.GetCustomerInfo;
-    if(result!=null){
-        AddToStorage('AccountData', JSON.stringify(result));
-        window.location.reload(); 
+    else{
+        $('#user-passError').addClass('show');
     }
     
 }

@@ -31,7 +31,6 @@
   flex-direction: column;
   border: 1px solid #ccc;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: scroll;
   padding: 20px;
   float: right;
   width: 70%;
@@ -47,10 +46,9 @@
 .checkout-summary {
   border: 1px solid #ccc;
   padding: 10px;
-  margin-bottom: 1em;
-  min-height: 300px;
-  max-height: 300px;
-  width: 70%;
+  margin-bottom: 4em;
+  max-height: 400px;
+  width: 90%;
   overflow-y: scroll;
   border-radius: 10px;}
 
@@ -180,13 +178,15 @@ input[type="text"]:focus {
   a { color: inherit; }
 
   /* FIX */
-  .clearfix, .clearfix:before {
+  .clearfix,
+  .clearfix:before {
     content: '';
     clear: both;
     display: table;
   }
 
   .order-summary {
+    
     font-family: 'Work Sans', sans-serif;
     font-size: 14px;
     padding: 15px;
@@ -212,14 +212,19 @@ input[type="text"]:focus {
   }
 
   .checkout-form {
-    background-color: var(--color-yellow);
-    border: 1px solid #ccc;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     gap: 20px;
+    border: 1px solid #ccc;
     padding: 20px;
-    width: 60%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--color-yellow);
+    max-width: 1224px;
+    width: 1224px;
   }
   
 
@@ -234,6 +239,11 @@ input[type="text"]:focus {
   margin-bottom: 0.7em;
   width: 100% !important;
   box-sizing: border-box;
+}
+
+.checkout-form input:focus {
+  outline: none;
+  border-color: #0066cc;
 }
 
 .place-order-btn {

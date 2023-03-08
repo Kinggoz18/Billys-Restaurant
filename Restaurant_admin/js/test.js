@@ -20,7 +20,7 @@ function checkPassword() {
     }
 }
 
-/* function isValidEmail(email) {
+function isValidEmail(email) {
     // Regular expression for validating email
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -31,4 +31,32 @@ function checkPassword() {
         return false;
     }
 }
- */
+
+function createAccount(){
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const phoneNumber = document.getElementById('phone-number').value;
+    const emailAddress = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const role = document.getElementById('role').value;
+    const adminPassword = document.getElementById('adminPassword').value;
+
+    // validate inputs
+    if (!firstName || !lastName || !phoneNumber || !emailAddress || !password) {
+        alert('Please enter all required fields.');
+        return;
+    }
+
+    if (role === 'admin' && adminPassword !== 'DRJ2022') {
+        alert('Incorrect admin password!');
+        return;
+    } 
+}
+
+const createAccountButton = document.getElementById('create-account-btn');
+createAccountButton.addEventListener('click', () => {
+    const script = document.createElement('script');
+    script.src = '../js/createaccount.js';
+    script.type = 'module';
+    document.body.appendChild(script);
+});

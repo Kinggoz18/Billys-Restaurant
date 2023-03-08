@@ -110,16 +110,19 @@ function Checkout() {
         </div>
         <form className="checkout-form">
           <div>
-            <label htmlFor="checkout-username">Full name</label>
+            <label htmlFor="checkout-username">Contact Full name</label>
             <input id="checkout-username" type="text" placeholder="Enter your full name" />
+            <span className='error'>Please enter a name for the order</span>
           </div>
           <div>
-            <label htmlFor="checkout-useremail">Email Address</label>
+            <label htmlFor="checkout-useremail">Contact Email address</label>
             <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
+            <span className='error'>Please enter a contact email</span>
           </div>
           <div>
-            <label htmlFor="checkout-userphone">Phone Number</label>
+            <label htmlFor="checkout-userphone">Contact Phone number</label>
             <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
+            <span className='error'>Please enter a contact phone number</span>
           </div>
         </form>
         <div className="payment-options">
@@ -140,20 +143,6 @@ function Checkout() {
             </div>
           )}
         </div>
-        <form className="checkout-form">
-          <div>
-            <label htmlFor="checkout-username">Full name</label>
-            <input id="checkout-username" type="text" placeholder="Enter your full name" />
-          </div>
-          <div>
-            <label htmlFor="checkout-useremail">Email Address</label>
-            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
-          </div>
-          <div>
-            <label htmlFor="checkout-userphone">Phone Number</label>
-            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
-          </div>
-        </form>
 
         <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
 

@@ -50,6 +50,30 @@ async function CreateMenu() {
 
   }
 }
+
+async function AccountCreate() {
+  let firstname = document.getElementById('first-name').value;
+  let lastname = document.getElementById('last-name').value;
+  let phone = document.getElementById('phone-number').value;
+  let email = document.getElementById('email').value;
+  let password = document.getElementById('password').value;
+  let confirmPassword = document.getElementById('confirm-password').value;
+  let role = document.getElementById('role').value;
+  let adminPassword = document.getElementById('adminPassword').value;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  if (role === 'admin'){
+    await Accounts.CreateAdmin(firstname,lastname,phone, email, password).then(() => {
+      console.log('Throw Success here! admin Created');
+      window.location.reload();
+    });
+
+  }
+}
 //Function to delete a menu
 async function DeleteMenu() {
   let menuName = document.getElementById('MenuName').value;

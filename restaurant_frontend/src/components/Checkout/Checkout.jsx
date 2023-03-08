@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import {GetFromStorage} from '../LocalStorage'
+
 import './Checkout.css';
 
-function Checkout(props) {
+
+
+
+
+function Checkout() {
   const [totalPoints, setTotalPoints] = useState(100);
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
@@ -9,11 +15,19 @@ function Checkout(props) {
   const [couponCode, setCouponCode] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
-  const cartItems = props.cartItems;
 
+  const [checkoutData, setCheckoutData] = useState(null);
 
+  useEffect(() => {
+    const data = JSON.parse(GetFromStorage('Checkoutdata'));
+    console.log('Checkout data:', data);
+    setCheckoutData(data);
+  }, []);
 
-
+  if (!checkoutData) {
+    return <div>Loading...</div>;
+  }
+  console.log('Checkout items:', checkoutData);
   // Function to handle coupon selection
   function handleCouponSelection() {
     setCouponSelected(true);
@@ -38,7 +52,7 @@ function Checkout(props) {
     // TODO: Apply coupon code
     setCouponPopupVisible(false);
   }
-
+  
   return (
     <div className='Page'>
       <div className="checkout-container">
@@ -50,14 +64,14 @@ function Checkout(props) {
         </div>
 
         <div className="order-summary">
-          <h3>Order Summary</h3>
-          {cartItems && cartItems.map((item, index) => (
-            <p className="summary-text" key={index}>
-              {item.name} Quantity: {item.quantity}
-            </p>
+       {checkoutData.map((item, index) => (
+            <li className="orderlist" key={index}>
+              <span id='name'>Name: {item.name}</span>
+              <span id='price'>Price: {item.price}</span>
+              <span id='Count'>Quantity: {item.count}</span>
+            </li>
           ))}
         </div>
-
 
         <div className="payment-options">
           <h3>Payment Options</h3>
@@ -76,7 +90,6 @@ function Checkout(props) {
               <button onClick={() => setCouponPopupVisible(true)}>Enter Coupon </button>
             </div>
           )}
-
         </div>
 
         <button className="place-order-btn" onClick={handlePlaceOrder}>Place Order</button>
@@ -92,23 +105,23 @@ function Checkout(props) {
           </div>
         )}
 
-{couponPopupVisible && (
-<div className="popup-container">
-<div className="popup">
-<div className="popup-content">
-<div className="coupon-section">
-<label id='Entercoupon-btn' htmlFor="coupon-code">Enter Coupon Code:</label>
-<input type="text" id="coupon-code" placeholder="Enter coupon code" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} />
-</div>
-<button className="popup-submit-btn" onClick={handleCouponSubmit}>Submit</button>
-<button className="popup-cancel-btn" onClick={() => setCouponPopupVisible(false)}>Cancel</button>
-</div>
-</div>
-</div>
-)}
-</div>
-</div>
-  );}
+        {couponPopupVisible && (
+          <div className="popup-container">
+            <div className="popup">
+              <div className="popup-content">
+                <div className="coupon-section">
+                  <label id='Entercoupon-btn' htmlFor="coupon-code">Enter Coupon Code:</label>
+                  <input type="text" id="coupon-code" placeholder="Enter coupon code" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} />
+                </div>
+                <button className="popup-submit-btn" onClick={handleCouponSubmit}>Submit</button>
+                <button className="popup-cancel-btn" onClick={() => setCouponPopupVisible(false)}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
-  export default Checkout;
-
+export default Checkout;

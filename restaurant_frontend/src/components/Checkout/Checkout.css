@@ -35,7 +35,9 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   float: right;
-  width: -webkit-fill-available;
+  width: 100%;
+margin-left: 42px;
+z-index: 100;
 }
 
 .user-info {
@@ -49,8 +51,7 @@
   margin-bottom: 20px;
   width: -moz-fit-content;
   width: 90%;
-  border-radius: 10px;
-}
+  border-radius: 10px;}
 
 label {
   display: block;
@@ -166,3 +167,48 @@ input[type="text"]:focus {
   color: #333;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+
+  
+
+ 
+
+  /* reset */
+  .no-margin { margin: 0; }
+
+  a { color: inherit; }
+
+  /* FIX */
+  .clearfix,
+  .clearfix:before {
+    content: '';
+    clear: both;
+    display: table;
+  }
+
+  .order-summary {
+    
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    padding: 15px;
+    width: 70%;
+    background: var(--color-yellow);
+  }
+
+  .orderlist {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    list-style: none;
+    justify-content: center;
+
+  }
+
+  #name, #price, #Count {
+    border: 1px solid white;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px;
+  }

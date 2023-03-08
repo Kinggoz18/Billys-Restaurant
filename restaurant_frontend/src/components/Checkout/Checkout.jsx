@@ -109,24 +109,25 @@ function Checkout() {
 
           {couponSelected && (
             <div className="coupon-section">
-              <button onClick={() => setCouponPopupVisible(true)}>Enter Coupon </button>
+              <button className='couponbtn' onClick={() => setCouponPopupVisible(true)}>Enter Coupon </button>
             </div>
           )}
         </div>
-          <div className="checkout-form">
-            <div>
-              <label htmlFor="checkout-username">Full name</label>
-              <input id='checkout-username' type="text" placeholder='Enter your full name'></input>
-            </div>
-            <div>
-              <label htmlFor="checkout-useremail">Email Address</label>
-              <input id='checkout-username' type="email" placeholder='Enter contact email'></input>
-            </div>
-            <div>
-              <label htmlFor="checkout-userphone">Phone Number</label>
-              <input id='checkout-username' type="text" placeholder="Enter contact phone"></input>
-            </div>
+        <form className="checkout-form">
+          <div>
+            <label htmlFor="checkout-username">Full name</label>
+            <input id="checkout-username" type="text" placeholder="Enter your full name" />
           </div>
+          <div>
+            <label htmlFor="checkout-useremail">Email Address</label>
+            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
+          </div>
+          <div>
+            <label htmlFor="checkout-userphone">Phone Number</label>
+            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
+          </div>
+        </form>
+
         <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
 
         {popupVisible && (

@@ -23,27 +23,35 @@ export class Order{
   //function to create an ordere
   async CreateOrder(order) {
   let dataToReturn;
-  let body = JSON.stringify(order);
   try {
+    // Calculate the total price
+    let totalPrice = 0;
+    for (let i = 0; i < order.items.length; i++) {
+      totalPrice += order.items[i].price;
+    }
+    order.totalPrice = totalPrice;
+
     // Make the AJAX call
-    let endpoint = `${apiBaseURL}Orders/CreateOrder`;
-    await fetch(endpoint, {
+    const endpoint = `${apiBaseURL}Orders/CreateOrder`;
+    const response = await fetch(endpoint, {
       method: 'POST',
-      body: body,
+      body: JSON.stringify(order),
       headers: { 'Content-Type': 'application/json' },
-    }).then((response)=>{
-      if (response.status!=200) {
+    }).then((data)=>{
+      if (data.status!=200) {
         console.error(`Error creating order: ${response.statusText}`);
       }
-      return response.json();
+      return data.json();
     }).then(data=>{
       const responseJson = data;
+      console.log("Response JSON:", responseJson);
       dataToReturn = responseJson;
     });
   } catch (error) {
     console.error(`Error creating order: ${error}`);
     return null;
   }
+  console.log("Data returned from API:", dataToReturn);
   return dataToReturn;
 }
 async  GetAllOrders() {

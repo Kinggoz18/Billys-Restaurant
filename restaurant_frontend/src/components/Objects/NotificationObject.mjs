@@ -28,7 +28,7 @@ export class NotificationObject{
         let template_params = {
             to_name: "Chigozie Muonagolu",
             from_name: sendName,
-            message:  `Order Information:\n${order}`,
+            message:  `Order Information:\n${order}}`,
             to: sendEmail
         }
         emailjs.send(this.service_id, this.Templates[1], template_params, this.user_id);
@@ -38,12 +38,11 @@ export class NotificationObject{
     }
     //Sends order acknowledgement notification
     async EmailPlacedOrder(order, sendName, sendEmail){
-        let finalOrder = this.FormatOrder(order);
         let template_params = {
-            to_name: sendName,
-            from_name: sendName,
-            message:  `Order Information:\n${finalOrder}}`,
-            to: sendEmail
+            to_name: "Chigozie Muonagolu",
+            from_name: "sendName",
+            message:  `Order Information:\n${order}}`,
+            to: "cmuonagolu18@gmail.com"
         }
         emailjs.send(this.service_id, this.Templates[0], template_params, this.user_id);
         let Message = `
@@ -86,14 +85,5 @@ export class NotificationObject{
             send_to: "billyrestaurant@outlook.com"
         }
         emailjs.send(this.service_id, this.Templates[0], template_params, this.user_id);
-    }
-
-    FormatOrder(Order){
-        let final = "";
-        Order.items.forEach(item=>{
-            final+=`${item.Name}	${item.Price}\n`
-        })
-        final+=`Total Price: ${Order.TotalPrice}`;
-        return final;
     }
 }

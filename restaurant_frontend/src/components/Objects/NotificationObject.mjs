@@ -42,7 +42,7 @@ export class NotificationObject{
         let template_params = {
             to_name: sendName,
             from_name: sendName,
-            message:  `Order Information:\n${finalOrder}}`,
+            message:  `Order Information:\n${finalOrder}`,
             to: sendEmail
         }
         emailjs.send(this.service_id, this.Templates[0], template_params, this.user_id);

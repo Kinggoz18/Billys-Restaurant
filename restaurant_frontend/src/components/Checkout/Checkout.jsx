@@ -5,7 +5,6 @@ import {Order, Accounts} from '../Objects/ObjectExports.mjs'
 import './Checkout.css';
 
 
-
 let AccountData = JSON.parse(GetFromStorage('AccountData'));
 let OrderObj = new Order();
 let CustomerObj = new Accounts.CustomerAccount();
@@ -18,9 +17,9 @@ function Checkout() {
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
 
   const [checkoutData, setCheckoutData] = useState(null);
-
+  let data;
   useEffect(() => {
-    const data = JSON.parse(GetFromStorage('Checkoutdata'));
+    data = JSON.parse(GetFromStorage('Checkoutdata'));
     console.log('Checkout data:', data);
     setCheckoutData(data);
   }, []);
@@ -43,7 +42,28 @@ function Checkout() {
 
   // Function to handle placing order
   function handlePlaceOrder() {
-    // TODO: Place the order
+    let data = JSON.parse(GetFromStorage('Checkoutdata'));
+
+    let name = document.querySelector("#checkout-username");
+    let email = document.querySelector("#checkout-useremail");
+    let phone = document.querySelector("#checkout-userphone");
+
+
+    let Order = {
+      CustomerName: name,
+      CustomerEmail: email,
+      PhoneNumber: phone,
+      items: [],
+      orderDate: GetCurrentDate(),
+      status: 'In progress',
+      TotalPrice: 0
+    }
+    data.forEach(Element=>{
+      let current = {
+        
+      }
+    });
+    OrderObj.CreateOrder(data)
     setPopupVisible(true);
   }
 
@@ -93,8 +113,21 @@ function Checkout() {
             </div>
           )}
         </div>
-
-        <button className="place-order-btn" onClick={handlePlaceOrder}>Place Order</button>
+          <div className="checkout-form">
+            <div>
+              <label htmlFor="checkout-username">Full name</label>
+              <input id='checkout-username' type="text" placeholder='Enter your full name'></input>
+            </div>
+            <div>
+              <label htmlFor="checkout-useremail">Email Address</label>
+              <input id='checkout-username' type="email" placeholder='Enter contact email'></input>
+            </div>
+            <div>
+              <label htmlFor="checkout-userphone">Phone Number</label>
+              <input id='checkout-username' type="text" placeholder="Enter contact phone"></input>
+            </div>
+          </div>
+        <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
 
         {popupVisible && (
           <div className="popup-container">
@@ -125,5 +158,12 @@ function Checkout() {
     </div>
   );
 }
+function GetCurrentDate(){
+  var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
 
+today = mm + '/' + dd + '/' + yyyy;
+}
 export default Checkout;

@@ -44,7 +44,6 @@
 }
 
 .checkout-summary {
-  background-color: var(--color-yellow);
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 4em;

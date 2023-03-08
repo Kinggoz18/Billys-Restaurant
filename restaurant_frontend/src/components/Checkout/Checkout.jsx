@@ -7,7 +7,9 @@ import './Checkout.css';
 
 
 let AccountData = JSON.parse(GetFromStorage('AccountData'));
-
+let OrderObj = new Order();
+let CustomerObj = new Accounts.CustomerAccount();
+ 
 function Checkout() {
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);

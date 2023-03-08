@@ -223,9 +223,10 @@ input[type="text"]:focus {
     max-width: 500px;
     margin: 0 auto;
     background-color: var(--color-yellow);
-    max-width: 1202px;
-    width: 838px;
+    max-width: 1224px;
+    width: 1224px;
   }
+  
 
 .checkout-form label {
   font-weight: bold;

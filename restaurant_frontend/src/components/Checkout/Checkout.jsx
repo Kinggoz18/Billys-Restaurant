@@ -1,17 +1,16 @@
 import React, { useState,useEffect } from 'react';
 import {GetFromStorage} from '../LocalStorage'
+import {Order, Accounts} from '../Objects/ObjectExports.mjs'
 
 import './Checkout.css';
 
 
 
-
+let AccountData = JSON.parse(GetFromStorage('AccountData'));
 
 function Checkout() {
-  const [totalPoints, setTotalPoints] = useState(100);
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);
   const [couponCode, setCouponCode] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
@@ -43,7 +42,6 @@ function Checkout() {
   // Function to handle placing order
   function handlePlaceOrder() {
     // TODO: Place the order
-    setOrderPlaced(true);
     setPopupVisible(true);
   }
 
@@ -52,29 +50,31 @@ function Checkout() {
     // TODO: Apply coupon code
     setCouponPopupVisible(false);
   }
-  
+  let points;
+    if(AccountData != null){
+      points = AccountData['points'];
+    }
   return (
     <div className='Page'>
       <div className="checkout-container">
-        <h2 className="checkout-heading">Checkout</h2>
+        <h2 className="checkout-heading">Your Basket</h2>
 
         <div className="user-info">
-          <p>You are Logged in </p>
-          <p>Total Points: {totalPoints}</p>
+        Reward Points: {points}
         </div>
 
-        <div className="order-summary">
+        <div className="checkout-summary">
        {checkoutData.map((item, index) => (
             <li className="orderlist" key={index}>
-              <span id='name'>Name: {item.name}</span>
-              <span id='price'>Price: {item.price}</span>
-              <span id='Count'>Quantity: {item.count}</span>
+              <span className='basket-name'>{item.name}</span>
+              <span className='basket-price'>{item.price}</span>
+              <span className='basket-count'>{item.count}</span>
             </li>
           ))}
         </div>
 
         <div className="payment-options">
-          <h3>Payment Options</h3>
+          <h3>Have a cupon or want to use your points?</h3>
           <label>
             <input type="radio" name="payment" value="coupon" checked={couponSelected} onChange={handleCouponSelection} />
             Pay with Coupon

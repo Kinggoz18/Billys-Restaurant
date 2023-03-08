@@ -69,6 +69,7 @@ async function LoadDynamicNavbar(){
     $('#review').removeClass('hide');
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
+    $('#basketcontainer').removeClass('hide');
         //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');

@@ -118,17 +118,17 @@ async function UpdateAccount(event){
     let emailaddress = document.querySelector('#user-email').value;
     let password = document.querySelector('#user-password').value;
 
-    if(password!=""){
+    if(password!==""){
+        //If any of account info is null use the data from the storage
         let AccountInfo = {
-            firstName: (firstname == "")? AccountData['firstName'] : firstname,
-            lastName: (lastname == "")? AccountData['lastName'] : lastname,
-            phoneNumber: (phonenumber == "")? AccountData['phoneNumber'] : phonenumber,
-            emailAddress: (emailaddress == "")? AccountData['emailAddress'] : emailaddress,
+            firstName: (firstname === "")? AccountData['firstName'] : firstname,
+            lastName: (lastname === "")? AccountData['lastName'] : lastname,
+            phoneNumber: (phonenumber === "")? AccountData['phoneNumber'] : phonenumber,
+            emailAddress: (emailaddress === "")? AccountData['emailAddress'] : emailaddress,
             password: password
         }
-        //If any of them are null use the data from the storage
-    
-        await CustomerAccount.UpdateCustomer(AccountData['_id'], AccountInfo).then(()=>{
+        let temp = ReturnBody(AccountInfo);    
+        await CustomerAccount.UpdateCustomer(AccountData['_id'], temp).then(()=>{
             let result = CustomerAccount.GetCustomerInfo;
             if(result!=null){
                 AddToStorage('AccountData', JSON.stringify(result));
@@ -140,4 +140,46 @@ async function UpdateAccount(event){
         $('#user-passError').addClass('show');
     }
     
+}
+function ReturnBody(AccountData)
+{
+    return {
+        _id: "string",
+        firstName: AccountData.firstName,
+        lastName: AccountData.lastName,
+        phoneNumber: AccountData.phoneNumber,
+        emailAddress: AccountData.emailAddress,
+        password: AccountData.password,
+        points: 0,
+        reviews: [
+          {
+            _id: "string",
+            description: "string",
+            rating: 0,
+            name: "string",
+            userId: "string"
+          }
+        ],
+        pastOrders: [
+          {
+            _id: "string",
+            customerEmail: "string",
+            customerName: "string",
+            phoneNumber: "string",
+            items: [
+              {
+                _id: "string",
+                name: "string",
+                price: 0,
+                menu: "string",
+                orderCount: 0,
+                imageLink: "string"
+              }
+            ],
+            orderdate: "string",
+            status: "string",
+            totalPrice: 0
+          }
+        ]
+      }
 }

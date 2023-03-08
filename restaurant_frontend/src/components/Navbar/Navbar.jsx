@@ -95,8 +95,9 @@ async function LoadDynamicNavbar(){
       {
         $('#login').addClass('hide');
       }
-      else if(CurrentPage.includes('Checkout')){
+      else if(CurrentPage.includes('checkout')){
         $('#checkout').addClass('hide');
+        $('#basketcontainer').addClass('hide');
       }
     }
   

@@ -3,7 +3,7 @@ import * as Menu from './Menu/Menu';
 import Navbar from './Navbar/Navbar';
 import Home from './Home/home';
 import Location from './Location/Location';
-import ContactUs from './ContactUs/ContactUs';
+import Review from './Review/Review';
 import AboutUs from './About/About';
 import * as CustomerAcc from './Accounts/Customer'
 import {Accounts} from './Objects/ObjectExports.mjs'
@@ -15,7 +15,7 @@ export {
   Home,
   Menu,
   Location,
-  ContactUs,
+  Review,
   AboutUs,
   Accounts,
   CustomerAcc,

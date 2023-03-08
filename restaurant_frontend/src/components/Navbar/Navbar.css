@@ -1,5 +1,8 @@
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
+  .mobile-navbar, .moblie-menu{
+    display: none;
+  }
     #nav-logo{
         height: 90px;
     }
@@ -38,6 +41,7 @@
         padding: 1rem 4rem;
     }
     #cart{
+      cursor: pointer;
       margin: 0em 1em;
     }
     .fa.fa-shopping-cart{
@@ -52,10 +56,15 @@
       padding: 0.3em;
       text-align: left;
     }
+
+    #login{
+      background-color: #C48623;
+      padding: 0.5em 0.2em;
+    }
     .app__navbar-right p, #cart{
         display: inline-block;
         font-size: 1.3em;
-        margin: 0em 1rem 0em 0em;
+        margin: 0em 1rem;
         font-weight: 700;
         cursor: pointer;
         text-decoration: none;
@@ -80,7 +89,7 @@
     overflow: hidden;
     right: 0.2px;
     transition: 0.5s ease;
-    top: 110px;
+    top: 122px;
     height: 74vh;
     width: 410px;
   }
@@ -140,13 +149,21 @@
     background-color: var(--color-yellow);
   }
   
-
-
   .summaryli{
     padding: auto;
   }
 
-
+  .checkoutbtn{
+    border-radius: 10px;
+    width: auto;
+    padding: 10px 18px;
+    background-color: var(--color-yellow);
+    flex-direction: column;
+    margin-top: auto;
+    padding: 20px;
+    padding-right: 20px;
+    border: 1px solid #888;
+  }
   .SumContainer {
     align-self: self-end;
     display: flex;
@@ -206,10 +223,72 @@
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
-
+  .mobile-navbar, .moblie-menu{
+    display: none;
+  }
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
-@media screen and (max-width: 670px) {}
+@media screen and (max-width: 670px) {
+  .logo-container{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-bottom: 1em;
+  }
+  .moblie-menu{
+    align-content: center;
+    display: grid;
+    font-size: 2.6em;
+    padding: 0em 0.5em;
+    justify-items:last baseline;
+  }
+.app__navbar-links{
+  display: none;
+
+}
+#nav-logo{
+  height: 80px;
+}
+/* Navbar styling */
+.app__navbar{
+  align-items: center;
+  display: grid;
+  background: var(--color-yellow);
+  flex-wrap: nowrap;
+  padding: 0.5em 0em 0em 0em;
+  flex-direction: row;
+  margin-bottom: 1em;
+  list-style: none;
+  opacity: 0.95;
+  width: 100vw;
+}
+.app__navbar-right{
+  font-size: 1.4em;
+  display: flex;
+  color: var(--color-black);
+  align-items: center;  
+  
+}
+/*Mobile navbar styling*/
+.mobile-navbar{
+  background-color: var(--color-golden);
+  color: white;
+  display: flex;
+  font-size: 1.4em;
+  font-weight: bold;
+  flex-direction: column;
+  height: 170px;
+  padding:0.7em 0em;
+}
+.p__opensans{
+  display: grid;
+  justify-content: center;
+  margin: 0.5em 0em;
+  width: 100%;
+}
+#login, #cart{
+  cursor: pointer;
+}
+}
 
 
 

@@ -4,10 +4,11 @@
 // 
 // 
 import React,{useState,useEffect} from 'react';
-import $ from 'jquery'
+import $, { data } from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
-import { NavLink, Link } from 'react-router-dom';
+import {AddToStorage} from '../LocalStorage'
+import { NavLink, Link, Navigate } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
 
 /*Navbar component */
@@ -30,18 +31,28 @@ export default function Navbar(props){
   return(
     <div>
         <nav className="app__navbar">
-        <div><img id="nav-logo"src={navlogo} alt="Nav Logo" /></div>
-          <ul className=' app__navbar-links'>
+        <div className='logo-container'>
+            <img id="nav-logo"src={navlogo} alt="Nav Logo" />
+          </div>
+          <ul className='app__navbar-links'>
             <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
             <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
             <li className='p__opensans' id ="location" ><NavLink to='/Location'>Location</NavLink></li>
-            <li className='p__opensans' id ="about" ><NavLink to="/About">About</NavLink></li>
-            <li className='p__opensans' id ="contact" ><NavLink to='/Contact'>Contact us</NavLink></li>
+            <li className='p__opensans' id ="about" ><NavLink to="/About">About Us</NavLink></li>
+            <li className='p__opensans' id ="review" ><NavLink to='/Review'>Reviews</NavLink></li>
           </ul>
     <div className='app__navbar-right'>
+        <span className='moblie-menu'><i className="fas fa-bars"></i></span>
         <p id="login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i><span className='logni-link'>Start Earning Points Now!</span></NavLink></p>
         <div id="cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i>  </div>
       </div>
+      <ul className='mobile-navbar'>
+            <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
+            <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
+            <li className='p__opensans' id ="location" ><NavLink to='/Location'>Location</NavLink></li>
+            <li className='p__opensans' id ="about" ><NavLink to="/About">About Us</NavLink></li>
+            <li className='p__opensans' id ="review" ><NavLink to='/Review'>Reviews</NavLink></li>
+          </ul>
         </nav>
        <Basket className='Basket'/>
     </div>
@@ -55,7 +66,7 @@ async function LoadDynamicNavbar(){
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
     $('#location').removeClass('hide');
-    $('#contact').removeClass('hide');
+    $('#review').removeClass('hide');
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
         //then use an if statement to filter them
@@ -72,9 +83,9 @@ async function LoadDynamicNavbar(){
       {
         $('#location').addClass('hide');
       }
-      else if(CurrentPage.includes('Contact'))
+      else if(CurrentPage.includes('Review'))
       {
-        $('#contact').addClass('hide');
+        $('#review').addClass('hide');
       }
       else if(CurrentPage.includes('About'))
       {
@@ -140,14 +151,13 @@ async function LoadDynamicNavbar(){
             </li>
           </ul>
         </div>
-  
-         <Link className="checkoutbtn" to="/Checkout">Check Out</Link>
+      <Checkout></Checkout>
       </div>
     );
   }
   
 
-  function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
+  export function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
     const [subTotal, setSubTotal] = useState(0);
     const [tax, setTax] = useState(0);
     const [total, setTotal] = useState(0);
@@ -187,27 +197,7 @@ async function LoadDynamicNavbar(){
           onChangeProductQuantity={handleProductQuantityChange}
           onRemoveProduct={handleRemoveProduct}
         />
-        {/* DUMMY TEXT LIST becuase the API is down, Comment ProductList then comment out the list the test*/}
-        {/* <ul id='Users-Cart'>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        <li className="cartItem" id='${ElementId}'>
-          <div className="Order-ItemName">Test 1</div>
-          <div className='Order-ItemPrice'>$10</div>
-          <input className='Order-Count' id='CartItem-Count${id}' type="number" min="0" value={1} />
-          <button className='Order-Remove'>Remove</button>
-        </li>
-        </ul> */}
+        
         <Summary subTotal={subTotal} tax={tax} total={total} />
       </div>
     );
@@ -229,3 +219,24 @@ async function LoadDynamicNavbar(){
         $(element).parent().remove();
       }
   }
+
+  function Checkout(event){
+    let checkoutList  = document.querySelector('#Users-Cart');
+    let checkoutItem = $(checkoutList).children();
+
+    let checkoutData = [];
+    $(checkoutItem).each((index, element) => {
+      let children = $(element).children();
+      let data = {
+        name: children[1].innerText,
+        price: children[2].innerText,
+        count: children[3].value,
+      }
+      checkoutData.push(JSON.stringify(data));
+    });
+    AddToStorage('Checkoutdata', checkoutData); //Add to the storage and redirect 
+      return(
+        <Link className="checkoutbtn" to='/checkout'>Check Out</Link>
+      );
+  }
+  

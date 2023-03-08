@@ -13,68 +13,41 @@
 |
 |------------------------------------------------------------------
 */
-
+import emailjs, { send } from '@emailjs/browser'
 
 export class NotificationObject{
 
     constructor(){
-        this.service_id = 'service_hnlujmq';
-        this.Templates = ["template_obxckbj", "template_64iy8z9"];
+        this.user_id = 'BAi5mP5KEn9mY2ZIg';
+        this.service_id = 'service_t1rkmus';
+        this.Templates = ["template_tte63a5", "template_64iy8z9"];
         this.Event = ["Placed", "Completed", "Cancled"];
     }
     //Sends complete order notification
     async EmailCompleteOrder(order, sendName, sendEmail) {
-        let data = {
-            service_id: this.service_id,
-            template_id: this.Templates[1],
-            user_id: 'BAi5mP5KEn9mY2ZIg',
-            template_params: {
-                to_name: sendName,
-                from_name: "Drum Rock Jerk",
-                message:  `Order Information:\n${order}}`,
-                send_to: sendEmail
-            }
-        };
-       await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
-            }).then((response)=>{
-                if(!response.status){
-                    console.log("Error!");
-                    return;
-                }
-                let Message = `
-                ${data.to_name}\n
-                Order Information:\n${order}}
-                `;
-                this.NotifyRestuarant(this.Event[1], Message);
-            });
+        let template_params = {
+            to_name: "Chigozie Muonagolu",
+            from_name: sendName,
+            message:  `Order Information:\n${order}}`,
+            to: sendEmail
+        }
+        emailjs.send(this.service_id, this.Templates[1], template_params, this.user_id);
+        let Message = `
+        ${template_params.to_name}\nOrder Information:\n${order}}`;
+        //this.NotifyRestuarant(this.Event[1], Message);
     }
     //Sends order acknowledgement notification
     async EmailPlacedOrder(order, sendName, sendEmail){
-        let data = {
-            service_id: this.service_id,
-            template_id: this.Templates[0],
-            user_id: 'BAi5mP5KEn9mY2ZIg',
-            template_params: {
-                to_name: sendName,
-                from_name: "Drum Rock Jerk",
-                message:  `Order Information:\n${order}}`,
-                send_to: sendEmail
-            }
-        };
-        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
-            }).then(()=>{
-                let Message = `
-                ${data.to_name}\n
-                Order Information:\n${order}}
-                `;
-                this.NotifyRestuarant(this.Event[0], Message);
-            });
+        let template_params = {
+            to_name: "Chigozie Muonagolu",
+            from_name: "sendName",
+            message:  `Order Information:\n${order}}`,
+            to: "cmuonagolu18@gmail.com"
+        }
+        emailjs.send(this.service_id, this.Templates[0], template_params, this.user_id);
+        let Message = `
+        ${template_params.to_name}\nOrder Information:\n${order}}`;
+        //this.NotifyRestuarant(this.Event[1], Message);
     }
 
     //Sends Cancle order notification - Cannot implement at the monent becuase our emailjs subscription is free tier
@@ -104,27 +77,13 @@ export class NotificationObject{
     //Sends a notification to the resturant 
     //Events: Completed, Cancled, Placed
     async NotifyRestuarant(Event, message){
-        let data = {
-            service_id: 'service_hnlujmq',
-            template_id: 'template_derujjo',
-            user_id: 'BAi5mP5KEn9mY2ZIg',
-            template_params: {
-                to_name: "Drum Rock Jerk",
-                from_name: "Drum Rock Jerk",  
-                message:  `Order ${Event}\n
-                ${message}}`,
-                send_to: "billyrestaurant@outlook.com"
-            }
-        };
-        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
-        });
+        let template_params =  {
+            to_name: "Drum Rock Jerk",
+            from_name: "Drum Rock Jerk",  
+            message:  `Order ${Event}\n
+            ${message}}`,
+            send_to: "billyrestaurant@outlook.com"
+        }
+        emailjs.send(this.service_id, this.Templates[0], template_params, this.user_id);
     }
 }
-
-let NotificationObj = new NotificationObject();
-
-await NotificationObj.EmailCompleteOrder("THIS IS A TEST ORDER", "Chigozie Muonagolu", "cmuonagolu18@outlook.com");
-//NotificationObj.EmailPlacedOrder("THIS IS A TEST ORDER", "Chigozie Muonagolu", "cmuonagolu18@outlook.com");

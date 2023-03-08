@@ -20,27 +20,23 @@ export class Reviews {
   // create a new review
   async createReview(review) {
     try {
+      let check = await this.CheckText(review.Description);
+      if(check === false){
+        return;
+      }
       const endpoint = `${this.apiBaseURL}Reviews/CreateReviews`;
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+       },
         body: JSON.stringify(review)
       });
       if (!response.ok) {
         throw new Error(`Unable to create review: ${response.statusText}`);
       }
-      const data = await response.json();
+      const data = await response.text();
       console.log('Created Review:', data);
 
-      // Update the customer's review list with the new review
-      const customer = await this.getCustomerById(data.UserId);
-      if (customer) {
-        if (!customer.Reviews) {
-          customer.Reviews = [];
-        }
-        customer.Reviews.push(data);
-        await this.updateCustomer(customer);
-      }
     } catch (error) {
       console.log(error)
     }
@@ -50,14 +46,16 @@ export class Reviews {
   // get all reviews
   async getAllReviews() {
     const endpoint = `${this.apiBaseURL}Reviews/GetAllReviews`;
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json'}});
 
     if (response.status != 200) {
       throw new Error(`Unable to get all reviews: ${response.statusText}`);
     }
     
     const data = await response.json();
-    console.log('All Reviews:', JSON.stringify(data));
+    return data;
   }
 
   // get reviews by user ID
@@ -70,7 +68,7 @@ export class Reviews {
     }
 
     const data = await response.json();
-    console.log(`Reviews by user "${userId}":`, data);
+    return data;
   }
 
   // delete review by ID
@@ -83,23 +81,37 @@ export class Reviews {
     }
 
     const data = await response.json();
-    console.log(`Deleted review with ID "${id}":`, data);
+    return data;
+  }
+  //Checks if a review contains profanity
+  async CheckText(review){
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", "9jHUleANM8gMFEjoAidBgENGAfmwxeCf");
+    let check = true;
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow',
+      headers: myHeaders,
+      body: review
+    };
+    
+    await fetch("https://api.apilayer.com/bad_words?censor_character=censor_character", requestOptions)
+      .then(response => {
+        if (!response.ok)
+        {
+          return;
+        }
+        return response.json();
+      })
+      .then(result =>{
+        if(result["bad_words_total"] > 0){
+          check = false;
+        }
+        else{
+          check = true;
+        }
+      })
+      .catch(error => console.log('error', error));
+      return check;
   }
 }
-
-// test the functions
-let reviews = new Reviews();
-/* 
-reviews.createReview({
-  Title: 'Test Review 1',
-  Description: 'This is a test review',
-  Rating: 4,
-  FirstName: 'Test User',
-  UserId: '1'
-}) */
-reviews.getAllReviews();
-
-
-//reviews.getReviewsByUser('1');
-
-//reviews.deleteReview('1');

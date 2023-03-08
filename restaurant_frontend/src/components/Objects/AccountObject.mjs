@@ -218,7 +218,7 @@ export class Account{
        try{
         const apiUrl = this.#UpdateUrls[AccountType];
         const params = new URLSearchParams();
-        params.append("AccountoUpdate_ID", adminToUpdate_ID);
+        params.set("AccountoUpdate_ID", adminToUpdate_ID);
             await fetch(`${apiUrl}?${params}`, {
                 method: "PUT",
                 body: accountInfo,
@@ -431,6 +431,7 @@ export class CustomerAccount extends Account{
         }catch(error){
             console.log(error);
         }
+        this.#AccountInfo = dataToReturn;
         return dataToReturn;
     }
     //Consumes customers points
@@ -455,6 +456,7 @@ export class CustomerAccount extends Account{
         }catch(error){
             console.log(error);
         }
+        this.#AccountInfo = dataToReturn;
         return dataToReturn;
     }
 }

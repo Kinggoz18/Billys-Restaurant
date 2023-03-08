@@ -13,9 +13,8 @@
 |https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/whatever-endpoint
 |------------------------------------------------------------------
 */
-import fetch from "node-fetch";
 const apiBaseURL = "http://chigozie107-001-site1.itempurl.com/";
-export  class Order{
+export class Order{
    //constructor to initialize orders to an array.
     constructor(){
       this.order = [];

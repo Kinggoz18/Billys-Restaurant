@@ -23,6 +23,9 @@
 body{
   font-family: 'Anek Devanagari', sans-serif;
 }
+footer{
+  z-index: -1;
+}
 a {
   color: unset;
   text-decoration: none;

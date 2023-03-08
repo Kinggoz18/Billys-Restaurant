@@ -69,6 +69,7 @@ async function LoadDynamicNavbar(){
     $('#review').removeClass('hide');
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
+    $('#basketcontainer').removeClass('hide');
         //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');
@@ -95,8 +96,9 @@ async function LoadDynamicNavbar(){
       {
         $('#login').addClass('hide');
       }
-      else if(CurrentPage.includes('Checkout')){
+      else if(CurrentPage.includes('checkout')){
         $('#checkout').addClass('hide');
+        $('#basketcontainer').addClass('hide');
       }
     }
   
@@ -221,9 +223,9 @@ async function LoadDynamicNavbar(){
   }
 
   function Checkout(event){
-    let checkoutList  = document.querySelector('#Users-Cart');
+    let checkoutList = document.querySelector('#Users-Cart');
     let checkoutItem = $(checkoutList).children();
-
+  
     let checkoutData = [];
     $(checkoutItem).each((index, element) => {
       let children = $(element).children();
@@ -232,11 +234,11 @@ async function LoadDynamicNavbar(){
         price: children[2].innerText,
         count: children[3].value,
       }
-      checkoutData.push(JSON.stringify(data));
+      checkoutData.push(data);
     });
-    AddToStorage('Checkoutdata', checkoutData); //Add to the storage and redirect 
-      return(
-        <Link className="checkoutbtn" to='/checkout'>Check Out</Link>
-      );
+    AddToStorage('Checkoutdata', JSON.stringify(checkoutData)); // save as array of objects
+    return (
+      <Link className="checkoutbtn" to='/checkout'>Check Out</Link>
+    );
   }
   

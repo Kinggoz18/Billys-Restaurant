@@ -14,7 +14,7 @@
 |------------------------------------------------------------------
 */
 import fetch from "node-fetch";
-const apiBaseURL = "https://drumrockjerkapi-v1.azure-api.net/drumrockjerk/";
+const apiBaseURL = "http://chigozie107-001-site1.itempurl.com/";
 export  class Order{
    //constructor to initialize orders to an array.
     constructor(){

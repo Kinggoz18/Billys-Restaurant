@@ -26,47 +26,26 @@ export class Reviews {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
       });
-
       if (!response.ok) {
         throw new Error(`Unable to create review: ${response.statusText}`);
       }
-
       const data = await response.json();
       console.log('Created Review:', data);
 
-      // Retrieve the customer object from the API
-      const customerEndpoint = `${this.apiBaseURL}Customer/GetCustomer/${id}`;
-      const customerResponse = await fetch(customerEndpoint);
-
-      if (!customerResponse.ok) {
-        throw new Error(`Unable to retrieve customer: ${customerResponse.statusText}`);
+      // Update the customer's review list with the new review
+      const customer = await this.getCustomerById(data.UserId);
+      if (customer) {
+        if (!customer.Reviews) {
+          customer.Reviews = [];
+        }
+        customer.Reviews.push(data);
+        await this.updateCustomer(customer);
       }
-
-      const customerData = await customerResponse.json();
-
-      // Add the new review to the review list
-      if (!customerData.Reviews) {
-        customerData.Reviews = [];
-      }
-
-      customerData.Reviews.push(data);
-      
-      // Update the customer object on the API
-      const updateEndpoint = `${this.apiBaseURL}Customer/UpdateCustomer`;
-      const updateResponse = await fetch(updateEndpoint, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(customerData)
-      });
-
-      if (!updateResponse.ok) {
-        throw new Error(`Unable to update customer: ${updateResponse.statusText}`);
-      }
-
     } catch (error) {
       console.log(error)
     }
   }
+
   
   // get all reviews
   async getAllReviews() {
@@ -118,9 +97,9 @@ reviews.createReview({
   FirstName: 'Test User',
   UserId: '1'
 }) */
-//reviews.getAllReviews();
+reviews.getAllReviews();
 
 
-reviews.getReviewsByUser('1');
+//reviews.getReviewsByUser('1');
 
 //reviews.deleteReview('1');

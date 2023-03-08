@@ -1,66 +1,50 @@
-function createAccount(event) {
-    event.preventDefault(); // prevent form submission
-
-    // get form inputs
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const phoneNumber = document.getElementById('phone-number').value;
-    const emailAddress = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const role = document.getElementById('role').value;
-    const adminPassword = document.getElementById('adminPassword').value;
-
-    // validate inputs
-    if (!firstName || !lastName || !phoneNumber || !emailAddress || !password) {
-        alert('Please enter all required fields.');
+async function createAccount(firstName, lastName, phoneNumber, emailAddress, password, confirmPassword, role, adminPassword) {
+    if (password !== confirmPassword) {
+        alert("Passwords do not match");
         return;
     }
 
-    if (role === 'admin' && adminPassword !== 'DRJ2022') {
-        alert('Incorrect admin password!');
-        return;
-    }
-
-    // send data to API
-    const data = {
-        firstName,
-        lastName,
-        phoneNumber,
-        emailAddress,
-        password,
-        role
-    };
-
-    const url = 'https://drumrockjerkapi-v1.azure-api.net/drumrockjerk';
-    let endpoint;
+    let endpointUrl;
     if (role === 'admin') {
-        endpoint = '/Admin';
+        endpointUrl = 'http://chigozie107-001-site1.itempurl.com/Admin/CreateAdmin';
+    } else if (role === 'employee') {
+        endpointUrl = 'http://chigozie107-001-site1.itempurl.com/Employee/CreateEmployee';
     } else {
-        endpoint = '/Employee';
+        alert('Please select a valid role');
+        return;
     }
-    fetch(`${url}${endpoint}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            if (response.ok) {
-                alert('Account created successfully!');
-                console.log('Before window.location.href');
-                window.location.href = 'login.html';
-                console.log('After window.location.href');
 
-            } else {
-                alert('Error creating account.');
-            }
-        })
-        .catch(error => {
-            console.error('Error creating account:', error);
-            alert('Error creating account.');
+    try {
+        const response = await fetch(endpointUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                phoneNumber,
+                emailAddress,
+                password,
+            })
         });
-}
-const createAccountButton = document.getElementById('create-account-button');
-createAccountButton.addEventListener('click', createAccount);
 
+        if (response.ok) {
+            try {
+                const data = await response.json();
+                if (role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else if (role === 'employee') {
+                    window.location.href = 'employee.html';
+                }
+            } catch (error) {
+                alert(`Failed to create account: ${error}`);
+            }
+        } else {
+            const errorMessage = await response.text();
+            console.error(`Failed to create account: ${errorMessage}`);
+        }
+    } catch (error) {
+        console.error(`Failed to create account: ${error}`);
+    }
+}

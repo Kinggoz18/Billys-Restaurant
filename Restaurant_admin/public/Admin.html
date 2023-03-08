@@ -1,126 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Admin Panel</title>
-    <link rel = "stylesheet" href = "/Restaurant_admin/styles/admin.css">
-    <script src="../js//Admin.js" defer type="module"></script>
-    <!-- Add any CSS and JavaScript files needed -->
-  </head>
 
-  <body id="page-top">
-    <!-- Navigation -->
-    <nav>
-        <h1>Hello Billy,</h1>       
-        <ul id="wrapper">
-            <!-- Sidebar -->
-            <li><a href="#Profile-Section">Profile</a></li>
-            <li><a href="#Menu-Section">Menu</a></li>
-            <li><a href="#Orders-Section">Orders</a></li>
-            <li><a href="#Sales-Section">Sales</a></li>
-            <li><input type="button" value ="Logout"></li>
-          </ul>
-    </nav>
-    <!-- Title -->
-    <header>
-         <!-- Logo -->
-        <div id="image-container">
-            <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
+  <script src="../js//Admin.js" defer type="module"></script>
+  <script src="../js/test.js"></script>
+  
+  <!-- Add any CSS and JavaScript files needed -->
+</head>
+
+<body id="page-top">
+  <!-- Navigation -->
+  <nav>
+    <h1>Hello Billy,</h1>
+    <ul id="wrapper">
+      <!-- Sidebar -->
+      <li><a href="#Profile-Section">Profile</a></li>
+      <li><a href="#Menu-Section">Menu</a></li>
+      <li><a href="#Orders-Section">Orders</a></li>
+      <li><a href="#Sales-Section">Sales</a></li>
+      <li><input type="button" value="Logout"></li>
+    </ul>
+  </nav>
+  <!-- Title -->
+  <header>
+    <!-- Logo -->
+    <div id="image-container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+    </div>
+    <h1>Admin Account</h1>
+  </header>
+  <!-- Main -->
+  <main>
+    <section class="Profile-Section" id="Profile-Section">
+      <h2>Profile</h2>
+      <form id="Profile">
+        <div>
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName"><br><br>
         </div>
-        <h1>Admin Account</h1>
-    </header>
-    <!-- Main -->
-    <main>
-        <section class="Profile-Section" id="Profile-Section">
-            <h2>Profile</h2>
-            <form id = "Profile">
-              <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name"><br><br>
-              </div>
 
-              <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email"><br><br>
-              </div>
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName"><br><br>
+        </div>
 
-              <div>
-            <label for="password">Old Password:</label>
-                <input type="password" id="password" name="password"><br><br>
-              </div>
+        <div>
+          <label for="emailAddress">Email Address:</label>
+          <input type="email" id="email" name="email"><br><br>
+        </div>
 
-              <div>
-                <label for="new-password">New Password:</label>
-                <input type="password" id="new-password" name="new-password"><br><br>
-              </div>
+        <div>
+          <label for="oldPassword">Old Password:</label>
+          <input type="password" id="oldPassword" name="oldPassword"><br><br>
+        </div>
 
-              <div>
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone"><br><br>
-              </div>
+        <div>
+          <label for="newPassword">New Password:</label>
+          <input type="password" id="newPassword" name="newPassword"><br><br>
+        </div>
 
-            <input type="submit" value="Save">
-            <input type="button" value="Cancel" onclick="resetForm()">
+        <div>
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber"><br><br>
+        </div>
+
+        <input type="submit" value="Save">
+        <input type="button" value="Cancel" onclick="resetForm()">
+      </form>
+    </section>
+    <section class="Menu-Section" id="Menu-Section">
+      <br>
+      <h2>Edit Your Menu</h2>
+      <div id="menu">
+        <h3>Create Menu</h3>
+        <form>
+          <div>
+            <label for="MenuName">Menu Name</label>
+            <input id="MenuName" type="text" required>
+          </div>
+          <button id="createMenuBTN">Add Menu</button>
         </form>
-        </section>
-        <section class="Menu-Section" id="Menu-Section">
-          <br><h2>Edit Your Menu</h2>
-          <div id="menu">
-            <h3>Create Menu</h3>
-            <form>
-              <div>
-                <label for="MenuName">Menu Name</label>
-                <input id="MenuName" type="text" required>
-              </div>
-              <button id="createMenuBTN">Add Menu</button>
-            </form>
+      </div>
+      <div id="menuItem">
+        <br>
+        <h3>Add a Menu Item</h3>
+        <form>
+          <div>
+            <label for="MenuItemName">Item Name</label>
+            <input id="MenuItemName" type="text" required>
           </div>
-          <div id="menuItem">
-            <br><h3>Add a Menu Item</h3>
-            <form>
-              <div>
-                <label for="MenuItemName">Item Name</label>
-                <input id="MenuItemName" type="text" required>
-              </div>
-              <div>
-                <label for="MenuItemPrice">Item Price</label>
-                <input id="MenuItemPrice" type="text" required>
-              </div>
-              <div>
-                <label for="MenuItemMenu">Item Menu</label>
-                <select id="MenuItemMenu"></select>
-              </div>
-              <div>
-                <label for="MenuItemImage">Please select an Item Image to upload</label>
-                <input type="file" id="MenuItemImage" name="img" accept="image/*">
-              </div>
-              <button id="AddMenuItemBTN">Add Item</button>
-            </form>
+          <div>
+            <label for="MenuItemPrice">Item Price</label>
+            <input id="MenuItemPrice" type="text" required>
           </div>
-          <div id="deleteMenu">
-            <br><h3>Delete a Menu</h3>
-            <form>
-              <div>
-                <label for="DeleteMenuName">Menu Name</label>
-                <select id="DeleteMenuName"></select>
-              </div>
-              <button id="DeleteMenuBTN">Delete Menu</button>
-            </form>
+          <div>
+            <label for="MenuItemMenu">Item Menu</label>
+            <select id="MenuItemMenu"></select>
           </div>
-        </section>
+          <div>
+            <label for="MenuItemImage">Please select an Item Image to upload</label>
+            <input type="file" id="MenuItemImage" name="img" accept="image/*">
+          </div>
+          <button id="AddMenuItemBTN">Add Item</button>
+        </form>
+      </div>
+      <div id="deleteMenu">
+        <br>
+        <h3>Delete a Menu</h3>
+        <form>
+          <div>
+            <label for="DeleteMenuName">Menu Name</label>
+            <select id="DeleteMenuName"></select>
+          </div>
+          <button id="DeleteMenuBTN">Delete Menu</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="Orders-Section" id="Orders-Section">
+      <br>
+      <h2>Order</h2>
+      <div id="order">
+        <div>
+          <label for="search-box">Search for an order:</label>
+          <input type="text" id="search-box">
+        </div>
         
-        <section class="Orders-Section" id="Orders-Section">
-          <br><h2>Order</h2>
-          <div id = "order">
-              
-          </div>
-      </section>
-        <section class="Sales-Section" id="Sales-Section">
-          <br><h2>Sales</h2>
-            <div id="sales">
-              <br><span id="total-sales"></span>
-            </div>
-           
-        </section>
-    </main>
-  </body>
+        <ul id="total-order"></ul>
+        
+      </div>
+    </section>
+
+    <section class="Sales-Section" id="Sales-Section">
+      <br>
+      <h2>Sales</h2>
+      <div id="sales">
+        <br><span id="total-sales"></span>
+      </div>
+
+    </section>
+  </main>
+</body>
+
 </html>

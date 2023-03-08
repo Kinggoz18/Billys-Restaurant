@@ -1,33 +1,36 @@
 body {
-    height: 100%;
-    margin: 0;
-    overflow-x: hidden;
-  }
-main{
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+main {
   margin: 0em 3em;
   position: relative;
   left: 23vw;
   max-width: 1000px;
-  top: 280px ;
+  top: 280px;
 }
-header{
-    align-items: center;
-    display: flex;
-    font-size: 2em;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    left: 20vw;
-    max-height: 200px !important;
-    width: 100vw;
-    padding: 1em;
-    position: absolute;
-    background-color: orange;
+
+header {
+  align-items: center;
+  display: flex;
+  font-size: 2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  left: 20vw;
+  max-height: 200px !important;
+  width: 100vw;
+  padding: 1em;
+  position: absolute;
+  background-color: orange;
 }
-section{
+
+section {
   margin: 0em 0em 3em 0em;
 }
-  /***************************************** BREAKPOINT for Large devices ********************************************************/
-  @media screen and (min-width: 1010px)
-  {
+
+/***************************************** BREAKPOINT for Large devices ********************************************************/
+@media screen and (min-width: 1010px) {
   nav {
     font-size: 2em;
     background-color: orange;
@@ -39,81 +42,88 @@ section{
     float: left;
     position: fixed;
     top: 0;
-}
+  }
 
-#image-container {
-  width: 240px; 
-}
-#image-container img {
+  #image-container {
+    width: 240px;
+  }
+
+  #image-container img {
     width: 100%;
-}
+  }
 
-  
-#wrapper a {
+
+  #wrapper a {
     color: white;
     text-decoration: none;
   }
-  
-#wrapper a:hover {
+
+  #wrapper a:hover {
     color: black;
-}
-  
-h2, h3, h4 {
+  }
+
+  h2,
+  h3,
+  h4 {
     margin: 0;
     display: inline-block;
-}
+  }
 
-#profile, #menu, #sale {
+  #profile,
+  #menu,
+  #sale {
     background-color: white;
     color: black;
     height: 100%;
-    margin:  auto;
+    margin: auto;
     text-align: left;
-}
-
-form div{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin: auto;
-  margin-left: 0;
-  text-align: left;
-  margin: 2em;
-}
-
-input[type="submit"], input[type="button"] {
-  background-color: blue;
-  border: none;
-  color: white;
-  padding: 12px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-input[type="submit"]:hover, input[type="button"]:hover {
-  background-color: #007bff;
-}
-
-ul {
-  list-style-type: none;
-  margin-bottom: 10px;
-}
-
-
-h1{
-  text-align: center;
-}
   }
-/***************************************** BREAKPOINT for Medium devices ********************************************************/
-@media screen and (max-width: 1010px) {
+
+  form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: auto;
+    margin-left: 0;
+    text-align: left;
+    margin: 2em;
+  }
+
+  input[type="submit"],
+  input[type="button"] {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  input[type="submit"]:hover,
+  input[type="button"]:hover {
+    background-color: #007bff;
+  }
+
+  ul {
+    list-style-type: none;
+    margin-bottom: 10px;
+  }
+
+
+  h1 {
+    text-align: center;
+  }
 
 }
+
+/***************************************** BREAKPOINT for Medium devices ********************************************************/
+@media screen and (max-width: 1010px) {}
+
 /***************************************** BREAKPOINT for small devices ********************************************************/
-@media screen and (max-width: 670px) {
-}
+@media screen and (max-width: 670px) {}

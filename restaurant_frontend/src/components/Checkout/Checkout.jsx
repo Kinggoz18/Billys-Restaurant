@@ -78,7 +78,14 @@ function Checkout() {
       Order.items.push(current);
     });
     Order['TotalPrice'] = total;
-    OrderObj.CreateOrder(Order);  //Post the order
+    OrderObj.CreateOrder(Order).then(data=>{
+      if(data!=null){
+        //Post the order
+    if(AccountData!=null){
+      CustomerObj.UpdateCustomerPoint(AccountData['_id']);
+    }
+      }
+    });  
     NotificationObj.EmailPlacedOrder(Order, Order.CustomerName, Order.CustomerEmail);
   }
   // Function to handle submitting coupon code

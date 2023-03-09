@@ -25,7 +25,7 @@
         margin: 0.3em;
         outline: none;
         padding: 0.5em;
-        width: 100%;
+        width: 100% !important;
     }
     #review-message{
         background-color: rgb(232, 231, 231);

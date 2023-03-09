@@ -24,22 +24,16 @@ export class Order{
   async CreateOrder(order) {
   let dataToReturn;
   try {
-    // Calculate the total price
-    let totalPrice = 0;
-    for (let i = 0; i < order.items.length; i++) {
-      totalPrice += order.items[i].price;
-    }
-    order.totalPrice = totalPrice;
 
     // Make the AJAX call
     const endpoint = `${apiBaseURL}Orders/CreateOrder`;
-    const response = await fetch(endpoint, {
+    await fetch(endpoint, {
       method: 'POST',
       body: JSON.stringify(order),
       headers: { 'Content-Type': 'application/json' },
     }).then((data)=>{
       if (data.status!=200) {
-        console.error(`Error creating order: ${response.statusText}`);
+        console.error(`Error creating order: ${data.statusText}`);
       }
       return data.json();
     }).then(data=>{
@@ -88,7 +82,33 @@ async  GetAllOrders() {
 //sends notification to restaurant to cancel order
 async DeleteOrder(){}
 
+//get orders by useremail
+async  GetAllOrdersByEmail(useremail) {
+  let dataToReturn;
+  try {
+    const endpoint = `${apiBaseURL}Orders/GetOrdersByEmail/${encodeURIComponent(useremail)}`;
+    console.log(endpoint);
+      await fetch(endpoint,
+      {method: 'GET'}).then(data => {
+      if (data.status !== 200) {
+        console.error(`Error fetching orders: ${data.statusText}`);
+        throw new Error(data.statusText);
+      }
+      return data.json();
 
+    }).then(data => {
+      const responseJson = data;
+      console.log("Response JSON:", responseJson);
+      dataToReturn = responseJson;
+
+    });
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+  return dataToReturn;
+}
 
 }
 

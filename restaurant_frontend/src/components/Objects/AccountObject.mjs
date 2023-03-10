@@ -413,7 +413,7 @@ export class CustomerAccount extends Account{
     async UpdateCustomerPoint(id){
         let dataToReturn = null;
         try{
-            const apiUrl = "http://chigozie107-001-site1.itempurl.com/MenuItem/GetAllMenuItemsCustomer/UpdatePoint";
+            const apiUrl = "http://chigozie107-001-site1.itempurl.com/Customer/UpdatePoint";
             const params = new URLSearchParams();
             params.append("id", id);
             await fetch(`${apiUrl}?${params}`, {
@@ -438,7 +438,7 @@ export class CustomerAccount extends Account{
     async UseCustomersPoints(id){
         let dataToReturn = null;
         try{
-            const apiUrl = "http://chigozie107-001-site1.itempurl.com/MenuItem/GetAllMenuItemsCustomer/ConsumePoint";
+            const apiUrl = "http://chigozie107-001-site1.itempurl.com/Customer/ConsumePoint";
             const params = new URLSearchParams();
             params.append("id", id);
             await fetch(`${apiUrl}?${params}`, {

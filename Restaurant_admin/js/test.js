@@ -20,7 +20,7 @@ function checkPassword() {
     }
 }
 
-/* function isValidEmail(email) {
+function isValidEmail(email) {
     // Regular expression for validating email
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,4 +32,3 @@ function checkPassword() {
     }
 }
  */
-

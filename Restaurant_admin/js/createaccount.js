@@ -1,57 +1,50 @@
-'use strict'
-//imports
-import { Accounts } from './Objects/ObjectExports.mjs';
-
-// create instances of account objects
-let adminAccount = new Accounts.AdminAccount();
-let employeeAccount = new Accounts.EmployeeAccount();
-
-//Function to Create Account
-async function AccountCreate() {
-    let AccountInfo = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        phoneNumber: document.getElementById('phoneNumber').value,
-        emailAddress: document.getElementById('emailAddress').value,
-        password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirmPassword').value,
-        role: document.getElementById('role').value,
-        adminPassword: document.getElementById('adminPassword').value,
-    }
-
-    if (AccountInfo.password !== AccountInfo.confirmPassword) {
+async function createAccount(firstName, lastName, phoneNumber, emailAddress, password, confirmPassword, role, adminPassword) {
+    if (password !== confirmPassword) {
         alert("Passwords do not match");
         return;
     }
-    // validate inputs
-    if (!firstName || !lastName || !phoneNumber || !emailAddress || !password) {
-        alert('Please enter all required fields.');
-        return;
-    }
 
-    if (role === 'admin' && adminPassword !== 'DRJ2022') {
-        alert('Incorrect admin password!');
+    let endpointUrl;
+    if (role === 'admin') {
+        endpointUrl = 'http://chigozie107-001-site1.itempurl.com/Admin/CreateAdmin';
+    } else if (role === 'employee') {
+        endpointUrl = 'http://chigozie107-001-site1.itempurl.com/Employee/CreateEmployee';
+    } else {
+        alert('Please select a valid role');
         return;
     }
 
     try {
-        if (AccountInfo.role === 'admin' && AccountInfo.adminPassword === 'DRJ2022') {
-            await adminAccount.CreateAdmin(AccountInfo);
-            console.log('Success! Admin Created');
-            window.location.replace("../public/Admin.html");
-        }
-        else if (AccountInfo.role === 'employee') {
-            await employeeAccount.CreateEmployee(AccountInfo);
-            console.log('Success! Employee Created');
-            window.location.replace("../public/Employee.html");
+        const response = await fetch(endpointUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                phoneNumber,
+                emailAddress,
+                password,
+            })
+        });
+
+        if (response.ok) {
+            try {
+                const data = await response.json();
+                if (role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else if (role === 'employee') {
+                    window.location.href = 'employee.html';
+                }
+            } catch (error) {
+                alert(`Failed to create account: ${error}`);
+            }
+        } else {
+            const errorMessage = await response.text();
+            console.error(`Failed to create account: ${errorMessage}`);
         }
     } catch (error) {
-        console.error(error);
-        alert('Error creating account. Please try again later.');
+        console.error(`Failed to create account: ${error}`);
     }
 }
-
-
-
-// Add event listener to the "Create Account" button
-document.getElementById('createAccountBtn').addEventListener('click', AccountCreate)

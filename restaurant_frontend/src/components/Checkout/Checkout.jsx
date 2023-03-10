@@ -1,12 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import {GetFromStorage} from '../LocalStorage'
-import {Order, Accounts} from '../Objects/ObjectExports.mjs'
+import {Order, Accounts, NotificationObject} from '../Objects/ObjectExports.mjs'
 
 import './Checkout.css';
 
 
 let AccountData = JSON.parse(GetFromStorage('AccountData'));
 let OrderObj = new Order();
+let NotificationObj= new NotificationObject();
 let CustomerObj = new Accounts.CustomerAccount();
  
 function Checkout() {
@@ -42,31 +43,51 @@ function Checkout() {
 
   // Function to handle placing order
   function handlePlaceOrder() {
+    setPopupVisible(true);
+    PostOrder();
+  }
+  function PostOrder(){
     let data = JSON.parse(GetFromStorage('Checkoutdata'));
 
-    let name = document.querySelector("#checkout-username");
-    let email = document.querySelector("#checkout-useremail");
-    let phone = document.querySelector("#checkout-userphone");
+    let name = document.querySelector("#checkout-username").value;
+    let email = document.querySelector("#checkout-useremail").value;
+    let phone = document.querySelector("#checkout-userphone").value;
 
-
+    let date = GetCurrentDate();
     let Order = {
+      _id: "string",
       CustomerName: name,
       CustomerEmail: email,
       PhoneNumber: phone,
       items: [],
-      orderDate: GetCurrentDate(),
+      orderdate: date,
       status: 'In progress',
       TotalPrice: 0
     }
+    let total = 0;
     data.forEach(Element=>{
       let current = {
-        
+        _id: "string",
+        Name: Element.name,
+        Price: parseFloat(Element.price.replace("$", "")),
+        menu: "string",
+        OrderCount: Element.count,
+        imageLink: "string"
       }
+      total+= current.Price;
+      Order.items.push(current);
     });
-    OrderObj.CreateOrder(data)
-    setPopupVisible(true);
+    Order['TotalPrice'] = total;
+    OrderObj.CreateOrder(Order).then(data=>{
+      if(data!=null){
+        //Post the order
+    if(AccountData!=null){
+      CustomerObj.UpdateCustomerPoint(AccountData['_id']);
+    }
+      }
+    });  
+    NotificationObj.EmailPlacedOrder(Order, Order.CustomerName, Order.CustomerEmail);
   }
-
   // Function to handle submitting coupon code
   function handleCouponSubmit() {
     // TODO: Apply coupon code
@@ -94,7 +115,23 @@ function Checkout() {
             </li>
           ))}
         </div>
-
+        <form className="checkout-form">
+          <div>
+            <label htmlFor="checkout-username">Contact Full name</label>
+            <input id="checkout-username" type="text" placeholder="Enter your full name" />
+            <span className='error'>Please enter a name for the order</span>
+          </div>
+          <div>
+            <label htmlFor="checkout-useremail">Contact Email address</label>
+            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
+            <span className='error'>Please enter a contact email</span>
+          </div>
+          <div>
+            <label htmlFor="checkout-userphone">Contact Phone number</label>
+            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
+            <span className='error'>Please enter a contact phone number</span>
+          </div>
+        </form>
         <div className="payment-options">
           <h3>Have a cupon or want to use your points?</h3>
           <label>
@@ -113,20 +150,6 @@ function Checkout() {
             </div>
           )}
         </div>
-        <form className="checkout-form">
-          <div>
-            <label htmlFor="checkout-username">Full name</label>
-            <input id="checkout-username" type="text" placeholder="Enter your full name" />
-          </div>
-          <div>
-            <label htmlFor="checkout-useremail">Email Address</label>
-            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
-          </div>
-          <div>
-            <label htmlFor="checkout-userphone">Phone Number</label>
-            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
-          </div>
-        </form>
 
         <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
 
@@ -166,5 +189,6 @@ var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
+return today;
 }
 export default Checkout;

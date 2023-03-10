@@ -8,15 +8,16 @@ import './css/customer.css'
 
 import profilePic from '../Images/profileLogo.png'
 import {AddToStorage, GetFromStorage, RemoveFromStorage} from '../LocalStorage'
-import { Accounts } from "../Objects/ObjectExports";
+import { Accounts, Order } from "../Objects/ObjectExports";
 
 //Global Account Variable
 let AccountData;
 let CustomerAccount = new Accounts.CustomerAccount();
-
+let OrderObj = new Order();
 //Defaul customer home
 export function CustomerNav(props){
     AccountData = LoadAccountInfo();
+    GetPastOrders();
     return(<div>
         <div className="CustomerHome-Left">
             <img className="user-img" src={profilePic} alt="User Profile" />
@@ -182,4 +183,9 @@ function ReturnBody(AccountData)
           }
         ]
       }
+}
+
+function GetPastOrders(){
+    let email = AccountData['emailAddress'];
+    AccountData['pastOrders'] = OrderObj.GetAllOrdersByEmail(email);
 }

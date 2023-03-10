@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>Login</title>
-  <link rel="stylesheet" href="/Restaurant_admin/styles/login.css">
-  <script src = "../js/login.js" defer type="module"></script>
-</head>
-
-<body>
-  <div class="container">
-    <img src="/Restaurant_admin/images/DRM.png" alt="Restaurant Logo">
-    <h1>Login</h1>
-    <form>
-      <div>
-        <label for="emailAddress">Email:</label>
-        <input type="text" id="emailAddress" name="emailAddress" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <div>
-        <label for="role">Role:</label>
-        <select id="role" name="role"  required>
-          <option value="Default">Choose a Role</option>
-          <option value="admin">Admin</option>
-          <option value="employee">Employee</option>
-        </select><br><br>
-      </div>
-
-      <button type="submit" id="loginAccountBtn">Login</button>
-      <p>Don't have an account? <a href="Createaccount.html">Create one now</a>.</p>
-    </form>
-  </div>
-  <footer>
-    <span> &copy;Drum Rock Jerk Chicken</span>
-  </footer>
-</body>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Restaurant_admin/styles/login.css">
+  </head>
+  <body>
+    <div class="container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Restaurant Logo">
+      <h1>Login</h1>
+      <form>
+        <div>
+          <label for="emailAddress">Email:</label>
+          <input type="text"  id="emailAddress" name="emailAddress" required>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" id="loginAccountBtn">Login</button>
+        <p>Don't have an account? <a href="Createaccount.html">Create one now</a>.</p>
+      </form>
+    </div>
+    <footer>
+        <span> &copy;Drum Rock Jerk Chicken</span>
+    </footer>
+  </body>
 </html>

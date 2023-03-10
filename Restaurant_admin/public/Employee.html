@@ -3,7 +3,7 @@
   <head>
     <title>Employee Panel</title>
     <link rel = "stylesheet" href = "/Restaurant_admin/styles/admin.css">
-    <script src="../js//Admin.js" defer type="module"></script>
+    <script src="../js//employee.js" defer type="module"></script>
     <!-- Add any CSS and JavaScript files needed -->
   </head>
   <body id="page-top">
@@ -50,11 +50,19 @@
     </section>
     
     <section class="Orders-Section" id="Orders-Section">
-      <br><h2>Order</h2>
-      <div id = "order">
-          
+      <br>
+      <h2>Order</h2>
+      <div id="order">
+        <div>
+          <label for="search-box">Search for an order:</label>
+          <input type="text" id="search-box">
+        </div>
+        
+        <ul id="total-order"></ul>
+        
       </div>
-  </section>
+    </section>
+
 </main>
   </body>
 </html>

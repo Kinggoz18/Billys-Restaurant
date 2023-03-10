@@ -258,20 +258,19 @@ export class AdminAccount extends Account{
             Password: null
         }
     }
-    async AdminLogin(LoginCredentials) {
+    //Logins in the admin
+    async AdminLogin(LoginCredentials){
         let result = await this.LoginAccount("Admin", LoginCredentials);
-        if (result !== false) {
+        if(result!==false)
+        {
             this.#AccountInfo = result;
-        } else {
-            return "not found";
         }
-        return true;
+        return result;
     }
-
-    get GetAdminInfo() {
+    //Gets the Admin information
+    get GetAdminInfo(){
         return this.#AccountInfo;
     }
-
     //Gets all the admin accounts
     async GetAllAdmin(id){
         let AllAccount;
@@ -316,17 +315,16 @@ export class EmployeeAccount extends Account{
         }
     }
     //Logins in the Employee
-    async EmployeeLogin(LoginCredentials) {
-        let result = await this.LoginAccount("Employee", LoginCredentials);
-        if (result !== false) {
+    async EmployeeLogin(LoginCredentials){
+        let result =  await this.LoginAccount("Employee", LoginCredentials);
+        if(result!==false)
+        {
             this.#AccountInfo = result;
-        } else {
-            return "not found";
         }
-        return true;
+        return result;
     }
-
-    get GetEmployeeInfo() {
+    //Gets the Employee information
+    get GetEmployeeInfo(){
         return this.#AccountInfo;
     }
     //Gets all the Employee accounts

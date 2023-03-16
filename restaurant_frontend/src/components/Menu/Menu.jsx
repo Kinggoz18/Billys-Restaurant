@@ -259,7 +259,6 @@ function AddToCart(event){
   <button class='Order-Remove'>Remove</button>
   </li>`
 
-
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
@@ -270,15 +269,27 @@ function AddToCart(event){
     cartItemValues.push(currItem);
     //Update the html
     cart.innerHTML+= current;
-    SetCartItemValues()
+    // Set the event listener for the input element
+    $(queryId).on('input', function() {
+      currItem.value = parseInt($(this).val()); // update the value in currItem
+      $(this).val(currItem.value); // update the value in the input element
+      SetCartItemValues(); // update the outer HTML
+    });
+    SetCartItemValues();
   }
   else{
-      let item = document.querySelector(queryId);
-      let number = parseInt(item.value) + 1;
-      $(item).attr('value', number);
-      //Update the item
-      let currItem = {id: queryId, value: number};
-      cartItemValues.push(currItem);
+    let item = document.querySelector(queryId);
+    let number = parseInt(item.value) + 1;
+    item.value = number;
+    //Update the item
+    let currItem = {id: queryId, value: number};
+    cartItemValues.push(currItem);
+    // Set the event listener for the input element
+    $(queryId).on('input', function() {
+      currItem.value = parseInt($(this).val()); // update the value in currItem
+      $(this).attr('value', currItem.value); // update the value in the input element
+      SetCartItemValues(); // update the outer HTML
+    });
   }
 }
 

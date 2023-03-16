@@ -9,10 +9,9 @@ async function LoginAccount() {
     let LoginInfo = {
         emailAddress: document.getElementById('emailAddress').value,
         password: document.getElementById('password').value,
-        role: document.getElementById('role').value,
     }
-
-    if (!LoginInfo.emailAddress || !LoginInfo.password || !LoginInfo.role) {
+    let role = document.getElementById('role').value;
+    if (!LoginInfo.emailAddress || !LoginInfo.password || !role) {
         alert('Please enter all required fields.');
         return;
     }

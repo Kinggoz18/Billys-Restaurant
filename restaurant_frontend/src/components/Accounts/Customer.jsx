@@ -1,5 +1,5 @@
 //React Imports
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 //Jquery import
 import  $  from "jquery";
@@ -74,15 +74,36 @@ export function AccountInformation(props){
     )
 }
 //Past Orders Tab
-export function PastOrders(props){
-    let pastOrders = AccountData['pastOrders'];
-    return(<div className="user-pastOrders">
-        <ul className="user-orders">
-            {pastOrders.forEach(element => {
-            $('.users-orders').append(`<li>${element}</li>`)})}
-        </ul>
-    </div>)
-}
+export function PastOrders(props) {
+    const pastOrders = AccountData['pastOrders'];
+  
+    const orderList = pastOrders.map((order, index) => (
+      <div key={index} className="order-item">
+        <div className="order-details">
+          <div>Order Number: {order._id}</div>
+          <div>Date: {order.date}</div>
+          <div>Total Price: {order.totalPrice}</div>
+        </div>
+        <div className="order-items">
+          <h4>Order Items</h4>
+          <ul>
+            {order.items.map((item, index) => (
+              <li key={index}>
+                {item.name} - ${item.price}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ));
+  
+    return (
+      <div className="user-pastOrders">
+        <h2>Past Orders</h2>
+        <div className="order-list">{orderList}</div>
+      </div>
+    );
+  }
 //Past Reviews Tab
 export function PastReviews(props){
     let pastOrders = AccountData['pastOrders'];
@@ -185,7 +206,7 @@ function ReturnBody(AccountData)
       }
 }
 
-function GetPastOrders(){
+async function GetPastOrders(){
     let email = AccountData['emailAddress'];
-    AccountData['pastOrders'] = OrderObj.GetAllOrdersByEmail(email);
+    AccountData['pastOrders'] = await OrderObj.GetAllOrdersByEmail(email);
 }

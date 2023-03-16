@@ -83,7 +83,7 @@ async  GetAllOrders() {
 async DeleteOrder(){}
 
 //get orders by useremail
-async  GetAllOrdersByEmail(useremail) {
+async GetAllOrdersByEmail(useremail) {
   let dataToReturn;
   try {
     const endpoint = `${apiBaseURL}Orders/GetOrdersByEmail/${encodeURIComponent(useremail)}`;
@@ -100,14 +100,12 @@ async  GetAllOrdersByEmail(useremail) {
       const responseJson = data;
       console.log("Response JSON:", responseJson);
       dataToReturn = responseJson;
-
     });
-
+    return dataToReturn;
   } catch (error) {
     console.error(error);
     return null;
   }
-  return dataToReturn;
 }
 
 }

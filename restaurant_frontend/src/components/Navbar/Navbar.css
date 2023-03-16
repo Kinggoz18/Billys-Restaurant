@@ -1,6 +1,17 @@
+/* Global Styling */
+.show-mobileNav{
+  opacity: 100% !important;
+  height: 270px !important;
+}
+/* css for the checkout basket  */
+.hide-basket{
+  overflow: clip;
+  height: 0px !important;
+  opacity: 0;
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
-  .mobile-navbar, .moblie-menu{
+  .mobile-navbar, .moblie-menu, .mobile_app__navbar-right{
     display: none;
   }
     #nav-logo{
@@ -73,11 +84,6 @@
     .app__navbar-right p:hover{
       color: var(--color-white);
     }
-    /* css for the checkout basket  */
-  .hide-basket{
-    height: 0px !important;
-    opacity: 0;
-  }
   .BasketContainer {
     display: grid;
     grid-template-columns: 100%;
@@ -226,6 +232,80 @@
   .mobile-navbar, .moblie-menu{
     display: none;
   }
+  .logo-container{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-bottom: 1em;
+  }
+  .moblie-menu{
+    align-content: center;
+    display: grid;
+    font-size: 2.6em;
+    padding: 0em 0.5em;
+    justify-items:last baseline;
+  }
+.app__navbar-links{
+  display: none;
+
+}
+#nav-logo{
+  height: 80px;
+}
+/* Navbar styling */
+.app__navbar{
+  align-items: center;
+  display: grid;
+  background: var(--color-yellow);
+  flex-wrap: nowrap;
+  padding: 0.5em 0em 0em 0em;
+  flex-direction: row;
+  list-style: none;
+  opacity: 0.95;
+  width: 100vw;
+}
+.app__navbar-right{
+  display: none; 
+  
+}
+/*Mobile navbar styling*/
+.mobile_app__navbar-right{
+  align-content: end;
+  color: var(--color-white);
+  display: grid;
+  justify-content: end;
+  font-size: 1em;
+}
+
+.mobile-navbar{
+  align-items: center;
+  background-color: var(--delete-red);
+  color: white;
+  display: flex;
+  font-size: 1em;
+  font-weight: bold;
+  flex-direction: column;
+  height: 0px;
+  padding:0.7em 0em;
+  opacity: 0%;
+  overflow: clip;
+  transition: 0.5s;
+}
+.mobile-navbar li{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em 0em;
+  width: 90% !important;
+}
+.p__opensans{
+  display: grid;
+  justify-content: center;
+  margin: 0.5em 0em;
+  width: 100%;
+}
+#login, #cart{
+  cursor: pointer;
+}
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
@@ -256,28 +336,43 @@
   flex-wrap: nowrap;
   padding: 0.5em 0em 0em 0em;
   flex-direction: row;
-  margin-bottom: 1em;
   list-style: none;
   opacity: 0.95;
   width: 100vw;
 }
 .app__navbar-right{
-  font-size: 1.4em;
-  display: flex;
-  color: var(--color-black);
-  align-items: center;  
+  display: none; 
   
 }
 /*Mobile navbar styling*/
+.mobile_app__navbar-right{
+  align-content: end;
+  color: var(--color-white);
+  display: grid;
+  justify-content: end;
+  font-size: 1em;
+}
+
 .mobile-navbar{
-  background-color: var(--color-golden);
+  align-items: center;
+  background-color: var(--delete-red);
   color: white;
   display: flex;
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: bold;
   flex-direction: column;
-  height: 170px;
+  height: 0px;
   padding:0.7em 0em;
+  opacity: 0%;
+  overflow: clip;
+  transition: 0.5s;
+}
+.mobile-navbar li{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em 0em;
+  width: 90% !important;
 }
 .p__opensans{
   display: grid;

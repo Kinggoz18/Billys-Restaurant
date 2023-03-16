@@ -25,6 +25,21 @@ export default function Navbar(props){
 
 
   LoadDynamicNavbar();
+  //Global variables
+  let isMobileToggled = false;
+  //Global event listeners
+
+  //Toggle mobile nav
+  $('.fas.fa-bars').on('click', ()=>{
+    if(!isMobileToggled){
+      $('.mobile-navbar').addClass('show-mobileNav show-mobileNavList');
+      isMobileToggled = true;
+    }
+    else{
+      $('.mobile-navbar').removeClass('show-mobileNav');
+      isMobileToggled = false;
+    }
+  })
   //Remove basket items
   document.addEventListener('click', (event)=>{RemoveCartItem(event)})
 
@@ -32,8 +47,11 @@ export default function Navbar(props){
     <div>
         <nav className="app__navbar">
         <div className='logo-container'>
-            <img id="nav-logo"src={navlogo} alt="Nav Logo" />
+          <img id="nav-logo"src={navlogo} alt="Nav Logo" />
+          <div className='mobile_app__navbar-right'>
+              <span className='moblie-menu'><i className="fas fa-bars"></i></span>
           </div>
+        </div>
           <ul className='app__navbar-links'>
             <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
             <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
@@ -47,11 +65,13 @@ export default function Navbar(props){
         <div id="cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i>  </div>
       </div>
       <ul className='mobile-navbar'>
-            <li className='p__opensans hide' id ="home"><NavLink to="/">Home</NavLink></li>
-            <li className='p__opensans' id ="menu" ><NavLink to="/Menu">Menu</NavLink></li>
-            <li className='p__opensans' id ="location" ><NavLink to='/Location'>Location</NavLink></li>
-            <li className='p__opensans' id ="about" ><NavLink to="/About">About Us</NavLink></li>
-            <li className='p__opensans' id ="review" ><NavLink to='/Review'>Reviews</NavLink></li>
+            <li><p id="mobile-login"  className='p__opensans'><NavLink to='/Login'><i className="fa fa-fw fa-user"></i><span className='logni-link'>Login & Start Earning Points Now!</span></NavLink></p></li>
+            <li className='p__opensans hide' id ="mobile-home"><NavLink to="/">Home</NavLink></li>
+            <li className='p__opensans' id ="mobile-menu" ><NavLink to="/Menu">Menu</NavLink></li>
+            <li className='p__opensans' id ="mobile-location" ><NavLink to='/Location'>Location</NavLink></li>
+            <li className='p__opensans' id ="mobile-about" ><NavLink to="/About">About Us</NavLink></li>
+            <li className='p__opensans' id ="mobile-review" ><NavLink to='/Review'>Reviews</NavLink></li>
+            <li><div id="mobile-cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i></div></li>
           </ul>
         </nav>
        <Basket className='Basket'/>
@@ -70,35 +90,55 @@ async function LoadDynamicNavbar(){
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
     $('#basketcontainer').removeClass('hide');
+
+    //Mobile
+    $('#mobile-home').removeClass('hide');
+    $('#mobile-menu').removeClass('hide');
+    $('#mobile-location').removeClass('hide');
+    $('#mobile-review').removeClass('hide');
+    $('#mobile-about').removeClass('hide');
+    $('#mobile-login').removeClass('hide');
+    $('#mobile-basketcontainer').removeClass('hide');
+
         //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');
+      $('#mobile-home').addClass('hide');
     }
     else{
       $('#home').removeClass('hide');
+      $('#mobile-home').removeClass('hide');
       if(CurrentPage.includes('Menu'))
       {
         $('#menu').addClass('hide');
+        $('#mobile-menu').addClass('hide');
       }
       else if(CurrentPage.includes('Location'))
       {
         $('#location').addClass('hide');
+        $('#mobile-location').addClass('hide');
       }
       else if(CurrentPage.includes('Review'))
       {
         $('#review').addClass('hide');
+        $('#mobile-review').addClass('hide');
       }
       else if(CurrentPage.includes('About'))
       {
         $('#about').addClass('hide');
+        $('#mobile-about').addClass('hide');
       }
-      else if(CurrentPage.includes('Account'))
+      else if(CurrentPage.includes('Account') || CurrentPage.includes('Login'))
       {
         $('#login').addClass('hide');
+        $('#mobile-login').addClass('hide');
       }
       else if(CurrentPage.includes('checkout')){
         $('#checkout').addClass('hide');
-        $('#basketcontainer').addClass('hide');
+        $('#mobile-basketcontainer').addClass('hide');
+
+        $('#checkout').addClass('hide');
+        $('#mobile-basketcontainer').addClass('hide');
       }
     }
   

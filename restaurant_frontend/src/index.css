@@ -54,7 +54,7 @@ textarea {
 }
 
 .hide{
-  display: none;
+  display: none !important;
 }
 .loading-icon{
   height: 100px !important;

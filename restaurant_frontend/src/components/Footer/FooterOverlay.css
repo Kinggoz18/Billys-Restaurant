@@ -34,8 +34,62 @@ footer, .footerLeft, .footerRight{
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
-
+    footer{
+        align-items: center;
+        background: var(--color-yellow);
+        color: aliceblue;
+        flex-direction: row;
+        padding: 0.5em 1em !important;
+        bottom: 0px;
+        height: 70px; 
+        left: 0px;
+        position:relative;
+        max-width: 100vw;
+        z-index: 1;
+    }
+    .footerLeft{
+        margin-right: 3em;
+    }
+    .footerLeft p{
+        padding: 0.2em 0em 0em 0.5em;
+    }
+    .footerRight{
+        flex-grow: 1;
+        justify-content: right;
+    }
+    .footerRight i{
+        font-size: 1.5em;
+        margin: 0em 0.5em;
+    }
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
+    footer{
+        align-items: center;
+        background: var(--color-yellow);
+        color: aliceblue;
+        flex-direction: row;
+        padding: 0.5em 1em !important;
+        bottom: 0px;
+        height: 70px; 
+        left: 0px;
+        position:relative;
+        max-width: 100vw;
+        z-index: 1;
+    }
+    .footerLeft{
+        margin-right: 3em;
+    }
+    .footerLeft p{
+        font-size: 0.7em;
+        padding: 0.2em 0em 0em 0.5em;
+    }
+    .footerRight{
+        flex-grow: 1;
+        justify-content: right;
+    }
+    .footerRight i{
+        font-size: 0.8em;
+        margin: 0em 0.5em;
+    }
 }

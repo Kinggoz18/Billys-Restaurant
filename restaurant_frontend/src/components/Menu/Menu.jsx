@@ -275,7 +275,7 @@ function AddToCart(event){
   else{
       let item = document.querySelector(queryId);
       let number = parseInt(item.value) + 1;
-      item.value = number;
+      $(item).attr('value', number);
       //Update the item
       let currItem = {id: queryId, value: number};
       cartItemValues.push(currItem);
@@ -295,6 +295,6 @@ function FindItemInList(text, id){
 //Function to set the cart item values 
 function SetCartItemValues(){
   cartItemValues.forEach(element=>{
-    $(element.id).val(element.value);
+    $(element.id).attr('value', element.value);
   })
 }

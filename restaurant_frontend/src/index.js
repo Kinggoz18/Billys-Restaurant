@@ -44,7 +44,6 @@ const router = createBrowserRouter(
       <Route path='Account' element={<CustomerLayout/>}>
         <Route index element={<CustomerAcc.AccountInformation/>}/>
         <Route path='PastOrders' element={<CustomerAcc.PastOrders/>}/>
-        <Route path='PastReviews' element={<CustomerAcc.PastReviews/>}/>
     </Route>
     </Route>
   )

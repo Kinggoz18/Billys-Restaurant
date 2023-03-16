@@ -1,5 +1,5 @@
 //React Imports
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 //Jquery import
 import  $  from "jquery";
@@ -9,11 +9,15 @@ import './css/customer.css'
 import profilePic from '../Images/profileLogo.png'
 import {AddToStorage, GetFromStorage, RemoveFromStorage} from '../LocalStorage'
 import { Accounts, Order } from "../Objects/ObjectExports";
+import {Loading} from '../LoadingIcon'
 
 //Global Account Variable
 let AccountData;
 let CustomerAccount = new Accounts.CustomerAccount();
 let OrderObj = new Order();
+
+
+;
 //Defaul customer home
 export function CustomerNav(props){
     AccountData = LoadAccountInfo();
@@ -28,9 +32,6 @@ export function CustomerNav(props){
             </div>
             <div>
                 <Link to="/Account/PastOrders">Past Orders</Link>
-            </div>
-            <div>
-                <Link to="/Account/PastReviews">Past Reviews</Link>
             </div>
             <div>
                 <Link to="/Login" onClick={()=>LogoutUser()}>Logout</Link>
@@ -75,12 +76,40 @@ export function AccountInformation(props){
 }
 //Past Orders Tab
 export function PastOrders(props) {
-    const pastOrders = AccountData['pastOrders'];
-  
+  const [pastOrders, setPastOrders] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        await GetPastOrders();
+        let data = AccountData["pastOrders"];
+        if (data) {
+          setPastOrders(data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+    }, []);
+
+  if (loading) {
+    return(
+      <div className="user-pastOrders">
+      <Loading/>
+    </div>
+    )
+  }
+
+  if (pastOrders!=null) {
     const orderList = pastOrders.map((order, index) => (
       <div key={index} className="order-item">
         <div className="order-details">
-          <div>Order Number: {order._id}</div>
+          <div>Order ID: {order._id}</div>
           <div>Date: {order.date}</div>
           <div>Total Price: {order.totalPrice}</div>
         </div>
@@ -96,7 +125,7 @@ export function PastOrders(props) {
         </div>
       </div>
     ));
-  
+
     return (
       <div className="user-pastOrders">
         <h2>Past Orders</h2>
@@ -104,16 +133,10 @@ export function PastOrders(props) {
       </div>
     );
   }
-//Past Reviews Tab
-export function PastReviews(props){
-    let pastOrders = AccountData['pastOrders'];
-    return(<div className="user-ReviewBox">
-        <ul className="user-Reviews">
-            {pastOrders.forEach(element => {
-            $('.users-Reviews').append(`<li>${element}</li>`)})}
-        </ul>
-    </div>)
+
+  return <div>No past orders found.</div>;
 }
+
 //Function to clear cookies and log user our
 function LogoutUser(){
     RemoveFromStorage('AccountData');

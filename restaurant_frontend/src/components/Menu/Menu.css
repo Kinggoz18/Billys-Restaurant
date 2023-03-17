@@ -1,7 +1,4 @@
 
-.Mobile-MenuNav{
-    display: none;
-}
 .Page{
     display: flex;
     flex-direction: column;
@@ -13,13 +10,14 @@
     background-color: var(--color-secyellow);
 
 }
+.Desktop-MenuNav{
+    display: flex;
+    justify-content: center;
+}
+
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
     /*Menu logo*/
-    .Desktop-MenuNav{
-        display: flex;
-        justify-content: center;
-    }
     .menu-logo{
         width: 100vw !important;
         height: 300px !important;
@@ -100,7 +98,166 @@
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
 
+        /*Menu logo*/
+        .menu-logo{
+            width: 100vw !important;
+            height: 190px !important;
+            object-fit: cover;
+        }
+        /*Menu nav*/
+        .Menu-Subtitle {
+            display: inline-block;
+            color: var(--color-white);
+            font-size: 1.5em;
+            font-family: 'Cabin Sketch', cursive;
+            margin: 2em 0em 2em 0em;
+            text-align: center;
+            width: 100%;
+        }
+
+        .Desktop-MenuNavlist{
+            display: flex;
+            margin-top: 3em;
+        }
+        .Desktop-MenuNavlist li{
+            background-color: var(--color-crimson);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bolder;
+            padding: 0.4em 1.2em 0.2em 1.2em;
+            margin: 0em 0.2em;
+            transition: 0.3s;
+        }
+        .Desktop-MenuNavlist li:hover{
+            background-color: transparent;
+            color: var(--color-white);
+        }
+           /*Menu item styling*/
+    .AddToBasket{
+        background-color: var(--color-black);
+        border: none;
+        color: var(--color-white);
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0.4em;
+        transition: 0.3s;
+        width: 100%;
+    }
+    button.AddToBasket:hover{
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+    }
+    .Menu img{
+        border-radius: 0.4em;
+        height: 200px;
+        margin-bottom: 1em;
+        width: 210px !important;
+    }
+    .MenuItem{
+        align-items: center;
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+        display: flex;
+        flex-direction: column;
+        font-size: 1em;
+        font-weight: bold;
+        margin: 1em;
+        width: 80%;
+        padding: 0.8em;
+    }
+    .MenuItem div{
+        width: 95%;
+    }
+    .MenuItem span{
+        font-weight: bold;
+        font-size: 1em;
+        margin: 0.3em;
+    }
+    .MenuItem p{
+        margin: 0.2em;
+    }
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
+
+        /*Menu logo*/
+        .menu-logo{
+            width: 100vw !important;
+            height: 190px !important;
+            object-fit: cover;
+        }
+        /*Menu nav*/
+        .Menu-Subtitle {
+            display: inline-block;
+            color: var(--color-white);
+            font-size: 1em;
+            font-family: 'Cabin Sketch', cursive;
+            margin: 2em 0em 2em 0em;
+            text-align: center;
+            width: 100%;
+        }
+
+        .Desktop-MenuNavlist{
+            display: flex;
+            margin-top: 3em;
+        }
+        .Desktop-MenuNavlist li{
+            background-color: var(--color-crimson);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bolder;
+            padding: 0.4em 1.2em 0.2em 1.2em;
+            margin: 0em 0.2em;
+            transition: 0.3s;
+        }
+        .Desktop-MenuNavlist li:hover{
+            background-color: transparent;
+            color: var(--color-white);
+        }
+           /*Menu item styling*/
+    .AddToBasket{
+        background-color: var(--color-black);
+        border: none;
+        color: var(--color-white);
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0.4em;
+        transition: 0.3s;
+        width: 100%;
+    }
+    button.AddToBasket:hover{
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+    }
+    .Menu img{
+        border-radius: 0.4em;
+        height: 170px;
+        margin-bottom: 1em;
+        width: 150px !important;
+    }
+    .MenuItem{
+        align-items: center;
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+        display: flex;
+        flex-direction: column;
+        font-size: 1em;
+        font-weight: bold;
+        margin: 1em;
+        width: 80%;
+        padding: 0.8em;
+    }
+    .MenuItem div{
+        width: 95%;
+    }
+    .MenuItem span{
+        font-weight: bold;
+        font-size: 1em;
+        margin: 0.3em;
+    }
+    .MenuItem p{
+        margin: 0.2em;
+    }
 }

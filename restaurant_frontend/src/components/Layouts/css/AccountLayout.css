@@ -5,3 +5,23 @@
     height: 100%;
     width: 100vw;
 }
+    /***************************************** BREAKPOINT for Medium devices ********************************************************/
+    @media screen and (max-width: 1010px){
+        .user-home{
+            background-color: white;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100vw;
+        }
+    }
+    /***************************************** BREAKPOINT for small devices ********************************************************/
+    @media screen and (max-width: 670px) {
+        .user-home{
+            background-color: white;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100vw;
+        }
+    }

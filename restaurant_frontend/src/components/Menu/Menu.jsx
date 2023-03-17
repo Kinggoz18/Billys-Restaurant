@@ -32,14 +32,6 @@ export function MenuNav(){
         <li><Link to='/Menu/Drinks'>Drinks</Link></li>
       </ul>
     </nav>
-    <nav className='Mobile-MenuNav'>
-      <ul className='Mobile-MenuNavlist'>
-        <li>All</li>
-        <li>Main Dish</li>
-        <li>Sides</li>
-        <li>Drinks</li>
-      </ul>
-    </nav>
     <span className='Menu-Subtitle'>Choose from a variety of savory and satisfying menu options.</span>
   </div>
   );

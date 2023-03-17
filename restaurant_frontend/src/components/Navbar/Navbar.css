@@ -286,9 +286,12 @@
   flex-direction: column;
   height: 0px;
   padding:0.7em 0em;
+  position: absolute;
   opacity: 0%;
   overflow: clip;
   transition: 0.5s;
+  top: 11.6vh;
+  width: 100vw;
 }
 .mobile-navbar li{
   text-align: center;
@@ -366,6 +369,8 @@
   opacity: 0%;
   overflow: clip;
   transition: 0.5s;
+  top: 11.6vh;
+  width: 100vw;
 }
 .mobile-navbar li{
   text-align: center;

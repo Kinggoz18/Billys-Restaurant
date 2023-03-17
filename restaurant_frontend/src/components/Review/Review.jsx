@@ -56,7 +56,7 @@ export default function Review(){
                     <span className="fa fa-star review-star" id="review-star5" value="5"></span>
                     <span id="rating-box" className="hide">0</span>
                 </div>
-                <button onClick={()=>CreateReview()}  id="send-reviewmsg">Send Message</button>
+                <button onClick={()=>CreateReview()}  id="send-reviewmsg">Sumbit review</button>
             </div>
             <ReviewLists/>
         </div>

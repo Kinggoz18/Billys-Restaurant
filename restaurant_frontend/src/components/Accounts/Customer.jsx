@@ -15,16 +15,31 @@ import {Loading} from '../LoadingIcon'
 let AccountData;
 let CustomerAccount = new Accounts.CustomerAccount();
 let OrderObj = new Order();
+let isNavOpen = false;
 
-
-;
 //Defaul customer home
 export function CustomerNav(props){
     AccountData = LoadAccountInfo();
     GetPastOrders();
+    //Functiont to toggle mobile nav
+    function ToggleMobileNav(){
+      if(!isNavOpen){
+        $('.CustomerHome-Left').addClass('display-user-accountNav');
+        setTimeout(()=>{
+          $('.account-nav').css('display', 'flex');
+        }, 700);
+        isNavOpen = true;
+      }else{
+        $('.account-nav').css('display', 'none');
+        $('.CustomerHome-Left').removeClass('display-user-accountNav');
+        isNavOpen = false;
+      }
+    }
     return(<div>
         <div className="CustomerHome-Left">
-            <img className="user-img" src={profilePic} alt="User Profile" />
+            <span className="Toggle-user-accountNav"><i  onClick = {()=>ToggleMobileNav()} class="fa-solid fa-arrow-right-from-bracket"></i></span>
+            <div className="account-nav">
+              <img className="user-img" src={profilePic} alt="User Profile" />
             <span className="user-name">{AccountData['firstName']} {AccountData['lastName']}</span>
             <span className="user-pts">Points: {AccountData['points']} </span>
             <div>
@@ -35,6 +50,7 @@ export function CustomerNav(props){
             </div>
             <div>
                 <Link to="/Login" onClick={()=>LogoutUser()}>Logout</Link>
+            </div>
             </div>
         </div>
     </div>)

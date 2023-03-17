@@ -94,8 +94,187 @@
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
-
+    .review-Page p{
+        color: var(--color-yellow);
+        font-size: 1.3em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    .review-Page h1{
+        font-size: 2em;
+        font-weight: bolder;
+        margin: 2em 0em 1em 0em;
+    }
+    .review-form{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        width: 73%;
+    }
+    .review-form input{
+        background-color: rgb(232, 231, 231);
+        border: solid var(--color-yellow) 3px;
+        font-size: 1.2em;
+        margin: 0.3em;
+        outline: none;
+        padding: 0.5em;
+        width: 100% !important;
+    }
+    #review-message{
+        background-color: rgb(232, 231, 231);
+        border: solid var(--color-yellow) 3px;
+        outline: none;
+        font-size: 1.2em;
+        height: 200px;
+        padding: 0.5em;
+        width: 100%;
+    }
+    #send-reviewmsg{
+        background-color: var(--color-yellow);
+        border: 4px solid var(--color-yellow);
+        border-radius: 0.5em;
+        color: var(--color-white);
+        cursor: pointer;
+        margin: 0.7em 0em;
+        padding: 0.5em;
+        font-size: 1.2em;
+        width: 100%;
+    }
+    button#send-reviewmsg:hover{
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+    }
+    .review-rating{
+        margin-top: 1em;
+    }
+    .review-star{
+        color: rgb(198, 198, 198);
+        cursor: pointer;
+        font-size: 2em;
+        padding: 0em 0.5em;
+    }
+    .review-star:hover{
+        color: var(--color-yellow);
+    }
+    /*Review list styling*/
+    .review-list{
+        width: 80%;
+    }
+    .review-item{
+        background-color: var(--color-yellow);
+        border: solid 1px var(--color-yellow);
+        border-radius: 0.4em;
+        display: grid;
+        padding: 1em 2em;
+        margin-bottom: 1em;
+        width: 90%;
+    }
+    .review-item p{
+        color: black !important;
+        justify-self: left;
+        text-align: left;
+        width: 90%;
+    }
+    .review-itemDesc{
+        background-color: white;
+        font-size: 1em !important;
+        padding: 0.5em;
+    }
+    .rating-star{
+        color: white;
+    }
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
+    .review-Page p{
+        color: var(--color-yellow);
+        font-size: 1.3em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    .review-Page h1{
+        font-size: 2em;
+        font-weight: bolder;
+        margin: 2em 0em 1em 0em;
+    }
+    .review-form{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        width: 73%;
+    }
+    .review-form input{
+        background-color: rgb(232, 231, 231);
+        border: solid var(--color-yellow) 3px;
+        font-size: 1.2em;
+        margin: 0.3em;
+        outline: none;
+        padding: 0.5em;
+        width: 100% !important;
+    }
+    #review-message{
+        background-color: rgb(232, 231, 231);
+        border: solid var(--color-yellow) 3px;
+        outline: none;
+        font-size: 1.2em;
+        height: 200px;
+        padding: 0.5em;
+        width: 100%;
+    }
+    #send-reviewmsg{
+        background-color: var(--color-yellow);
+        border: 4px solid var(--color-yellow);
+        border-radius: 0.5em;
+        color: var(--color-white);
+        cursor: pointer;
+        margin: 0.7em 0em;
+        padding: 0.5em;
+        font-size: 1.2em;
+        width: 100%;
+    }
+    button#send-reviewmsg:hover{
+        background-color: var(--color-white);
+        color: var(--color-yellow);
+    }
+    .review-rating{
+        margin-top: 1em;
+    }
+    .review-star{
+        color: rgb(198, 198, 198);
+        cursor: pointer;
+        font-size: 1.4em;
+        padding: 0em 0.5em;
+    }
+    .review-star:hover{
+        color: var(--color-yellow);
+    }
+    /*Review list styling*/
+    .review-list{
+        width: 80%;
+    }
+    .review-item{
+        background-color: var(--color-yellow);
+        border: solid 1px var(--color-yellow);
+        border-radius: 0.4em;
+        display: grid;
+        padding: 1em 2em;
+        margin-bottom: 1em;
+        width: 90%;
+    }
+    .review-item p{
+        color: black !important;
+        justify-self: left;
+        text-align: left;
+        width: 90%;
+    }
+    .review-itemDesc{
+        background-color: white;
+        font-size: 1em !important;
+        padding: 0.5em;
+    }
+    .rating-star{
+        color: white;
+    }
 }

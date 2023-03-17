@@ -3,33 +3,20 @@
 // 
 // 
 // 
-// Import statements:
-// React, useState and useEffect are imported from the 'react' package, which provides the core functionality of building the UI for the app.
-// jQuery is imported to manipulate the DOM elements.
-// './Navbar.css' is the styling file for the Navbar component.
-// 'navlogo' is an image file for the navbar logo.
-// {AddToStorage} is a custom function imported to store data in local storage.
-// { NavLink, Link, Navigate } are imported from 'react-router-dom' to navigate between pages.
-// {GetCurrentPage} is a custom function imported from '../../rootLayout' to get the current page of the app.
-import React, { useState, useEffect } from 'react';
+import React,{useState,useEffect} from 'react';
 import $, { data } from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
 import {AddToStorage} from '../LocalStorage'
 import { NavLink, Link, Navigate } from 'react-router-dom';
-import {GetCurrentPage} from '../../rootLayout';
+import {GetCurrentPage} from '../../rootLayout'
 
 let checkoutList = document.querySelector('#Users-Cart');
 let checkoutItem = $(checkoutList).children();
-    
-    let checkoutData = [];
+let checkoutData = [];
+
 
 /*Navbar component */
-/**
- * Navbar component creates a navbar for the website.
- * 
-//  * ////@returns {JSX.Element} A navbar component containing various navlinks, a logo, and a shopping cart icon.
- */
 export default function Navbar(props){
   function openbasket(){
     const basket = document.getElementById("basketcontainer");
@@ -92,10 +79,7 @@ export default function Navbar(props){
             <li><div id="mobile-cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i></div></li>
           </ul>
         </nav>
-        <Basket className='Basket' />
-       
-       
-      
+       <Basket className='Basket'/>
     </div>
   );
 };
@@ -110,7 +94,6 @@ async function LoadDynamicNavbar(){
     $('#review').removeClass('hide');
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
-<<<<<<< Updated upstream
     $('#basketcontainer').removeClass('hide');
 
     //Mobile
@@ -122,8 +105,6 @@ async function LoadDynamicNavbar(){
     $('#mobile-login').removeClass('hide');
     $('#mobile-basketcontainer').removeClass('hide');
 
-=======
->>>>>>> Stashed changes
         //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');
@@ -157,16 +138,12 @@ async function LoadDynamicNavbar(){
         $('#login').addClass('hide');
         $('#mobile-login').addClass('hide');
       }
-      else if(CurrentPage.includes('Checkout')){
+      else if(CurrentPage.includes('checkout')){
         $('#checkout').addClass('hide');
-<<<<<<< Updated upstream
         $('#mobile-basketcontainer').addClass('hide');
 
         $('#checkout').addClass('hide');
         $('#mobile-basketcontainer').addClass('hide');
-=======
-        $('BasketConatiner').addClass('hide');
->>>>>>> Stashed changes
       }
     }
   
@@ -174,18 +151,10 @@ async function LoadDynamicNavbar(){
 
   // ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
   export function ProductList({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
-    let count = 0;
-
-  // cartItems.forEach(item => {
-  //   count += item.quantity;
-  // });
-    console.log('cart',cartItems);
     return (
       <ul id="Users-Cart">
-        
         {cartItems &&
           cartItems.map((item, index) => (
-            
             <div className="cartItemCard" key={index}>
               <li className="cartItem">
                 <div className="Order-ItemName">{item.name}</div>
@@ -194,7 +163,7 @@ async function LoadDynamicNavbar(){
                   className="Order-Count"
                   type="number"
                   min="0"
-                  value={item.quantity}
+                  value={item.quantity} 
                   onChange={(event) => onChangeProductQuantity(index, event)}
                 />
                 <button
@@ -203,55 +172,51 @@ async function LoadDynamicNavbar(){
                 >
                   Remove
                 </button>
-              </li>
+              </li>  
             </div>
-          ))}
+          ))} 
       </ul>
     );
-    
   }
+  function Checkout(event){
+    let checkoutList = document.querySelector('#Users-Cart');
+    let checkoutItem = $(checkoutList).children();
   
-
-
-  export function Basket({ onChangeProductQuantity,  }) {
-    
-    
-    const [total, setTotal] = useState(0);
-  
-    function handleProductQuantityChange(index, event) {
-      if (!event) {
-        return;
+    let checkoutData = [];
+    $(checkoutItem).each((index, element) => {
+      let children = $(element).children();
+      let data = {
+        name: children[1].innerText,
+        price: children[2].innerText,
+        count: children[3].value,
       }
-    
-      
-    }
-  
-  
+      checkoutData.push(data);
+    });
+    AddToStorage('Checkoutdata', JSON.stringify(checkoutData)); // save as array of objects
     return (
-      <div className="BasketContainer hide-basket" id="basketcontainer">
-        <ProductList
-          
-          onChangeProductQuantity={handleProductQuantityChange}
-          
-        />
-        <Summary  total={total} />
-      </div>
+      <Link className="checkoutbtn" to='/checkout'>Check Out</Link>
     );
   }
+  
 
-  function calculateSubtotal(checkoutItems) {
+  
+  function calculateSubtotal(checkoutData) {
+    
+    
     let subtotal = 0;
   
-    checkoutItems.forEach((item) => {
+    checkoutData.forEach((item) => {
       const price = parseFloat(item.price.replace('$', ''));
       const count = parseInt(item.count);
   
       subtotal += price * count;
+      console.log("sub",subtotal);
     });
   
     console.log(subtotal);
     return subtotal;
   }
+  
   
 
 
@@ -279,9 +244,43 @@ function Summary({ total }) {
       <Checkout checkoutData={checkoutData} onCheckout={() => alert('you have checked out ')} />
     </div>
   );
-}
-
+} 
   
+
+  export function Basket({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
+    
+    const [total, setTotal] = useState(0);
+  
+    function handleProductQuantityChange(index, event) {
+      if (!event) {
+        return;
+      }
+  
+      const newCartItems = [...cartItems];
+      newCartItems[index].quantity = parseInt(event.target.value);
+      onChangeProductQuantity(index, event); // call the function with the updated quantity value
+    }
+  
+    function handleRemoveProduct(index) {
+      const newCartItems = [...cartItems];
+      newCartItems.splice(index, 0);
+      onRemoveProduct(newCartItems); // call the function with the new cart items
+    }
+  
+    
+  
+    return (
+      <div className="BasketContainer hide-basket" id='basketcontainer'>
+        <ProductList
+          cartItems={cartItems}
+          onChangeProductQuantity={handleProductQuantityChange}
+          onRemoveProduct={handleRemoveProduct}
+        />
+        
+        <Summary total={total} />
+      </div>
+    );
+  }
   
   function formatCurrency(value) {
     return Number(value).toLocaleString("en-US", {
@@ -293,31 +292,11 @@ function Summary({ total }) {
   //Functiont to remove Cart item
   function RemoveCartItem(event){
     var element = event.target;
-      if(element.tagName == 'BUTTON' && element.classList.contains("Order-Remove"))
+      if(element.tagName === 'BUTTON' && element.classList.contains("Order-Remove"))
       {
         //Remove the item
         $(element).parent().remove();
       }
   }
-  
 
-  function Checkout(event){
-    let checkoutList = document.querySelector('#Users-Cart');
-    let checkoutItem = $(checkoutList).children();
-  
-    let checkoutData = [];
-    $(checkoutItem).each((index, element) => {
-      let children = $(element).children();
-      let data = {
-        name: children[1].innerText,
-        price: children[2].innerText,
-        count: children[3].value,
-      }
-      checkoutData.push(data);
-    });
-    AddToStorage('Checkoutdata', JSON.stringify(checkoutData)); // save as array of objects
-    return (
-      <Link className="checkoutbtn" to='/checkout'>Check Out</Link>
-    );
-  }
   

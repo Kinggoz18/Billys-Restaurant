@@ -290,7 +290,7 @@
   opacity: 0%;
   overflow: clip;
   transition: 0.5s;
-  top: 11.6vh;
+  top: 103px;
   width: 100vw;
 }
 .mobile-navbar li{
@@ -369,7 +369,7 @@
   opacity: 0%;
   overflow: clip;
   transition: 0.5s;
-  top: 11.6vh;
+  top: 103px;
   width: 100vw;
 }
 .mobile-navbar li{

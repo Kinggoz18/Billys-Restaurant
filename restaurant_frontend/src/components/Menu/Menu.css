@@ -173,6 +173,8 @@
         font-weight: bold;
         font-size: 1em;
         margin: 0.3em;
+        height: 2em;
+        text-align: center;
     }
     .MenuItem p{
         margin: 0.2em;

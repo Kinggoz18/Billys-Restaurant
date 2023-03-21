@@ -51,7 +51,7 @@ async function CreateMenu() {
   }
 }
 
-async function AccountCreate() {
+/* async function AccountCreate() {
   let firstname = document.getElementById('first-name').value;
   let lastname = document.getElementById('last-name').value;
   let phone = document.getElementById('phone-number').value;
@@ -73,7 +73,7 @@ async function AccountCreate() {
     });
 
   }
-}
+} */
 //Function to delete a menu
 async function DeleteMenu() {
   let menuName = document.getElementById('MenuName').value;

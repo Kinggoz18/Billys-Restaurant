@@ -10,39 +10,25 @@ async function LoginAccount() {
         emailAddress: document.getElementById('emailAddress').value,
         password: document.getElementById('password').value,
     }
-    let role = document.getElementById('role').value;
-    if (!LoginInfo.emailAddress || !LoginInfo.password || !role) {
+
+    if (!LoginInfo.emailAddress || !LoginInfo.password) {
         alert('Please enter all required fields.');
         return;
     }
 
-    try {
-        if (LoginInfo.role === 'admin') {
-           await adminAccount.AdminLogin(LoginInfo).then(()=>{
-            let result = adminAccount.GetAdminInfo;
-            if (result != null) {
-                console.log('Success! Admin logged in');
-                window.location.replace("../public/Admin.html");
-            } else {
-                alert('Account not found. Please check your email and password.');
-            }
-           });
+    let isAdmin = await adminAccount.AdminLogin(LoginInfo);
+    if (isAdmin) {
+        console.log('Success! Admin logged in');
+        window.location.href = "../public/Admin.html";
+    } else {
+        let isEmployee = await employeeAccount.EmployeeLogin(LoginInfo);
+        if (isEmployee) {
+            console.log('Success! Employee logged in');
+            window.location.href = "../public/Employee.html";
+        } else {
+            alert('Error in logging in account. Please try again later.');
         }
-        else if (LoginInfo.role === 'employee') {
-           await employeeAccount.EmployeeLogin(LoginInfo).then(()=>{
-            let result = employeeAccount.GetEmployeeInfo;
-            if (result != null) {
-                console.log('Success! Employee logged in');
-                window.location.replace("../public/Employee.html");
-            } else {
-                alert('Account not found. Please check your email and password.');
-            }
-           });
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Error in logging in account. Please try again later.');
-    };
+    }
 }
 
 // Add event listener to the "Create Account" button

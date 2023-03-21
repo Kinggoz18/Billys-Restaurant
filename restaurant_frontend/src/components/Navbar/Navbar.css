@@ -9,6 +9,10 @@
   height: 0px !important;
   opacity: 0;
 }
+.app__navbar{
+  z-index: 1;
+  position: relative;
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
   .mobile-navbar, .moblie-menu, .mobile_app__navbar-right{

@@ -19,6 +19,10 @@
 .form-show{
     display: grid !important;
 }
+    /*Registration box styling*/
+    .logoImg{
+        width: 170px !important;
+    }
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 
 @media screen and (min-width: 1010px)  {
@@ -45,6 +49,7 @@
         flex-direction: column;
         padding: 1em;
         width: 400px;
+        height: 85vh;
     }
     .registerBox, .loginBox{
         background-color: white;
@@ -68,11 +73,9 @@
     }
     .registerBox form div * , .loginBox form div *{
         padding: 0.5em;
+        width: 90%;
     }
-    /*Registration box styling*/
-    .logoImg{
-        width: 170px;
-    }
+
     .PromoSection{
         width: 400px;
         background-image: url('../../Images/promo.png');
@@ -108,6 +111,7 @@
         flex-direction: column;
         padding: 1em;
         width: 50%;
+        overflow-y: scroll;
     }
     .registerBox, .loginBox{
         background-color: white;
@@ -115,6 +119,7 @@
         display: flex;
         margin-top: 2em;
         width: 90%;
+        height: 90vh;
     }
     .registerBox form div , .loginBox form div{
         display: grid;
@@ -131,10 +136,7 @@
     }
     .registerBox form div * , .loginBox form div *{
         padding: 0.5em;
-    }
-    /*Registration box styling*/
-    .logoImg{
-        width: 170px;
+        width: 90%;
     }
     .PromoSection{
         width: 50%;
@@ -142,7 +144,7 @@
         background-position: center; /* Center the image */
         background-repeat: no-repeat; /* Do not repeat the image */
         background-color: var(--color-yellow);
-        background-size: 74% 80%;
+        background-size: 100% 80%;
         justify-content: center;
     }
     .reg-login-btn{
@@ -174,6 +176,7 @@
         flex-direction: column;
         padding: 1em;
         width: 50%;
+        overflow-y: scroll;
     }
     .registerBox, .loginBox{
         background-color: white;
@@ -181,6 +184,7 @@
         display: flex;
         margin-top: 2em;
         width: 90%;
+        height: 90vh;
     }
     .registerBox form div , .loginBox form div{
         display: grid;
@@ -197,18 +201,16 @@
     }
     .registerBox form div * , .loginBox form div *{
         padding: 0.5em;
+        width: 90%;
     }
     /*Registration box styling*/
-    .logoImg{
-        width: 170px;
-    }
     .PromoSection{
         width: 50%;
         background-image: url('../../Images/promo.png');
         background-position: center; /* Center the image */
         background-repeat: no-repeat; /* Do not repeat the image */
         background-color: var(--color-yellow);
-        background-size: 74% 80%;
+        background-size: 100% 80%;
         justify-content: center;
     }
     .reg-login-btn{

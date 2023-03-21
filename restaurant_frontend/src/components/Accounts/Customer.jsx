@@ -35,7 +35,7 @@ export function CustomerNav(props){
         isNavOpen = false;
       }
     }
-    return(<div>
+    return(
         <div className="CustomerHome-Left">
             <span className="Toggle-user-accountNav"><i  onClick = {()=>ToggleMobileNav()} class="fa-solid fa-arrow-right-from-bracket"></i></span>
             <div className="account-nav">
@@ -53,7 +53,7 @@ export function CustomerNav(props){
             </div>
             </div>
         </div>
-    </div>)
+    )
 }
 //Account Info Tab
 export function AccountInformation(props){

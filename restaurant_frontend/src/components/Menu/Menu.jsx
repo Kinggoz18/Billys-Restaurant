@@ -5,6 +5,7 @@ import $ from 'jquery';
 //Object Import
 import {MenuItem, Menu} from '../Objects/ObjectExports.mjs'
 import { formatCurrency } from '../Navbar/Navbar';
+
 //Logo Imports
 import DefaultHeader from '../Images/Headers.mp4'
 
@@ -16,7 +17,24 @@ let  GlobalMenu = new Menu.MenuObject();
 export let cartItemValues = [];
 let CartTotalCost = [];
 let CartItems = [];
-  
+
+// Global Event listeners
+
+// Add an event listener to the document object for input change events
+document.addEventListener('input', (event) => {
+  // Check if the event was triggered by an input element with the Order-Count class
+  if (event.target.classList.contains('Order-Count')) {
+    var element = event.target;
+    let idToRemove = $(element).prev().prev().prev().text().replace(/ /g, "");
+    let price = $(element).prev().text();
+    let cost = parseFloat(price.substring(1, price.length))
+    let value = event.target.value; // update the value in currItem
+    SetCartItemValues(); // update the outer HTML
+    UpdateCartItemValue( `#CartItem-Count${idToRemove}`, value)
+    UpdateItemToCart(idToRemove, cost, value); //Updatet the global array holding the total cost
+  }
+});
+
 //Menu Navbar component
 export function MenuNav(){
   return(
@@ -38,7 +56,6 @@ export function MenuNav(){
   </div>
   );
 }
-
 //Component to send add food item to users cart
 function AddToBasket(props){
   return(
@@ -260,42 +277,28 @@ function AddToCart(event){
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
-
+  let value = 1;
   //Create an object to hold the cost and push it to the global CartTotalCost array
   let cost = parseFloat(price.substring(1, price.length))
-  CartTotalCost.push({id: id, cost: cost});
 
+  //If the item is in the list
   if(FindItemInList(cartText, id) === false){
     //add the item to the global array
     let currItem = {id: queryId, value: 1};
     cartItemValues.push(currItem);
     //Update the html
     cart.innerHTML+= current;
-    // Set the event listener for the input element
-    $(queryId).on('input', function() {
-      currItem.value = parseInt($(this).val()); // update the value in currItem
-      $(this).val(currItem.value); // update the value in the input element
-      SetCartItemValues(); // update the outer HTML
-    });
+    UpdateItemToCart(id, cost, value); //Updatet the global array holding the total cost
     SetCartItemValues();
   }
   else{
     let item = document.querySelector(queryId);
     let number = parseInt(item.value) + 1;
-
     item.value = number;
     //Update the item
     let currItem = {id: queryId, value: number, cost: cost};
     cartItemValues.push(currItem);
-    // Set the event listener for the input element
-    $(queryId).on('input', function() {
-      currItem.value = parseInt($(this).val()); // update the value in currItem
-      $(this).attr('value', currItem.value); // update the value in the input element
-      SetCartItemValues(); // update the outer HTML
-    });
   }
-  let total = formatCurrency(CalculateTotalCost());
-  $('#basket-total').text(total);
 }
 
 //Function to check if an item already exists in the cart
@@ -311,16 +314,37 @@ function FindItemInList(text, id){
 function CalculateTotalCost(){
   let total = 0;
   CartTotalCost.forEach(x=>{
-    total+=x.cost;
+    total+=(x.cost * parseInt(x.count));
   })
   return total;
 }
+//Helper function to add to global array
+function UpdateItemToCart(id, cost, value) {
+  // Check if the item is already in the cart
+  const existingItem = CartTotalCost.find(item => item.id === id);
 
+  if (existingItem) {
+    // If the item is already in the cart, update its count property
+    existingItem.count = value;
+  } else {
+    // If the item is not in the cart, push a new object with the given id, cost, and count of 1
+    CartTotalCost.push({ id: id, cost: cost, count: value});
+  }
+  //Update the total cost
+  let total = formatCurrency(CalculateTotalCost());
+  $('#basket-total').text(total);
+}
 //Function to set the cart item values 
 function SetCartItemValues(){
   cartItemValues.forEach(element=>{
     $(element.id).attr('value', element.value);
   })
+}
+//Function to update a cart item value 
+function UpdateCartItemValue(id, value)
+{
+  const existingItem = cartItemValues.find(item => item.id === id);
+  existingItem.value=value;
 }
   //Functiont to remove Cart item
   window.RemoveCartItem = function(event){

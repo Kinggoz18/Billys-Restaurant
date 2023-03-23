@@ -187,7 +187,7 @@ async function LoadDynamicNavbar(){
     console.log("checkoulist",checkoutList);
     let checkoutItem = $(checkoutList).children();
     console.log("checkoutitem",checkoutItem)
-    let validateFunc = null;
+
     let checkoutData = [];
     $(checkoutItem).each((index, element) => {
       let children = $(element).children();
@@ -199,24 +199,40 @@ async function LoadDynamicNavbar(){
       checkoutData.push(data); 
     }); 
 
-    console.log("checoutdata",checkoutData);  
+    console.log("checoutlist",checkoutList);  
 
 
-     validateFunc = (event) =>{
+    const checkoutBtn = document.querySelector(".checkoutbtn");
+    let message;
+
+    const validateFunc = (event) => {
       // Check if checkout data is 0
-  if (checkoutData.length ===0) {  
-    
-    event.preventDefault();  // Prevent the user from going to the checkout page
-    let message = document.createElement("p");
-    message.innerText = "Your cart is empty.";
-    let checkoutBtn = document.querySelector(".checkoutbtn");
-    checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
-    return; 
-  } 
-  }
-  
+      if (checkoutData.length === 0) {
+        event.preventDefault(); // Prevent the user from going to the checkout page
+
+        // Check if message has already been displayed
+        if (!message) {
+          message = document.createElement("p");
+          message.innerText = "Your cart is empty.";
+          checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
+        }
+
+        return;
+      } else {
+        // Remove message if cart is no longer empty
+        if (message) {
+          message.remove();
+          message = null;
+
+        }
+        <Link className="checkoutbtn" onClick={(event) => validateFunc(event)} to="/checkout">Check Out</Link>;
+
+
+      }
+
+    };
     AddToStorage("Checkoutdata", JSON.stringify(checkoutData)); // save as array of objects
-    return <Link className="checkoutbtn" onClick={(event)=>validateFunc(event)} to="/checkout">Check Out</Link>;
+    return <Link className="checkoutbtn" onClick={(event) => validateFunc(event)} to="/checkout">Check Out</Link>;
   }
   
 

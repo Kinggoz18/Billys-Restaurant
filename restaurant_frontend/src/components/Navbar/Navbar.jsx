@@ -10,6 +10,7 @@ import navlogo from '../Images/DRM.png'
 import {AddToStorage} from '../LocalStorage'
 import { NavLink, Link } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
+import { cartItemValues } from '../Menu/Menu';
 
 
 /*Navbar component */
@@ -204,7 +205,7 @@ async function LoadDynamicNavbar(){
 
     const validateFunc = (event) => {
       // Check if checkout data is 0
-      if (checkoutData.length === 0) {
+      if (cartItemValues.length === 0) {
         event.preventDefault(); // Prevent the user from going to the checkout page
 
         // Check if message has already been displayed

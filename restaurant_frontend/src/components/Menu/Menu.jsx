@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import $ from 'jquery';
 //Object Import
 import {MenuItem, Menu} from '../Objects/ObjectExports.mjs'
+import { formatCurrency } from '../Navbar/Navbar';
 //Logo Imports
 import DefaultHeader from '../Images/Headers.mp4'
 
@@ -13,6 +14,7 @@ import './Menu.css';
 let  GlobalMenu = new Menu.MenuObject();
 
 let cartItemValues = [];
+let CartTotalCost = [];
 let CartItems = [];
   
 //Menu Navbar component
@@ -237,12 +239,15 @@ async function LoadMain(){
     })
   return items;
 }
+
 //Function to add the menu Item to cart
 function AddToCart(event){
   let price = $(event.target).parent().prev().text();
   let name = $(event.target).parent().prev().prev().text();
   let id =  $(event.target).parent().prev().prev().prev().text();
   let ElementId = `CartItem-${id}`;
+
+  //Build the item 
   let current =`  <li class="cartItem" id='${ElementId}'>
   <div class='Order-ItemId hide'> ${id} </div>
   <div class="Order-ItemName"> ${name} </div>
@@ -254,7 +259,8 @@ function AddToCart(event){
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
-
+  let cost = parseFloat(price.substring(1, price.length))
+  CartTotalCost.push(cost);
   if(FindItemInList(cartText, id) === false){
     //add the item to the global array
     let currItem = {id: queryId, value: 1};
@@ -272,9 +278,10 @@ function AddToCart(event){
   else{
     let item = document.querySelector(queryId);
     let number = parseInt(item.value) + 1;
+
     item.value = number;
     //Update the item
-    let currItem = {id: queryId, value: number};
+    let currItem = {id: queryId, value: number, cost: cost};
     cartItemValues.push(currItem);
     // Set the event listener for the input element
     $(queryId).on('input', function() {
@@ -283,6 +290,8 @@ function AddToCart(event){
       SetCartItemValues(); // update the outer HTML
     });
   }
+  let total = formatCurrency(CalculateTotalCost());
+  $('#basket-total').text(total);
 }
 
 //Function to check if an item already exists in the cart
@@ -294,7 +303,14 @@ function FindItemInList(text, id){
     return true;
   }
 }
-
+//Functiont to recalculate basket total
+function CalculateTotalCost(){
+  let total = 0;
+  CartTotalCost.forEach(x=>{
+    total+=x;
+  })
+  return total;
+}
 //Function to set the cart item values 
 function SetCartItemValues(){
   cartItemValues.forEach(element=>{

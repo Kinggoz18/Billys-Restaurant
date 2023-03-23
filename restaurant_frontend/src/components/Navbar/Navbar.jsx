@@ -4,16 +4,14 @@
 // 
 // 
 import React,{useState,useEffect} from 'react';
-import $, { data } from 'jquery'
+import $ from 'jquery'
 import './Navbar.css';
 import navlogo from '../Images/DRM.png'
 import {AddToStorage} from '../LocalStorage'
-import { NavLink, Link, Navigate } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
 
  
-let checkoutData = [];
-
 
 /*Navbar component */
 export default function Navbar(props){
@@ -152,7 +150,7 @@ async function LoadDynamicNavbar(){
   
   }
 
-  // ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
+// ProductList component renders a list of products with their names, prices, quantity input fields, and remove buttons, and calls corresponding functions when the quantity or remove buttons are clicked.
   export function ProductList({ cartItems, onChangeProductQuantity, onRemoveProduct }) {
     return (
       <ul id="Users-Cart">
@@ -182,8 +180,9 @@ async function LoadDynamicNavbar(){
     );
   }
 
-
+  //Function to redirect to checkout page
   function Checkout() {
+
     let checkoutList = document.querySelector("#Users-Cart");
     console.log("checkoulist",checkoutList);
     let checkoutItem = $(checkoutList).children();
@@ -263,7 +262,7 @@ function Summary({checkoutData}) {
         <ul className="summaryli" id='summaryli'>
           
           <li className="subtotal">
-            Total: <span>{formatCurrency(subtotal)}</span>
+            Total: <span id='basket-total'>{formatCurrency(subtotal)}</span>
           </li>
         </ul>
       </div>
@@ -314,16 +313,6 @@ function Summary({checkoutData}) {
       </div>
     );
   }
-  
-  function formatCurrency(value) {
-    return Number(value).toLocaleString("en-US", {
-      style: "currency",
-      currency: "CAD"
-    });
-  }
-  
-
-
 
   //Functiont to remove Cart item
   function RemoveCartItem(event){
@@ -333,6 +322,14 @@ function Summary({checkoutData}) {
         //Remove the item
         $(element).parent().remove();
       }
+  }
+  
+  //Helper functiont to format total
+  export function formatCurrency(value) {
+    return Number(value).toLocaleString("en-US", {
+      style: "currency",
+      currency: "CAD"
+    });
   }
 
   

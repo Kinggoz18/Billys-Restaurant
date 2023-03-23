@@ -53,6 +53,7 @@ export default function Navbar(props){
         <div className='logo-container'>
           <img id="nav-logo"src={navlogo} alt="Nav Logo" />
           <div className='mobile_app__navbar-right'>
+              <div id="mobile-cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i></div>
               <span className='moblie-menu'><i className="fas fa-bars"></i></span>
           </div>
         </div>
@@ -75,7 +76,6 @@ export default function Navbar(props){
             <li className='p__opensans' id ="mobile-location" ><NavLink to='/Location'>Location</NavLink></li>
             <li className='p__opensans' id ="mobile-about" ><NavLink to="/About">About Us</NavLink></li>
             <li className='p__opensans' id ="mobile-review" ><NavLink to='/Review'>Reviews</NavLink></li>
-            <li><div id="mobile-cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i></div></li>
           </ul>
         </nav>
        <Basket className='Basket'/>

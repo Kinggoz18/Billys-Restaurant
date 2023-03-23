@@ -1,7 +1,7 @@
 /* Global Styling */
 .show-mobileNav{
   opacity: 100% !important;
-  height: 290px !important;
+  height: 260px !important;
 }
 /* css for the checkout basket  */
 .hide-basket{
@@ -273,10 +273,16 @@
   
 }
 /*Mobile navbar styling*/
+#mobile-cart{
+  align-items: center;
+  display: flex;
+  font-size: 1.5em;
+}
 .mobile_app__navbar-right{
   align-content: end;
   color: var(--color-white);
-  display: grid;
+  display: flex;
+  flex-direction: row;
   justify-content: end;
   font-size: 1em;
 }
@@ -665,10 +671,16 @@
   
 }
 /*Mobile navbar styling*/
+#mobile-cart{
+  align-items: center;
+  display: flex;
+  font-size: 1.5em;
+}
 .mobile_app__navbar-right{
   align-content: end;
   color: var(--color-white);
-  display: grid;
+  display: flex;
+  flex-direction: row;
   justify-content: end;
   font-size: 1em;
 }

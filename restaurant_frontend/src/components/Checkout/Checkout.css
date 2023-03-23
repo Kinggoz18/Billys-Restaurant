@@ -102,16 +102,7 @@
   }
   }
 
-<<<<<<< Updated upstream
-label {
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-/* input[type="text"] {
-=======
 #input-text {
->>>>>>> Stashed changes
   font-size: 16px;
   padding: 10px;
   border: 1px solid rgb(255, 255, 255);
@@ -119,14 +110,8 @@ label {
   width: 100%;
   width: max-content;
   box-sizing: border-box;
-<<<<<<< Updated upstream
-} */
-
-input[type="text"]:focus {
-=======
 }
 #input-text{
->>>>>>> Stashed changes
   outline: none;
   border-color: var(--color-yellow);
   ;

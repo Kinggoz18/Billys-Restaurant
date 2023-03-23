@@ -13,7 +13,11 @@ import './Menu.css';
 //Global variables
 let  GlobalMenu = new Menu.MenuObject();
 
-let cartItemValues = [];
+//Global event listner 
+//Remove a basket items
+//$('button.Order-Remove').on('click', (event)=>{RemoveCartItem(event)})
+
+export let cartItemValues = [];
 let CartTotalCost = [];
 let CartItems = [];
   
@@ -242,6 +246,7 @@ async function LoadMain(){
 
 //Function to add the menu Item to cart
 function AddToCart(event){
+
   let price = $(event.target).parent().prev().text();
   let name = $(event.target).parent().prev().prev().text();
   let id =  $(event.target).parent().prev().prev().prev().text();
@@ -253,14 +258,17 @@ function AddToCart(event){
   <div class="Order-ItemName"> ${name} </div>
   <div class='Order-ItemPrice'>${price}</div>
   <input class='Order-Count' id='CartItem-Count${id}' type="number" min="0" value=1 />
-  <button class='Order-Remove'>Remove</button>
+  <button class='Order-Remove' onClick = 'RemoveCartItem(event)'>Remove</button>
   </li>`
 
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
+
+  //Create an object to hold the cost and push it to the global CartTotalCost array
   let cost = parseFloat(price.substring(1, price.length))
-  CartTotalCost.push(cost);
+  CartTotalCost.push({id: id, cost: cost});
+
   if(FindItemInList(cartText, id) === false){
     //add the item to the global array
     let currItem = {id: queryId, value: 1};
@@ -307,13 +315,34 @@ function FindItemInList(text, id){
 function CalculateTotalCost(){
   let total = 0;
   CartTotalCost.forEach(x=>{
-    total+=x;
+    total+=x.cost;
   })
   return total;
 }
+
 //Function to set the cart item values 
 function SetCartItemValues(){
   cartItemValues.forEach(element=>{
     $(element.id).attr('value', element.value);
   })
 }
+  //Functiont to remove Cart item
+  window.RemoveCartItem = function(event){
+    var element = event.target;
+    let idToRemove = $(element).prev().prev().prev().prev().text().replace(/ /g, "");
+    //Remove the element
+      if(element.tagName === 'BUTTON' && element.classList.contains("Order-Remove"))
+      {
+        //Remove the item
+        $(element).parent().remove();
+      }
+    //Update the total cost
+    for(let i =0; i< CartTotalCost.length; i++){
+      if(CartTotalCost[i].id == idToRemove){
+        CartTotalCost.pop(CartTotalCost[i]);
+        i-=1;
+      }
+    };
+    let total = formatCurrency(CalculateTotalCost());
+    $('#basket-total').text(total);
+  }

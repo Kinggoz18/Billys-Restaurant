@@ -42,8 +42,6 @@ export default function Navbar(props){
       isMobileToggled = false;
     }
   })
-  //Remove basket items
-  document.addEventListener('click', (event)=>{RemoveCartItem(event)})
 
   return(
     <div>
@@ -314,16 +312,6 @@ function Summary({checkoutData}) {
     );
   }
 
-  //Functiont to remove Cart item
-  function RemoveCartItem(event){
-    var element = event.target;
-      if(element.tagName === 'BUTTON' && element.classList.contains("Order-Remove"))
-      {
-        //Remove the item
-        $(element).parent().remove();
-      }
-  }
-  
   //Helper functiont to format total
   export function formatCurrency(value) {
     return Number(value).toLocaleString("en-US", {

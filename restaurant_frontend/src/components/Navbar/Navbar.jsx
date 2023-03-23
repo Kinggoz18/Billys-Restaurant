@@ -11,7 +11,6 @@ import {AddToStorage} from '../LocalStorage'
 import { NavLink, Link } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
 
- 
 
 /*Navbar component */
 export default function Navbar(props){

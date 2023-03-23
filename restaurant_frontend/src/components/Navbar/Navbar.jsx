@@ -205,7 +205,7 @@ async function LoadDynamicNavbar(){
 
      validateFunc = (event) =>{
       // Check if checkout data is 0
-  if (checkoutItem.length ===0) {  
+  if (checkoutData.length ===0) {  
     
     event.preventDefault();  // Prevent the user from going to the checkout page
     let message = document.createElement("p");
@@ -213,7 +213,7 @@ async function LoadDynamicNavbar(){
     let checkoutBtn = document.querySelector(".checkoutbtn");
     checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
     return; 
-  }
+  } 
   }
   
     AddToStorage("Checkoutdata", JSON.stringify(checkoutData)); // save as array of objects

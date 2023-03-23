@@ -13,10 +13,6 @@ import './Menu.css';
 //Global variables
 let  GlobalMenu = new Menu.MenuObject();
 
-//Global event listner 
-//Remove a basket items
-//$('button.Order-Remove').on('click', (event)=>{RemoveCartItem(event)})
-
 export let cartItemValues = [];
 let CartTotalCost = [];
 let CartItems = [];
@@ -337,12 +333,7 @@ function SetCartItemValues(){
         $(element).parent().remove();
       }
     //Update the total cost
-    for(let i =0; i< CartTotalCost.length; i++){
-      if(CartTotalCost[i].id == idToRemove){
-        CartTotalCost.pop(CartTotalCost[i]);
-        i-=1;
-      }
-    };
+    CartTotalCost = CartTotalCost.filter(item => item.id !== idToRemove);
     let total = formatCurrency(CalculateTotalCost());
     $('#basket-total').text(total);
   }

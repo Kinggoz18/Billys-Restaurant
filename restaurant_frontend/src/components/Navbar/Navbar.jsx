@@ -12,7 +12,6 @@ import { NavLink, Link } from 'react-router-dom';
 import {GetCurrentPage} from '../../rootLayout'
 import { cartItemValues } from '../Menu/Menu';
 
- 
 
 /*Navbar component */
 export default function Navbar(props){

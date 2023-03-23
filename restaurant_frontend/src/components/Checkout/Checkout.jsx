@@ -44,7 +44,6 @@ function Checkout() {
   // Function to handle placing order
   function handlePlaceOrder() {
     setPopupVisible(true);
-    PostOrder();
   }
   function PostOrder(){
     let data = JSON.parse(GetFromStorage('Checkoutdata'));
@@ -87,6 +86,7 @@ function Checkout() {
       }
     });  
     NotificationObj.EmailPlacedOrder(Order, Order.CustomerName, Order.CustomerEmail);
+    handlePlaceOrder();
   }
   // Function to handle submitting coupon code
   function handleCouponSubmit() {
@@ -118,17 +118,17 @@ function Checkout() {
         <form className="checkout-form">
           <div>
             <label htmlFor="checkout-username">Contact Full name</label>
-            <input id="input-text" type="text" placeholder="Enter your full name" />
+            <input id="checkout-username" type="text" placeholder="Enter your full name" />
             <span className='error'>Please enter a name for the order</span>
           </div>
           <div>
             <label htmlFor="checkout-useremail">Contact Email address</label>
-            <input id="input-text" type="email" placeholder="Enter contact email" />
+            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
             <span className='error'>Please enter a contact email</span>
           </div>
           <div>
             <label htmlFor="checkout-userphone">Contact Phone number</label>
-            <input id="input-text" type="text" placeholder="Enter contact phone" />
+            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
             <span className='error'>Please enter a contact phone number</span>
           </div>
         </form>
@@ -151,7 +151,7 @@ function Checkout() {
           )}
         </div>
 
-        <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
+        <button className="place-order-btn" onClick={()=> PostOrder()}>Place Order</button>
 
         {popupVisible && (
           <div className="popup-container">

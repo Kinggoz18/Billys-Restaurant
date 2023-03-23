@@ -102,7 +102,7 @@
   }
   }
 
-#input-text {
+  #checkout-userphone, #checkout-useremail, #checkout-username{
   font-size: 16px;
   padding: 10px;
   border: 1px solid rgb(255, 255, 255);
@@ -111,7 +111,7 @@
   width: max-content;
   box-sizing: border-box;
 }
-#input-text{
+#checkout-userphone, #checkout-useremail, #checkout-username{
   outline: none;
   border-color: var(--color-yellow);
   ;

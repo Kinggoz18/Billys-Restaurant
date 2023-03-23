@@ -277,28 +277,30 @@ function AddToCart(event){
   let cart = document.querySelector('#Users-Cart');
   let cartText = cart.innerHTML;
   let queryId  = `#CartItem-Count${id}`;
-  let value = 1;
+  let value = 0;
   //Create an object to hold the cost and push it to the global CartTotalCost array
   let cost = parseFloat(price.substring(1, price.length))
 
   //If the item is in the list
   if(FindItemInList(cartText, id) === false){
+    value = 1;
     //add the item to the global array
     let currItem = {id: queryId, value: 1};
     cartItemValues.push(currItem);
     //Update the html
     cart.innerHTML+= current;
-    UpdateItemToCart(id, cost, value); //Updatet the global array holding the total cost
     SetCartItemValues();
   }
   else{
     let item = document.querySelector(queryId);
     let number = parseInt(item.value) + 1;
     item.value = number;
+    value = number;
     //Update the item
     let currItem = {id: queryId, value: number, cost: cost};
     cartItemValues.push(currItem);
   }
+  UpdateItemToCart(id, cost, value); //Updatet the global array holding the total cost
 }
 
 //Function to check if an item already exists in the cart
@@ -346,8 +348,9 @@ function UpdateCartItemValue(id, value)
   const existingItem = cartItemValues.find(item => item.id === id);
   existingItem.value=value;
 }
-  //Functiont to remove Cart item
-  window.RemoveCartItem = function(event){
+
+//Functiont to remove Cart item
+window.RemoveCartItem = function(event){
     var element = event.target;
     let idToRemove = $(element).prev().prev().prev().prev().text().replace(/ /g, "");
     //Remove the element
@@ -360,4 +363,4 @@ function UpdateCartItemValue(id, value)
     CartTotalCost = CartTotalCost.filter(item => item.id !== idToRemove);
     let total = formatCurrency(CalculateTotalCost());
     $('#basket-total').text(total);
-  }
+}

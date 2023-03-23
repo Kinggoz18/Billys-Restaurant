@@ -118,28 +118,28 @@ function Checkout() {
         <form className="checkout-form">
           <div>
             <label htmlFor="checkout-username">Contact Full name</label>
-            <input id="checkout-username" type="text" placeholder="Enter your full name" />
+            <input id="input-text" type="text" placeholder="Enter your full name" />
             <span className='error'>Please enter a name for the order</span>
           </div>
           <div>
             <label htmlFor="checkout-useremail">Contact Email address</label>
-            <input id="checkout-useremail" type="email" placeholder="Enter contact email" />
+            <input id="input-text" type="email" placeholder="Enter contact email" />
             <span className='error'>Please enter a contact email</span>
           </div>
           <div>
             <label htmlFor="checkout-userphone">Contact Phone number</label>
-            <input id="checkout-userphone" type="text" placeholder="Enter contact phone" />
+            <input id="input-text" type="text" placeholder="Enter contact phone" />
             <span className='error'>Please enter a contact phone number</span>
           </div>
         </form>
         <div className="payment-options">
           <h3>Have a cupon or want to use your points?</h3>
-          <label>
+          <label id='payment_radio'>
             <input type="radio" name="payment" value="coupon" checked={couponSelected} onChange={handleCouponSelection} />
             Pay with Coupon
           </label>
 
-          <label>
+          <label id='payment_points'>
             <input type="radio" name="payment" value="points" checked={pointsSelected} onChange={handlePointsSelection} />
             Pay with Points
           </label>
@@ -192,3 +192,4 @@ today = mm + '/' + dd + '/' + yyyy;
 return today;
 }
 export default Checkout;
+

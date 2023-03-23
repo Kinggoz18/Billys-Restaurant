@@ -17,16 +17,16 @@
 .checkout-heading {
   font-size: 60px;
   color: var(--color-yellow);
-}
-
-.Checkout {
+  }
+  
+  .Checkout {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-}
-
-.checkout-container {
+  }
+  
+  .checkout-container {
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
@@ -37,14 +37,14 @@
   width: 70%;
   max-height: 90vh;
   align-items: center;
-}
-
-.user-info {
+  }
+  
+  .user-info {
   font-size: 16px;
   margin-bottom: 20px;
-}
-
-.checkout-summary {
+  }
+  
+  .checkout-summary {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 1em;
@@ -52,14 +52,16 @@
   max-height: 300px;
   width: 70%;
   overflow-y: scroll;
-  border-radius: 10px;}
-
-label {
+  border-radius: 10px;
+  }
+  
+  label {
   display: block;
   margin-bottom: 10px;
-}
-
-.place-order-btn {
+  font-size: 16px;
+  }
+  
+  .place-order-btn {
   background-color:var(--color-yellow);
   border: none;
   color: white;
@@ -72,36 +74,62 @@ label {
   cursor: pointer;
   border-radius: 4px;
   width: max-content;
-}
-
-.place-order-btn:hover {
+  }
+  
+  .place-order-btn:hover {
   background-color: var(--color-yellow);;
-}
-
-.place-order-btn:active {
+  }
+  
+  .place-order-btn:active {
   background-color: var(--color-yellow);;
   box-shadow: none;
   transform: translateY(2px);
-}
+  }
+  
+  /* Media queries */
+  @media only screen and (max-width: 768px) {
+  .checkout-container {
+  width: 90%;
+  }
+  }
+  
+  @media only screen and (max-width: 480px) {
+  .checkout-container {
+  width: 100%;
+  }
+  .checkout-summary {
+  width: 100%;
+  }
+  }
 
+<<<<<<< Updated upstream
 label {
   font-size: 16px;
   margin-right: 10px;
 }
 
 /* input[type="text"] {
+=======
+#input-text {
+>>>>>>> Stashed changes
   font-size: 16px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 4px;
   width: 100%;
   width: max-content;
   box-sizing: border-box;
+<<<<<<< Updated upstream
 } */
 
 input[type="text"]:focus {
+=======
+}
+#input-text{
+>>>>>>> Stashed changes
   outline: none;
-  border-color:var(--color-yellow);
+  border-color: var(--color-yellow);
+  ;
   box-shadow: 0 0 5px var(--color-yellow);
   width: max-content;
 }
@@ -293,3 +321,24 @@ input[type="text"]:focus {
   background-color: var(--color-yellow);
 }
 
+/* Mobile devices */
+@media only screen and (max-width: 767px) {
+  .popup-content {
+    width: 100%;
+  }
+
+  .checkout-form {
+    width: 100%;
+  }
+}
+
+/* Tablets and larger devices */
+@media only screen and (min-width: 768px) {
+  .popup-content {
+    width: 80%;
+  }
+
+  .checkout-form {
+    width: 60%;
+  }
+}

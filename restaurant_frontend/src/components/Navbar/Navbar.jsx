@@ -47,7 +47,7 @@ export default function Navbar(props){
     <div>
         <nav className="app__navbar">
         <div className='logo-container'>
-          <img id="nav-logo"src={navlogo} alt="Nav Logo" />
+          <NavLink to='/'><img id="nav-logo"src={navlogo} alt="Nav Logo" /></NavLink>
           <div className='mobile_app__navbar-right'>
               <div id="mobile-cart"  className='p__opensans'><i onClick={openbasket} className="fa fa-shopping-cart"></i></div>
               <span className='moblie-menu'><i className="fas fa-bars"></i></span>

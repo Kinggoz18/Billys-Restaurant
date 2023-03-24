@@ -317,9 +317,6 @@
   animation-direction: alternate;
 }
 
-.points {
-  color: #FFC107;
-}
 
 @keyframes bounce {
   0% { transform: translateY(0); }

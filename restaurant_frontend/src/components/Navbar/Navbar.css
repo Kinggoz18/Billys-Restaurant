@@ -166,7 +166,12 @@
   .summaryli{
     padding: auto;
   }
-
+  .empty-message {
+    padding: 1em;
+    color: var(--delete-red);
+  font-size: 1.2em;
+  font-weight: bold;
+  }
   .checkoutbtn{
     border-radius: 10px;
     width: auto;

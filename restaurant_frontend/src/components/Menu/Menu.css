@@ -82,7 +82,13 @@
         margin: 1em;
         width: 370px;
         padding: 1em;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
+    .MenuItem:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      }
     .MenuItem div{
         width: 95%;
     }

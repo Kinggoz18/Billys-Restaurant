@@ -212,11 +212,12 @@ async function LoadDynamicNavbar(){
         if (!message) {
           message = document.createElement("p");
           message.innerText = "Your cart is empty.";
+          message.classList.add("empty-message"); // Add a class to the p tag
           checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
         }
 
         return;
-      } else {
+      } else { 
         // Remove message if cart is no longer empty
         if (message) {
           message.remove();

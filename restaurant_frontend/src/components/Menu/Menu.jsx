@@ -40,7 +40,7 @@ export function MenuNav(){
   return(
     <div className='menunav-div'>
       <div>
-      <video className='menu-logo' autoPlay>
+      <video className='menu-logo' autoPlay muted playsInline controls={false}>
         <source src={DefaultHeader} type="video/mp4"/>
       </video>
       </div>

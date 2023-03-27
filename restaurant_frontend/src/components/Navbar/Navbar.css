@@ -103,7 +103,7 @@
     overflow: hidden;
     right: 0.2px;
     transition: 0.5s ease;
-    top: 122px;
+    top: 111px;
     height: 74vh;
     width: 410px;
   }
@@ -298,7 +298,7 @@
 
 .mobile-navbar{
   align-items: center;
-  background-color: var(--delete-red);
+  background-color: var(--mobileNav-green);
   color: white;
   display: flex;
   font-size: 1em;
@@ -652,7 +652,7 @@
   .moblie-menu{
     align-content: center;
     display: grid;
-    font-size: 2.6em;
+    font-size: 2em;
     padding: 0em 0.5em;
     justify-items:last baseline;
   }
@@ -684,7 +684,7 @@
 #mobile-cart{
   align-items: center;
   display: flex;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .mobile_app__navbar-right{
   align-content: end;
@@ -697,7 +697,7 @@
 
 .mobile-navbar{
   align-items: center;
-  background-color: var(--delete-red);
+  background-color: var(--mobileNav-green);
   color: white;
   display: flex;
   font-size: 1em;

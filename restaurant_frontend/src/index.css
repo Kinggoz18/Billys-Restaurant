@@ -1,6 +1,7 @@
 @import url('./reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap');
 
 :root {
@@ -17,6 +18,8 @@
   --color-yellow: #FFAA22;
   --color-secyellow: #f7b242;
   --error-red: #f66565;
+  --golden-yellow: #FFE939;
+  --mobileNav-green: #16C172;
 }
 
 /* default styling  */
@@ -25,7 +28,6 @@ body{
   overflow-x: hidden !important;
   width: 100% !important;
   height: 100% !important;
-  position: fixed !important;
 }
 a {
   color: unset;

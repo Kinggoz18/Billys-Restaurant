@@ -1,6 +1,7 @@
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 footer{
-    position: fixed;
+    bottom: 0;
+    position: sticky;
     z-index: 1;
 }
 footer, .footerLeft, .footerRight{
@@ -17,11 +18,11 @@ footer, .footerLeft, .footerRight{
         height: 70px;
         justify-content: center;
         left: 0;
-        padding: 0.5em !important;
         bottom: 0;
         width: 100%;
     }
     .footerLeft{
+        padding-left: 0.5em;
         margin-right: 3em;
     }
     .footerLeft p{
@@ -48,11 +49,12 @@ footer, .footerLeft, .footerRight{
         height: 70px;
         justify-content: center;
         left: 0;
-        padding: 0.5em !important;
+        position: static;
         bottom: 0;
         width: 100%;
     }
     .footerLeft{
+        padding-left: 0.5em;
         margin-right: 3em;
     }
     .footerLeft p{
@@ -79,11 +81,12 @@ footer, .footerLeft, .footerRight{
         height: 70px;
         justify-content: center;
         left: 0;
-        padding: 0.5em !important;
+        position: static;
         bottom: 0;
         width: 100%;
     }
     .footerLeft{
+        padding-left: 0.5em;
         margin-right: 3em;
     }
     .footerLeft p{

@@ -1,4 +1,18 @@
-
+ /*======================================================================
+| MenuItemObject
+|
+| Name: PromoObject.js
+|
+| Written by: Chigozie Muonagolu - March 2023
+|
+| Purpose: Communicate with the backend/API.
+|
+| usage: used in services that requires it.
+|
+| Description of properties: None
+|
+|------------------------------------------------------------------
+*/
 //Object for promo
 export class PromoObject{
 

@@ -5,31 +5,50 @@ import { Accounts } from './Objects/ObjectExports.mjs';
 let adminAccount = new Accounts.AdminAccount();
 let employeeAccount = new Accounts.EmployeeAccount();
 
-async function LoginAccount() {
-    let LoginInfo = {
-        emailAddress: document.getElementById('emailAddress').value,
-        password: document.getElementById('password').value,
-    }
+async function LoginAccount(event) {
+  event.preventDefault();
 
-    if (!LoginInfo.emailAddress || !LoginInfo.password) {
-        alert('Please enter all required fields.');
-        return;
-    }
+  let LoginInfo = {
+    emailAddress: document.getElementById('emailAddress').value,
+    password: document.getElementById('password').value,
+  }
+  let role = document.getElementById('role').value;
+  if (!LoginInfo.emailAddress || !LoginInfo.password || !role) {
+    alert('Please enter all required fields.');
+    return;
+  }
 
-    let isAdmin = await adminAccount.AdminLogin(LoginInfo);
-    if (isAdmin) {
-        console.log('Success! Admin logged in');
-        window.location.href = "../public/Admin.html";
-    } else {
-        let isEmployee = await employeeAccount.EmployeeLogin(LoginInfo);
-        if (isEmployee) {
-            console.log('Success! Employee logged in');
-            window.location.href = "../public/Employee.html";
+  try {
+    if (role === 'admin') {
+      await adminAccount.AdminLogin(LoginInfo).then(() => {
+        let result = adminAccount.GetAdminInfo;
+        if (result != null) {
+          console.log('Success! Admin logged in');
+          localStorage.setItem('userRole', 'admin');
+          localStorage.setItem('userInfo', JSON.stringify(result));
+          window.location.replace("../public/Admin.html");
         } else {
-            alert('Error in logging in account. Please try again later.');
+          alert('Account not found. Please check your email and password.');
         }
+      });
+    } else if (role === 'employee') {
+      await employeeAccount.EmployeeLogin(LoginInfo).then(() => {
+        let result = employeeAccount.GetEmployeeInfo;
+        if (result != null) {
+          console.log('Success! Employee logged in');
+          localStorage.setItem('userRole', 'employee');
+          localStorage.setItem('userInfo', JSON.stringify(result));
+          window.location.replace("../public/Employee.html");
+        } else {
+          alert('Account not found. Please check your email and password.');
+        }
+      });
     }
+  } catch (error) {
+    console.error(error);
+    alert('Error in logging in account. Please try again later.');
+  };
 }
 
 // Add event listener to the "Create Account" button
-document.getElementById('loginAccountBtn').addEventListener('click', LoginAccount);
+document.getElementById('loginAccountBtn').addEventListener('click', (event) => LoginAccount(event));

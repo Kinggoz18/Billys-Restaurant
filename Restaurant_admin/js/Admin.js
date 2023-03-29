@@ -1,5 +1,63 @@
-'use strict'
+'use strict';
+
 //imports
+import { Accounts } from './Objects/ObjectExports.mjs';
+
+let adminAccount = new Accounts.AdminAccount();
+
+async function updateUser(event) {
+  event.preventDefault();
+
+  // Check if the user is logged in
+  let userInfo = localStorage.getItem('userInfo');
+  if (!userInfo) {
+    alert('Please log in to update your account.');
+    return;
+  }
+
+  // Get the password value
+  let password = document.getElementById('password').value;
+
+  // If password field is not empty, update the admin account
+  if (password !== "") {
+    let AccountInfo = {
+      _id: "",
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      emailAddress: document.getElementById('emailAddress').value,
+      password: password
+    }
+
+    // Get the admin ID from local storage
+    let userRole = localStorage.getItem('userRole');
+    let adminId = "";
+    if (userRole === 'admin') {
+      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      adminId = userInfo._id;
+    }
+
+    // Update the admin account
+    if (adminId !== "") {
+      await adminAccount.UpdateAdmin(adminId, AccountInfo).then(() => {
+        console.log('Success! Admin Updated');
+        let result = adminAccount.GetAdminInfo;
+        if (result != null) {
+          alert('Success! Admin Updated');
+        } else {
+          alert('admin not updated');
+        }
+      }).catch((error) => {
+        console.log('Error updating admin:', error);
+        alert('Admin not updated');
+      });
+    }
+  }
+}
+
+// Add event listener to the "Save" button
+document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
+
 import { Menu, MenuItem, Accounts } from './Objects/ObjectExports.mjs';
 
 //Global variables
@@ -51,29 +109,6 @@ async function CreateMenu() {
   }
 }
 
-/* async function AccountCreate() {
-  let firstname = document.getElementById('first-name').value;
-  let lastname = document.getElementById('last-name').value;
-  let phone = document.getElementById('phone-number').value;
-  let email = document.getElementById('email').value;
-  let password = document.getElementById('password').value;
-  let confirmPassword = document.getElementById('confirm-password').value;
-  let role = document.getElementById('role').value;
-  let adminPassword = document.getElementById('adminPassword').value;
-
-  if (password !== confirmPassword) {
-    alert("Passwords do not match");
-    return;
-  }
-
-  if (role === 'admin'){
-    await Accounts.CreateAdmin(firstname,lastname,phone, email, password).then(() => {
-      console.log('Throw Success here! admin Created');
-      window.location.reload();
-    });
-
-  }
-} */
 //Function to delete a menu
 async function DeleteMenu() {
   let menuName = document.getElementById('MenuName').value;

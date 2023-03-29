@@ -71,14 +71,14 @@ async function AccountCreate(event) {
         await adminAccount.CreateAdmin(AccountInfo);
         console.log('Success! Admin Created');
         alert('Success! Admin Created');
-        window.location.replace("../public/Admin.html");
+        window.location.replace("../public/login.html");
 
 
     } else if (role === 'employee') {
         await employeeAccount.CreateEmployee(AccountInfo);
         console.log('Success! Employee Created');
         alert('Success! Employee Created');
-        window.location.replace("../public/Employee.html");
+        window.location.replace("../public/login.html");
     }
 }
 

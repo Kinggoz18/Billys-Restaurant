@@ -1,7 +1,7 @@
 /* Global Styling */
 .show-mobileNav{
   opacity: 100% !important;
-  height: 290px !important;
+  height: 260px !important;
 }
 /* css for the checkout basket  */
 .hide-basket{
@@ -13,6 +13,9 @@
   z-index: 1;
   position: relative;
   max-height: 110px;
+}
+.BasketContainer{
+  z-index: 1;
 }
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
@@ -95,6 +98,7 @@
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
+    border-top: none;
     padding: 1em 0.5em;
     position: absolute;
     overflow: hidden;
@@ -163,7 +167,12 @@
   .summaryli{
     padding: auto;
   }
-
+  .empty-message {
+    padding: 1em;
+    color: var(--delete-red);
+  font-size: 1.2em;
+  font-weight: bold;
+  }
   .checkoutbtn{
     border-radius: 10px;
     width: auto;
@@ -231,6 +240,7 @@
   a.checkoutbtn:hover {
     background-color: var(--color-yellow);
   }
+
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
@@ -273,17 +283,23 @@
   
 }
 /*Mobile navbar styling*/
+#mobile-cart{
+  align-items: center;
+  display: flex;
+  font-size: 1.5em;
+}
 .mobile_app__navbar-right{
   align-content: end;
   color: var(--color-white);
-  display: grid;
+  display: flex;
+  flex-direction: row;
   justify-content: end;
   font-size: 1em;
 }
 
 .mobile-navbar{
   align-items: center;
-  background-color: var(--delete-red);
+  background-color: var(--mobileNav-green);
   color: white;
   display: flex;
   font-size: 1em;
@@ -294,8 +310,8 @@
   position: absolute;
   opacity: 0%;
   overflow: clip;
-  transition: 0.5s;
-  top: 103px;
+  transition: 0.5s ease;
+  top: 109px;
   width: 100vw;
 }
 .mobile-navbar li{
@@ -327,7 +343,7 @@
     transition: 0.5s ease;
     background-color: white;
     width: 100vw;
-    height: 100vh;
+    height: 700px;
   }
   .cartItem{
     color: var(--color-white) !important;
@@ -488,13 +504,14 @@
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
-    padding: 1em 0.5em;
+    background-color: white;
+    justify-items: center;
+    padding: 0em;
     position: absolute;
     overflow: hidden;
     transition: 0.5s ease;
-    background-color: white;
-    width: 97vw;
-    height: 100vh;
+    width: 100vw;
+    height: 700px;
   }
   .cartItem{
     color: var(--color-white) !important;
@@ -514,7 +531,7 @@
     list-style: none;
     height: 60vh !important;
     overflow-y: scroll;
-    width: 96%;
+    width: 92%;
     border: solid 2px var(--color-yellow);
     padding: 0em 0.5em;
   }
@@ -636,7 +653,7 @@
   .moblie-menu{
     align-content: center;
     display: grid;
-    font-size: 2.6em;
+    font-size: 2em;
     padding: 0em 0.5em;
     justify-items:last baseline;
   }
@@ -665,17 +682,23 @@
   
 }
 /*Mobile navbar styling*/
+#mobile-cart{
+  align-items: center;
+  display: flex;
+  font-size: 1.2em;
+}
 .mobile_app__navbar-right{
   align-content: end;
   color: var(--color-white);
-  display: grid;
+  display: flex;
+  flex-direction: row;
   justify-content: end;
   font-size: 1em;
 }
 
 .mobile-navbar{
   align-items: center;
-  background-color: var(--delete-red);
+  background-color: var(--mobileNav-green);
   color: white;
   display: flex;
   font-size: 1em;
@@ -685,8 +708,8 @@
   padding:0.7em 0em;
   opacity: 0%;
   overflow: clip;
-  transition: 0.5s;
-  top: 103px;
+  transition: 0.5s ease;
+  top: 109px;
   width: 100vw;
 }
 

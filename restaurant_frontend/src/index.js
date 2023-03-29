@@ -19,9 +19,7 @@ import { MenuLayout } from './components/Layouts/MenuLayout';
 
 const App = () =>  {
   return (
-      <div>
         <RouterProvider router={router}/>
-      </div>
   );
 }
 

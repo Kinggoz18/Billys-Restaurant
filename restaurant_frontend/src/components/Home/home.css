@@ -8,22 +8,27 @@
 .homepage > p{
   z-index: 1 !important;
 }
+.logo_name{
+  color: var(--golden-yellow);
+  font-family: 'Roboto', sans-serif;
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
+  .sub-logo{
+    width: 600px;
+  }
     .background_vid{
         position: absolute;
         width: 100vw;
-        height: 100vh;
+        height: 100vh !important;
         z-index: -1 !important;
-        height: 100%;
         object-fit: cover;
       }
       
       .logo_name{
         display: flex;
-        color: var(--color-white);
         flex-direction: column;
-        font-size: 2rem;
+        font-size: 2em;
         font-weight: bold;
         margin-top: 2em;
         padding-left: 1em;
@@ -33,7 +38,7 @@
         height: 340px;
         width: 500px;
       }
-      .button{
+      .home-button{
         background-color: var(--color-yellow);
         border: none;
         color: white;
@@ -50,12 +55,14 @@
 }
 /***************************************** BREAKPOINT for Medium devices ********************************************************/
 @media screen and (max-width: 1010px) {
+  .sub-logo{
+    width: 500px;
+  }
   .background_vid{
     position: absolute;
     width: 670px;
-    height: 100vh;
+    height: 100vh !important;
     z-index: -1 !important;
-    height: 100%;
     object-fit: fill;
   }
   .background_vid{
@@ -69,7 +76,6 @@
   
   .logo_name{
     display: flex;
-    color: var(--color-white);
     flex-direction: column;
     font-size: 2em;
     font-weight: bold;
@@ -81,23 +87,26 @@
     height: 300px;
     width: 430px;
   }
-  .button{
+  .home-button{
     background-color: var(--color-yellow);
+    display: inline-block;
     border: none;
+    cursor: pointer;
     color: white;
-    padding: 1rem 4rem;
+    padding: 1em 4em;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 20px;
     margin: 4px 2px;
-    cursor: pointer;
     margin-top: 10px;
    
   }
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
+  .sub-logo{
+    width: 300px;
+  }
   .background_vid{
     position: absolute;
     width: 670px;
@@ -117,7 +126,6 @@
   
   .logo_name{
     display: flex;
-    color: var(--color-white);
     flex-direction: column;
     font-size: 1.5em;
     font-weight: bold;
@@ -129,7 +137,7 @@
     height: 200px;
     width: 230px;
   }
-  .button{
+  .home-button{
     background-color: var(--color-yellow);
     border: none;
     color: white;

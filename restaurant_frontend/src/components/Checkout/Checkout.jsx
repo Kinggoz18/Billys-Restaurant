@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import {GetFromStorage} from '../LocalStorage'
-import {Order, Accounts, NotificationObject} from '../Objects/ObjectExports.mjs'
+import {Order, Accounts, NotificationObject, PromoObject} from '../Objects/ObjectExports.mjs'
 
 import './Checkout.css';
 
@@ -44,7 +44,6 @@ function Checkout() {
   // Function to handle placing order
   function handlePlaceOrder() {
     setPopupVisible(true);
-    PostOrder();
   }
   function PostOrder(){
     let data = JSON.parse(GetFromStorage('Checkoutdata'));
@@ -87,6 +86,7 @@ function Checkout() {
       }
     });  
     NotificationObj.EmailPlacedOrder(Order, Order.CustomerName, Order.CustomerEmail);
+    handlePlaceOrder();
   }
   // Function to handle submitting coupon code
   function handleCouponSubmit() {
@@ -134,12 +134,12 @@ function Checkout() {
         </form>
         <div className="payment-options">
           <h3>Have a cupon or want to use your points?</h3>
-          <label>
+          <label id='payment_radio'>
             <input type="radio" name="payment" value="coupon" checked={couponSelected} onChange={handleCouponSelection} />
             Pay with Coupon
           </label>
 
-          <label>
+          <label id='payment_points'>
             <input type="radio" name="payment" value="points" checked={pointsSelected} onChange={handlePointsSelection} />
             Pay with Points
           </label>
@@ -151,7 +151,7 @@ function Checkout() {
           )}
         </div>
 
-        <button className="place-order-btn" onClick={()=> handlePlaceOrder()}>Place Order</button>
+        <button className="place-order-btn" onClick={()=> PostOrder()}>Place Order</button>
 
         {popupVisible && (
           <div className="popup-container">
@@ -192,3 +192,4 @@ today = mm + '/' + dd + '/' + yyyy;
 return today;
 }
 export default Checkout;
+

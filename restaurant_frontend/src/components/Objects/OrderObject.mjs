@@ -14,8 +14,6 @@
 |------------------------------------------------------------------
 */
 
-import { data } from "jquery";
-
 // Set the API base URL
 const apiBaseURL = "http://chigozie107-001-site1.itempurl.com/";
 // Define the Order class

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import {GetFromStorage} from '../LocalStorage'
-import {Order, Accounts, NotificationObject} from '../Objects/ObjectExports.mjs'
+import {Order, Accounts, NotificationObject, PromoObject} from '../Objects/ObjectExports.mjs'
 
 import './Checkout.css';
 

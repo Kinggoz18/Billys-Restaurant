@@ -8,8 +8,12 @@ import './Checkout.css';
 let AccountData = JSON.parse(GetFromStorage('AccountData'));
 let OrderObj = new Order();
 let NotificationObj= new NotificationObject();
+let promoObj = new PromoObject();
 let CustomerObj = new Accounts.CustomerAccount();
  
+//Global Variables 
+let PromoValue;
+
 function Checkout() {
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
@@ -89,8 +93,17 @@ function Checkout() {
     handlePlaceOrder();
   }
   // Function to handle submitting coupon code
-  function handleCouponSubmit() {
+  async function handleCouponSubmit() {
     // TODO: Apply coupon code
+    let promoString = document.querySelector('#coupon-code');
+
+    //PromoValue = await promoObj.GetPromo(promoString);
+    // if(PromoValue == -1){
+    //   //throw erroe
+    // }
+    // else{
+    //   //update cart total and apply PromoValue discount
+    // }
     setCouponPopupVisible(false);
   }
   let points;

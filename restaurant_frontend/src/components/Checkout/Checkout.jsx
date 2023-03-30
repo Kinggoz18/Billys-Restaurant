@@ -123,7 +123,7 @@ function Checkout() {
       }
     }
     else{
-      alert('Promo all applied!');
+      alert('Promo already applied!');
     }
     setCouponPopupVisible(false);
   }

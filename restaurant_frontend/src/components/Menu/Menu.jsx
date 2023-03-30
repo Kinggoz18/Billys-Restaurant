@@ -313,11 +313,15 @@ function FindItemInList(text, id){
   }
 }
 //Functiont to recalculate basket total
-function CalculateTotalCost(){
+export function CalculateTotalCost(discount){
   let total = 0;
   CartTotalCost.forEach(x=>{
     total+=(x.cost * parseInt(x.count));
   })
+  //applyy discount
+  if(discount!== null && discount!== undefined){
+    total = total - (((discount)/100) * total)
+  }
   return total;
 }
 //Helper function to add to global array

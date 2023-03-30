@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react';
 import {GetFromStorage} from '../LocalStorage'
 import {Order, Accounts, NotificationObject, PromoObject} from '../Objects/ObjectExports.mjs'
 
+import { CalculateTotalCost } from '../Menu/Menu';
+
 import './Checkout.css';
 
 
@@ -10,24 +12,30 @@ let OrderObj = new Order();
 let NotificationObj= new NotificationObject();
 let promoObj = new PromoObject();
 let CustomerObj = new Accounts.CustomerAccount();
- 
-//Global Variables 
-let PromoValue;
+let PromoApplied = false;
 
 function Checkout() {
+  //Checkout useSate variables
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
+  const [OrderCost, setOrderCost] = useState(CalculateTotalCost());
   const [couponCode, setCouponCode] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
 
   const [checkoutData, setCheckoutData] = useState(null);
   let data;
+  //Monitor changes in checkout data
   useEffect(() => {
     data = JSON.parse(GetFromStorage('Checkoutdata'));
     console.log('Checkout data:', data);
     setCheckoutData(data);
   }, []);
+
+  //Monitor chanages in OrderCost
+  useEffect(() => {
+    console.log('OrderCost has changed:', OrderCost);
+  }, [OrderCost]);
 
   if (!checkoutData) {
     return <div>Loading...</div>;
@@ -49,6 +57,7 @@ function Checkout() {
   function handlePlaceOrder() {
     setPopupVisible(true);
   }
+  //Function to make call OrderObj and post order
   function PostOrder(){
     let data = JSON.parse(GetFromStorage('Checkoutdata'));
 
@@ -67,7 +76,7 @@ function Checkout() {
       status: 'In progress',
       TotalPrice: 0
     }
-    let total = 0;
+
     data.forEach(Element=>{
       let current = {
         _id: "string",
@@ -77,10 +86,9 @@ function Checkout() {
         OrderCount: Element.count,
         imageLink: "string"
       }
-      total+= current.Price;
       Order.items.push(current);
     });
-    Order['TotalPrice'] = total;
+    Order['TotalPrice'] = OrderCost;
     OrderObj.CreateOrder(Order).then(data=>{
       if(data!=null){
         //Post the order
@@ -94,16 +102,22 @@ function Checkout() {
   }
   // Function to handle submitting coupon code
   async function handleCouponSubmit() {
-    // TODO: Apply coupon code
-    let promoString = document.querySelector('#coupon-code');
+    if(!PromoApplied){
+      let promoString = document.querySelector('#coupon-code').value;
 
-    //PromoValue = await promoObj.GetPromo(promoString);
-    // if(PromoValue == -1){
-    //   //throw erroe
-    // }
-    // else{
-    //   //update cart total and apply PromoValue discount
-    // }
+      let PromoValue = await promoObj.GetPromo(promoString);
+      if(PromoValue === -1){
+          alert('Invalud Promo Entered!');
+        }
+      else{
+        setOrderCost(CalculateTotalCost(PromoValue));
+        alert(`${PromoValue}% Applied!`);
+        PromoApplied = true;
+      }
+    }
+    else{
+      alert('Promo all applied!');
+    }
     setCouponPopupVisible(false);
   }
   let points;
@@ -127,6 +141,7 @@ function Checkout() {
               <span className='basket-count'>{item.count}</span>
             </li>
           ))}
+          <div className='checkout-totalCost'>Total: {OrderCost}</div>
         </div>
         <form className="checkout-form">
           <div>

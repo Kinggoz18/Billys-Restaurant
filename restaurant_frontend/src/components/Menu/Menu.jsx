@@ -15,7 +15,7 @@ import './Menu.css';
 let  GlobalMenu = new Menu.MenuObject();
 
 export let cartItemValues = [];
-let CartTotalCost = [];
+export let CartTotalCost = [];
 let CartItems = [];
 
 // Global Event listeners
@@ -113,7 +113,8 @@ export function AllMenu(props){
   }
   return (
     <div className='Menu'>
-      {menuItems}
+      
+      {menuItems} 
     </div>
   );
 }

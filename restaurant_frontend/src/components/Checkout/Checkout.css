@@ -67,12 +67,6 @@
   border-radius: 10px;
   }
   
-  .checkout-Ordercost {
-    font-weight: bold;
-    font-size: 50px;
-    color: var(--color-yellow);
-  }
-
   label {
   display: block;
   margin-bottom: 10px;

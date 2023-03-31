@@ -22,7 +22,6 @@ function Checkout() {
   const [couponCode, setCouponCode] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
-  const [discountedPrice, setDiscountedPrice] = useState(0);
 
   const [checkoutData, setCheckoutData] = useState(null);
   let data;
@@ -52,12 +51,6 @@ function Checkout() {
   function handlePointsSelection() {
     setPointsSelected(true);
     setCouponSelected(false);
-    if (points >= 20) {
-      setDiscountedPrice(Ordercost);
-      setCartTotalCost(0);
-    } else {
-      setDiscountedPrice(0);
-    }
   }
 
   // Function to handle placing order
@@ -148,7 +141,7 @@ function Checkout() {
               <span className='basket-count'>{item.count}</span>
             </li>
           ))}
-          <div className='checkout-Ordercost'>Total: {OrderCost}</div>
+          <div className='checkout-totalCost'>Total: {OrderCost}</div>
         </div>
         <form className="checkout-form">
           <div>
@@ -213,25 +206,11 @@ function Checkout() {
             </div>
           </div>
         )}
-
-        {pointsSelected && (
-          <div class="overlay">
-            <div className="points-modal">
-              <button className="close-btn" onClick={() => setPointsSelected(false)}>X</button>
-              <p>Cart Total Cost: {OrderCost}</p>
-              <p>Points available: {points}</p>
-              <p>Total after points:{OrderCost}</p>
-            </div>
-
-
-          </div>
-
-        )}
       </div>
-    </div> 
+    </div>
   );
 }
-function GetCurrentDate(){ 
+function GetCurrentDate(){
   var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');

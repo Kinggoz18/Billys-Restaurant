@@ -123,6 +123,8 @@ function Checkout() {
   let points;
     if(AccountData != null){
       points = AccountData['points'];
+    }else{
+      points = 0;
     }
   return (
     <div className='Page'>

@@ -12,6 +12,7 @@ async function updateUser(event) {
   let userInfo = localStorage.getItem('userInfo');
   if (!userInfo) {
     alert('Please log in to update your account.');
+    window.location.replace("../public/login.html");
     return;
   }
 
@@ -55,8 +56,68 @@ async function updateUser(event) {
   }
 }
 
-// Add event listener to the "Save" button
+async function deleteUser(event){
+  event.preventDefault();
+
+  // Check if the user is logged in
+  let userInfo = localStorage.getItem('userInfo');
+  if (!userInfo) {
+    alert('Please log in to delete your account.');
+    window.location.replace("../public/login.html");
+    return;
+  }
+
+  // Get the employee ID from local storage
+  let userRole = localStorage.getItem('userRole');
+  let employeeId = "";
+  if (userRole === 'employee') {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    employeeId = userInfo._id;
+  }
+
+  // Delete the employee account
+  if (employeeId !== "") {
+    await employeeAccount.DeleteEmployee(employeeId).then(() => {
+      console.log('Success! Employee Deleted');
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('userRole');
+      alert('Success! Employee Deleted');
+      window.location.href = 'login.html';
+    }).catch((error) => {
+      console.log('Error deleting employee:', error);
+      alert('Employee not deleted');
+    });
+  }
+}
+
+async function logout(){
+  // Check if the user is logged in
+  let userInfo = localStorage.getItem('userInfo');
+  if (!userInfo) {
+    alert('Please log in to log out.');
+    return;
+  }
+
+  // Get the user's role
+  let userRole = localStorage.getItem('userRole');
+
+  // Call the appropriate logout method based on the user's role
+  if (userRole === 'employee') {
+    console.log('Success! Employee Logged Out');
+  }
+
+  // Remove user info from local storage and redirect to login page
+  localStorage.removeItem('userInfo');
+  localStorage.removeItem('userRole');
+  window.location.href = 'login.html';
+}
+
+
+
+// Add event listener to the "Save" and "Delete" button
+document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
 document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
+document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
 
 import { OrderObject } from './Objects/OrderObject.mjs';
 
@@ -98,16 +159,31 @@ order.GetAllOrders().then(data => {
   console.log(error);
 });
 
-// Function to handle logout
-function logout() {
-  // Call the appropriate logout method based on the user's role
- if (userRole === 'employee') {
-    employeeAccount.logout();
-  }
+/* let idleTime = 0;
+let timerId;
 
-  // Redirect the user to the login page
-  window.location.href = 'login.html';
+function resetTimer() {
+  idleTime = 0;
 }
 
-// Add event listener to logout button
-document.getElementById('logout-btn').addEventListener('click', logout);
+function startTimer() {
+  timerId = setInterval(function() {
+    idleTime++;
+    if (idleTime >= 300) {
+      let count = 360 - idleTime;
+      alert(`You have been idle for more than 5 minutes. You will be logged out in ${count} seconds if you remain inactive.`);
+      if (idleTime === 360) {
+        clearInterval(timerId);
+        logout();
+      }
+    }
+  }, 1000);
+}
+
+function activityDetected() {
+  resetTimer();
+}
+document.addEventListener('mousemove', activityDetected);
+document.addEventListener('keypress', activityDetected);
+
+startTimer(); */

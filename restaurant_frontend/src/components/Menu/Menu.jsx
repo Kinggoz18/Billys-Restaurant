@@ -15,7 +15,7 @@ import './Menu.css';
 let  GlobalMenu = new Menu.MenuObject();
 
 export let cartItemValues = [];
-let CartTotalCost = [];
+export let CartTotalCost = [];
 let CartItems = [];
 
 // Global Event listeners
@@ -113,7 +113,8 @@ export function AllMenu(props){
   }
   return (
     <div className='Menu'>
-      {menuItems}
+      
+      {menuItems} 
     </div>
   );
 }
@@ -313,11 +314,15 @@ function FindItemInList(text, id){
   }
 }
 //Functiont to recalculate basket total
-function CalculateTotalCost(){
+export function CalculateTotalCost(discount){
   let total = 0;
   CartTotalCost.forEach(x=>{
     total+=(x.cost * parseInt(x.count));
   })
+  //applyy discount
+  if(discount!== null && discount!== undefined){
+    total = total - (((discount)/100) * total)
+  }
   return total;
 }
 //Helper function to add to global array

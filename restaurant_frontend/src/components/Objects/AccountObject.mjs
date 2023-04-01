@@ -212,13 +212,13 @@ export class Account{
         return dataToReturn;
     }
     //Function to Update an account details : public
-    async UpdateAccount(AccountType, adminToUpdate_ID, AccountInfo){
+    async UpdateAccount(AccountType, accountoUpdate_ID, AccountInfo){
        let dataToReturn = null;
        let accountInfo = JSON.stringify(AccountInfo);
        try{
         const apiUrl = this.#UpdateUrls[AccountType];
         const params = new URLSearchParams();
-        params.set("AccountoUpdate_ID", adminToUpdate_ID);
+        params.set("AccountoUpdate_ID", accountoUpdate_ID);
             await fetch(`${apiUrl}?${params}`, {
                 method: "PUT",
                 body: accountInfo,
@@ -245,7 +245,7 @@ export class Account{
 }
 export class AdminAccount extends Account{
     #AccountInfo = null;
-    //Defualt constructor
+    //Default constructor
     constructor(){
         super();
         //Initialize Account Info object
@@ -301,7 +301,7 @@ export class AdminAccount extends Account{
 export class EmployeeAccount extends Account{
     #AccountInfo = null;
 
-    //Defualt constructor
+    //Default constructor
     constructor(){
         super();
         //Initialize Account Info object
@@ -355,7 +355,7 @@ export class EmployeeAccount extends Account{
 }
 export class CustomerAccount extends Account{
     #AccountInfo = null;
-    //Defualt constructor
+    //Default constructor
     constructor(){
         super();
         //Initialize Account Info object

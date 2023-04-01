@@ -8,6 +8,9 @@
 }
 /***************************************** BREAKPOINT for small devices ********************************************************/
 @media screen and (max-width: 670px) {
+  .checkout-heading{
+    font-size: 3em !important;
+  }
 }
 
 
@@ -38,7 +41,16 @@
   max-height: 90vh;
   align-items: center;
   }
+  .checkout-totalCost {
+    color: #ff8800;
+    font-size: 32px; /* increase the font size */
+    font-weight: bold; /* make the text bold */
+    text-align: center;
+  }
   
+
+    
+   
   .user-info {
   font-size: 16px;
   margin-bottom: 20px;
@@ -88,15 +100,11 @@
   
   /* Media queries */
   @media only screen and (max-width: 768px) {
-  .checkout-container {
-  width: 90%;
-  }
+
   }
   
   @media only screen and (max-width: 480px) {
-  .checkout-container {
-  width: 100%;
-  }
+
   .checkout-summary {
   width: 100%;
   }
@@ -182,8 +190,6 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
-
-  
 
  
 
@@ -306,6 +312,56 @@
   background-color: var(--color-yellow);
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.points-modal {
+  display: flex;
+flex-direction: column;
+background-color: aliceblue;
+position: relative;
+border: 1px solid black;
+padding: 147px;
+border-radius: 19px;
+}
+
+.points-modal p {
+  margin: 10px 0;
+  font-weight: bold;
+  color: var(--color-yellow);
+  font-size: 50px;
+}
+
+
+.points-modal button.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.points-modal button.close-btn:hover {
+  color: red;
+}
+
+
+
+
 
 .user-info {
   font-size: 1.2em;
@@ -316,6 +372,7 @@
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
+
 
 
 @keyframes bounce {

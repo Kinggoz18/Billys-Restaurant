@@ -110,5 +110,30 @@ export class PromoObject{
       return null;
     }
     }
+     //Returns a promo value
+     async GetPromo(promoString){
+        let dataToReturn;
+        try {
+          // Make the AJAX call
+          // Construct the endpoint URL for creating an promo
+          const endpoint = `${this.apiBaseURL}Promo/GetPromo/${promoString}`;
+          // Construct the endpoint URL for creating an promo
+          const response = await fetch(endpoint, {
+            method: 'GET',
+          });
+            dataToReturn = await response.text();
+            // Check if the response is not successful
+            if (response.status!=200) {
+              // Parse the response JSON and set it to dataToReturn variable
+              console.error(`Error creating promo: ${response.statusText}`);
+            }
+            if(dataToReturn == -1){
+                return false;
+            }
+            return dataToReturn;
+        } catch (error) {
+          console.error(`Error creating promo: ${error}`);
+          return null;
+        }
+        }
 }
-

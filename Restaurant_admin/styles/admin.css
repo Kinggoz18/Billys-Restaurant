@@ -79,6 +79,10 @@ section {
     text-align: left;
   }
 
+  #Delete-btn{
+    text-align: right;
+  }
+
   form div {
     display: flex;
     flex-direction: column;
@@ -119,6 +123,8 @@ section {
   h1 {
     text-align: center;
   }
+
+
 
 }
 

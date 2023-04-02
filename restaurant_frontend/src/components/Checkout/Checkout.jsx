@@ -208,6 +208,24 @@ function Checkout() {
             </div>
           </div>
         )}
+
+
+
+  {pointsSelected && (
+          <div class="overlay">
+            <div className="points-modal">
+              <button className="close-btn" onClick={() => setPointsSelected(false)}>X</button>
+              <p>Cart Total Cost: {OrderCost}</p>
+              <p>Points available: {points}</p>
+              <p>Total after points:{OrderCost}</p>
+            </div>
+
+
+          </div>
+
+        )}
+
+
       </div>
     </div>
   );

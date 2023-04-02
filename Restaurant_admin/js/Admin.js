@@ -54,11 +54,45 @@ async function updateUser(event) {
     }
   }
 }
+async function deleteUser(event){
+  event.preventDefault();
 
-// Add event listener to the "Save" button
+  // Check if the user is logged in
+  let userInfo = localStorage.getItem('userInfo');
+  if (!userInfo) {
+    alert('Please log in to delete your account.');
+    window.location.replace("../public/login.html");
+    return;
+  }
+
+  // Get the admin ID from local storage
+  let userRole = localStorage.getItem('userRole');
+  let adminId = "";
+  if (userRole === 'admin') {
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    adminId = userInfo._id;
+  }
+
+  // Delete the Admin account
+  if (adminId !== "") {
+    await adminAccount.DeleteAdmin(adminId).then(() => {
+      console.log('Success! Admin Deleted');
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('userRole');
+      alert('Success! Admin Deleted');
+      window.location.replace("../public/login.html");
+    }).catch((error) => {
+      console.log('Error deleting Admin:', error);
+      alert('Admin not deleted');
+    });
+  }
+}
+
+// Add event listener to the "Save" and "Delete" button
+document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
 document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
 
-import { Menu, MenuItem, Accounts } from './Objects/ObjectExports.mjs';
+import { Menu, MenuItem} from './Objects/ObjectExports.mjs';
 
 //Global variables
 let MenuObj = new Menu.MenuObject();

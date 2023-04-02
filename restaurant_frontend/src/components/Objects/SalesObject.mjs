@@ -17,7 +17,3 @@ export class Sales{
   }
  
 }
-// test the functions
-let sales = new Sales();
-await sales.getTotalSales();
-//getNumberOfOrders();

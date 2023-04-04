@@ -10,12 +10,13 @@ import {Cloudinary, CloudinaryVideo} from "@cloudinary/url-gen";
 import { quality} from "@cloudinary/url-gen/actions/delivery";
 import {auto} from "@cloudinary/url-gen/qualifiers/format";
 
+
 //Component for the large videa
 const HomeVideo_large = React.memo(()=>{;
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: 'dw1wmzgy1'
+    cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_ID
   }
 });
 
@@ -35,7 +36,7 @@ const HomeVideo_small = React.memo(()=>{;
 
   const cld = new Cloudinary({
     cloud: {
-      cloudName: 'dw1wmzgy1'
+      cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_ID
     }
   });
   

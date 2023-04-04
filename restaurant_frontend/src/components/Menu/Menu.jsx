@@ -164,15 +164,17 @@ async function loadAllMenuItem(){
       data.forEach((element)=>{
         let menu = element['foodList'];
         menu.forEach(element=>{
-        var item = {
-          itemId: element['_id'],
-          itemName: element['name'],
-          itemPrice: `$${element['price'].toFixed(2)}`,
-          itemImage: element['imageLink'],
-          itemRating: element['orderCount'],
-          category: element['menu']
+        if(element!==null){
+          var item = {
+            itemId: element['_id'],
+            itemName: element['name'],
+            itemPrice: `$${element['price'].toFixed(2)}`,
+            itemImage: element['imageLink'],
+            itemRating: element['orderCount'],
+            category: element['menu']
+          }
+          MenuItemArray.push(item);
         }
-        MenuItemArray.push(item);
        })
       });
       MenuItemArray.forEach((element) => {
@@ -190,6 +192,7 @@ async function LoadDrinks(){
     await GlobalMenu.GetAllMenu().then((data)=>{
       let DrinksMenu = data.find(element => element['name'] === 'Drinks');
       DrinksMenu['foodList'].forEach((element)=>{
+       if(element!==null){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
@@ -199,6 +202,7 @@ async function LoadDrinks(){
           category: element['menu']
         }
         MenuItemArray.push(item);
+       }
       });
       MenuItemArray.forEach((element) => {
         let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
@@ -215,6 +219,7 @@ async function LoadSides(){
     await GlobalMenu.GetAllMenu().then((data)=>{
       let SidesMenu = data.find(element => element['name'] === 'Sides');
       SidesMenu['foodList'].forEach((element)=>{
+       if(element!==null){
         var item = {
           itemId: element['_id'],
           itemName: element['name'],
@@ -224,6 +229,7 @@ async function LoadSides(){
           category: element['menu']
         }
         MenuItemArray.push(item);
+       }
       });
       MenuItemArray.forEach((element) => {
         let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />
@@ -240,15 +246,17 @@ async function LoadMain(){
     await GlobalMenu.GetAllMenu().then((data)=>{
       let MainMenu = data.find(element => element['name'] === 'Main');
       MainMenu['foodList'].forEach((element)=>{
-        var item = {
-          itemId: element['_id'],
-          itemName: element['name'],
-          itemPrice: `$${element['price'].toFixed(2)}`,
-          itemImage: element['imageLink'],
-          itemRating: element['orderCount'],
-          category: element['menu']
+        if(element!=null){
+          var item = {
+            itemId: element['_id'],
+            itemName: element['name'],
+            itemPrice: `$${element['price'].toFixed(2)}`,
+            itemImage: element['imageLink'],
+            itemRating: element['orderCount'],
+            category: element['menu']
+          }
+          MenuItemArray.push(item);
         }
-        MenuItemArray.push(item);
       });
       MenuItemArray.forEach((element) => {
         let current = <MenuItemComponent key={element['itemId']} id={element['itemId']} image={element['itemImage']} name={element['itemName']} price={element['itemPrice']} />

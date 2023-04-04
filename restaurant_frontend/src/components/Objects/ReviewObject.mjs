@@ -86,7 +86,7 @@ export class Reviews {
   //Checks if a review contains profanity
   async CheckText(review){
     var myHeaders = new Headers();
-    myHeaders.append("apikey", "9jHUleANM8gMFEjoAidBgENGAfmwxeCf");
+    myHeaders.append("apikey", process.env.REACT_APP_BAD_WORDS_API_KEY);
     let check = true;
     var requestOptions = {
       method: 'POST',

@@ -18,8 +18,8 @@ import emailjs, { send } from '@emailjs/browser'
 export class NotificationObject{
 
     constructor(){
-        this.user_id = 'BAi5mP5KEn9mY2ZIg';
-        this.service_id = 'service_t1rkmus';
+        this.user_id = process.env.REACT_APP_EMAILJS_USER_ID;
+        this.service_id = process.env.REACT_APP_EMAILJS_SERVICE_ID;
         this.Templates = ["template_tte63a5", "template_64iy8z9"];
         this.Event = ["Placed", "Completed", "Cancled"];
     }

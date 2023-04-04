@@ -26,9 +26,9 @@ async function AccountCreate(event) {
     };
 
 
-    const role = document.getElementById('role').value;
-    const confirmPassword =  document.getElementById('confirmPassword').value;
-    const adminPassword = document.getElementById('adminPassword').value;
+    let role = document.getElementById('role').value;
+    let confirmPassword =  document.getElementById('confirmPassword').value;
+    let adminPassword = document.getElementById('adminPassword').value;
 
     // Validate the inputs
     if (AccountInfo.firstName.trim() === '' || AccountInfo.lastName.trim() === '' ||
@@ -58,16 +58,13 @@ async function AccountCreate(event) {
         return;
     }
 
-    console.log(AccountInfo.password);
-    console.log(confirmPassword);
+
     if (AccountInfo.password !== confirmPassword){
         alert('Passwords do not match');
         return;
     }
     
-
-
-    if (role === 'admin' && adminPassword === 'DRJ2022') {
+    if (role === 'admin') {
         await adminAccount.CreateAdmin(AccountInfo);
         console.log('Success! Admin Created');
         alert('Success! Admin Created');
@@ -79,7 +76,7 @@ async function AccountCreate(event) {
         console.log('Success! Employee Created');
         alert('Success! Employee Created');
         window.location.replace("../public/login.html");
-    }
+    } 
 }
 
 //function for validating email

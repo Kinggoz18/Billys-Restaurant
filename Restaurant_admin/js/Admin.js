@@ -206,48 +206,92 @@ sales.getTotalSales().then(data => {
   console.log(error);
 });
 
-
 import { OrderObject } from './Objects/OrderObject.mjs';
 
 let order = new OrderObject();
 
-order.GetAllOrders().then(data => {
-  let orderList = document.getElementById("total-order");
-  data.forEach(order => {
-    let orderItem = document.createElement("li");
-    let itemString = "";
-    order.items.forEach(item => {
-      itemString += `<li>Name: ${item.name}</li><li>Price: $${item.price.toFixed(2)}</li><li>Quantity: ${item.orderCount}</li>`;
-    });
-    orderItem.innerHTML = `
-      <h3>Order ID: ${order._id}</h3>
-      <ul>
-        <li>Customer Name: ${order.customerName}</li>
-        <li>Phone Number: ${order.phoneNumber}</li>
-        <li>Email: ${order.customerEmail}</li>
-        <li>Items:</li>
+order.GetAllOrders()
+  .then(data => {
+    // Sort orders by createdAt in descending order
+    data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    let orderList = document.getElementById("total-order");
+    let count = 0; // Counter variable
+    data.forEach(order => {
+      if (count >= 10) return; // Stop loop after 10 orders
+      count++;
+
+      let orderItem = document.createElement("li");
+      let itemString = "";
+      order.items.forEach(item => {
+        itemString += `<li>Name: ${item.name}</li><li>Price: $${item.price.toFixed(2)}</li><li>Quantity: ${item.orderCount}</li>`;
+      });
+      orderItem.innerHTML = `
+        <h3>Order ID: ${order._id}</h3>
         <ul>
-          ${itemString}
-        </ul>
-      </ul>`;
-    orderList.appendChild(orderItem);
-  });
-
-  // Add search functionality
-  let searchBox = document.getElementById("search-box");
-  searchBox.addEventListener("keyup", function () {
-    let query = searchBox.value.toLowerCase();
-    orderList.childNodes.forEach(orderItem => {
-      let orderID = orderItem.querySelector("h3").textContent;
-      if (orderID.toLowerCase().includes(query)) {
-        orderItem.style.display = "block";
-      } else {
-        orderItem.style.display = "none";
-      }
+          <li>Customer Name: ${order.customerName}</li>
+          <li>Phone Number: ${order.phoneNumber}</li>
+          <li>Email: ${order.customerEmail}</li>
+          <li>Items:</li>
+          <ul>
+            ${itemString}
+          </ul>
+        </ul>`;
+      orderList.appendChild(orderItem);
     });
+
+    // Add search functionality for Order ID
+    let searchBox = document.getElementById("search-box");
+    searchBox.addEventListener("keyup", function () {
+      let query = searchBox.value.toLowerCase();
+      orderList.childNodes.forEach(orderItem => {
+        let orderID = orderItem.querySelector("h3").textContent;
+        if (orderID.toLowerCase().includes(query)) {
+          orderItem.style.display = "block";
+        } else {
+          orderItem.style.display = "none";
+        }
+      });
+    });
+
+    // Add search functionality for Customer Name
+    let searchBox2 = document.getElementById("search-box2");
+    searchBox2.addEventListener("keyup", function () {
+      let query = searchBox2.value.toLowerCase();
+      orderList.childNodes.forEach(orderItem => {
+        let customerName = orderItem.querySelector("li:nth-child(1)").textContent;
+        if (customerName.toLowerCase().includes(query)) {
+          orderItem.style.display = "block";
+        } else {
+          orderItem.style.display = "none";
+        }
+      });
+    });
+  })
+  .catch(error => {
+    console.log(error);
   });
-}).catch(error => {
-  console.log(error);
-});
 
-
+  async function logout(){
+    // Check if the user is logged in
+    let userInfo = localStorage.getItem('userInfo');
+    if (!userInfo) {
+      alert('Please log in to log out.');
+      return;
+    }
+  
+    // Get the user's role
+    let userRole = localStorage.getItem('userRole');
+  
+    // Call the appropriate logout method based on the user's role
+    if (userRole === 'admin') {
+      console.log('Success! Admin Logged Out');
+    }
+  
+    // Remove user info from local storage and redirect to login page
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('userRole');
+    window.location.href = 'login.html';
+  }
+  document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
+  

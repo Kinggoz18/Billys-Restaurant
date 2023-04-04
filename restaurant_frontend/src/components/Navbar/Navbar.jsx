@@ -215,11 +215,16 @@ async function LoadDynamicNavbar(){
           message.classList.add("empty-message"); // Add a class to the p tag
           checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
         }
+        else{
+          message.remove();
+          message = null;
+
+        }
 
         return;
       } else { 
         // Remove message if cart is no longer empty
-        if (message) {
+        if (message && cartItemValues.length != 0 ) {
           message.remove();
           message = null;
 
@@ -277,7 +282,7 @@ function Summary({checkoutData}) {
         <ul className="summaryli" id='summaryli'>
           
           <li className="subtotal">
-            Total: <span id='basket-total'>{formatCurrency(subtotal)}</span>
+            SubTotal: <span id='basket-total'>{formatCurrency(subtotal)}</span>
           </li>
         </ul>
       </div>

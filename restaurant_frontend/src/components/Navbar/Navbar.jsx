@@ -86,6 +86,9 @@ export default function Navbar(props){
 async function LoadDynamicNavbar(){
   const currentPage = GetCurrentPage();
   let CurrentPage = (currentPage===null)? null : currentPage.pathname;
+    //Hide the checkout basket whenever we redirect 
+    $('#basketcontainer').addClass('hide-basket');
+    
     //Display every nav item
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
@@ -94,7 +97,7 @@ async function LoadDynamicNavbar(){
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
     $('#basketcontainer').removeClass('hide'); 
-
+    $('#cart').removeClass('hide');
     //Mobile
     $('#mobile-home').removeClass('hide');
     $('#mobile-menu').removeClass('hide');
@@ -103,8 +106,9 @@ async function LoadDynamicNavbar(){
     $('#mobile-about').removeClass('hide');
     $('#mobile-login').removeClass('hide');
     $('#mobile-basketcontainer').removeClass('hide');
+    $('#mobile-cart').removeClass('hide');
 
-        //then use an if statement to filter them
+    //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');
       $('#mobile-home').addClass('hide');
@@ -138,6 +142,9 @@ async function LoadDynamicNavbar(){
         $('#mobile-login').addClass('hide');
       }
       else if(CurrentPage.includes('checkout')){
+        $('#cart').addClass('hide');
+        $('#mobile-cart').addClass('hide');
+
         $('#checkout').addClass('hide');
         $('#mobile-basketcontainer').addClass('hide');
 
@@ -182,9 +189,7 @@ async function LoadDynamicNavbar(){
   function Checkout() {
 
     let checkoutList = document.querySelector("#Users-Cart");
-    console.log("checkoulist",checkoutList);
     let checkoutItem = $(checkoutList).children();
-    console.log("checkoutitem",checkoutItem)
 
     let checkoutData = [];
     $(checkoutItem).each((index, element) => {
@@ -196,9 +201,6 @@ async function LoadDynamicNavbar(){
       };
       checkoutData.push(data); 
     }); 
-
-    console.log("checoutlist",checkoutList);  
-
 
     const checkoutBtn = document.querySelector(".checkoutbtn");
     let message;
@@ -215,11 +217,16 @@ async function LoadDynamicNavbar(){
           message.classList.add("empty-message"); // Add a class to the p tag
           checkoutBtn.parentNode.insertBefore(message, checkoutBtn); // Display the message before the checkout button
         }
+        else{
+          message.remove();
+          message = null;
+
+        }
 
         return;
       } else { 
         // Remove message if cart is no longer empty
-        if (message) {
+        if (message && cartItemValues.length != 0 ) {
           message.remove();
           message = null;
 
@@ -236,9 +243,7 @@ async function LoadDynamicNavbar(){
   
 
   // This function calculates the subtotal of all items in the checkout data by iterating through each item, parsing the price and count, and multiplying them together. 
-  //It then returns the total sum of all items. 
-  //The function also logs the subtotal to the console for debugging purposes.
-  
+  //It then returns the total sum of all items.   
 function calculateSubtotal(checkoutData) {
     let subtotal = 0;
     checkoutData.forEach((item) => {
@@ -247,10 +252,7 @@ function calculateSubtotal(checkoutData) {
       const count = parseInt(item.count);
   
       subtotal += price * count;
-      console.log("sub",subtotal);
     });
-  
-    console.log(subtotal);
     return subtotal;  
   } 
   
@@ -277,7 +279,7 @@ function Summary({checkoutData}) {
         <ul className="summaryli" id='summaryli'>
           
           <li className="subtotal">
-            Total: <span id='basket-total'>{formatCurrency(subtotal)}</span>
+            SubTotal: <span id='basket-total'>{formatCurrency(subtotal)}</span>
           </li>
         </ul>
       </div>

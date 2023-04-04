@@ -10,7 +10,7 @@ export class Sales{
         throw new Error(`Unable to get total sales: ${response.statusText}`);
       }
       const data = await response.json();
-      console.log('Total Sales:', data);
+      return data;
     } catch (error) {
       console.log(error);
     }

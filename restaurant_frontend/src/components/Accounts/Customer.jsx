@@ -37,7 +37,7 @@ export function CustomerNav(props){
     }
     return(
         <div className="CustomerHome-Left">
-            <span className="Toggle-user-accountNav"><i  onClick = {()=>ToggleMobileNav()} class="fa-solid fa-arrow-right-from-bracket"></i></span>
+            <span className="Toggle-user-accountNav"><i  onClick = {()=>ToggleMobileNav()} className="fa-solid fa-arrow-right-from-bracket"></i></span>
             <div className="account-nav">
               <img className="user-img" src={profilePic} alt="User Profile" />
             <span className="user-name">{AccountData['firstName']} {AccountData['lastName']}</span>
@@ -105,7 +105,7 @@ export function PastOrders(props) {
           setPastOrders(data);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

@@ -58,10 +58,6 @@ export class Order{
   return dataToReturn;
 }
 
-
-
-
-
 async  GetAllOrders() {
   let dataToReturn;
   let response;
@@ -81,7 +77,6 @@ async  GetAllOrders() {
 
     }).then(data => {
       const responseJson = data;
-      console.log("Response JSON:", responseJson);
       dataToReturn = responseJson;
 
     });
@@ -89,10 +84,7 @@ async  GetAllOrders() {
   } catch (error) {
     console.error(`Error fetching orders: ${error}`);
     return null;
-  }
-  console.log("Data returned from API:", dataToReturn);
-
-    
+  } 
 }
 // //sends notification to restaurant to cancel order
 // async DeleteOrder(orderid){
@@ -125,18 +117,11 @@ async  GetAllOrders() {
 //     return dataToReturn;
 //     }
 
-
-
-
-
-
-
 //get orders by useremail
 async GetAllOrdersByEmail(useremail) {
   let dataToReturn;
   try {
     const endpoint = `${apiBaseURL}Orders/GetOrdersByEmail/${encodeURIComponent(useremail)}`;
-    console.log(endpoint);
       await fetch(endpoint,
       {method: 'GET'}).then(data => {
       if (data.status !== 200) {
@@ -147,7 +132,6 @@ async GetAllOrdersByEmail(useremail) {
 
     }).then(data => {
       const responseJson = data;
-      console.log("Response JSON:", responseJson);
       dataToReturn = responseJson;
     });
     return dataToReturn;

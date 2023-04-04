@@ -222,8 +222,8 @@ export class Login extends React.Component{
 }
 
 /****************** Utility Functions  ***********************/
-//Function to validate phone number
-function ValidateEmail(email){
+//Function to validate email
+export function ValidateEmail(email){
     var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(mail.test(email)) {
         return true;
@@ -233,7 +233,7 @@ function ValidateEmail(email){
     }
 }
 //Function to validate phone number
-function validatePhone(phone) {
+export function validatePhone(phone) {
     var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     return re.test(phone);
 }
@@ -257,7 +257,7 @@ function ValidateLogin(loginCred){
     }
     return valid;
 }
-//Function to validate validate
+//Function to validate info
 function ValidateCreate(AccountInfo){
     let valid = true;
 

@@ -11,6 +11,7 @@ import DefaultHeader from '../Images/Headers.mp4'
 
 import './Menu.css';
 
+
 //Global variables
 let  GlobalMenu = new Menu.MenuObject();
 

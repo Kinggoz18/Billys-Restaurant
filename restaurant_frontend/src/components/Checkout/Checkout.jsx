@@ -28,19 +28,13 @@ function Checkout() {
   //Monitor changes in checkout data
   useEffect(() => {
     data = JSON.parse(GetFromStorage('Checkoutdata'));
-    console.log('Checkout data:', data);
     setCheckoutData(data);
   }, []);
 
-  //Monitor chanages in OrderCost
-  useEffect(() => {
-    console.log('OrderCost has changed:', OrderCost);
-  }, [OrderCost]);
 
   if (!checkoutData) {
     return <div>Loading...</div>;
   }
-  console.log('Checkout items:', checkoutData);
   // Function to handle coupon selection
   function handleCouponSelection() {
     setCouponSelected(true);

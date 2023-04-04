@@ -182,9 +182,7 @@ async function LoadDynamicNavbar(){
   function Checkout() {
 
     let checkoutList = document.querySelector("#Users-Cart");
-    console.log("checkoulist",checkoutList);
     let checkoutItem = $(checkoutList).children();
-    console.log("checkoutitem",checkoutItem)
 
     let checkoutData = [];
     $(checkoutItem).each((index, element) => {
@@ -196,9 +194,6 @@ async function LoadDynamicNavbar(){
       };
       checkoutData.push(data); 
     }); 
-
-    console.log("checoutlist",checkoutList);  
-
 
     const checkoutBtn = document.querySelector(".checkoutbtn");
     let message;
@@ -241,9 +236,7 @@ async function LoadDynamicNavbar(){
   
 
   // This function calculates the subtotal of all items in the checkout data by iterating through each item, parsing the price and count, and multiplying them together. 
-  //It then returns the total sum of all items. 
-  //The function also logs the subtotal to the console for debugging purposes.
-  
+  //It then returns the total sum of all items.   
 function calculateSubtotal(checkoutData) {
     let subtotal = 0;
     checkoutData.forEach((item) => {
@@ -252,10 +245,7 @@ function calculateSubtotal(checkoutData) {
       const count = parseInt(item.count);
   
       subtotal += price * count;
-      console.log("sub",subtotal);
     });
-  
-    console.log(subtotal);
     return subtotal;  
   } 
   

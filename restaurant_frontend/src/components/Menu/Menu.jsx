@@ -332,7 +332,7 @@ export function CalculateTotalCost(discount){
   if(discount!== null && discount!== undefined){
     total = total - (((discount)/100) * total)
   }
-  return total;
+  return parseFloat(total.toFixed(2));
 }
 //Helper function to add to global array
 function UpdateItemToCart(id, cost, value) {

@@ -86,6 +86,9 @@ export default function Navbar(props){
 async function LoadDynamicNavbar(){
   const currentPage = GetCurrentPage();
   let CurrentPage = (currentPage===null)? null : currentPage.pathname;
+    //Hide the checkout basket whenever we redirect 
+    $('#basketcontainer').addClass('hide-basket');
+    
     //Display every nav item
     $('#home').removeClass('hide');
     $('#menu').removeClass('hide');
@@ -94,7 +97,7 @@ async function LoadDynamicNavbar(){
     $('#about').removeClass('hide');
     $('#login').removeClass('hide');
     $('#basketcontainer').removeClass('hide'); 
-
+    $('#cart').removeClass('hide');
     //Mobile
     $('#mobile-home').removeClass('hide');
     $('#mobile-menu').removeClass('hide');
@@ -103,8 +106,9 @@ async function LoadDynamicNavbar(){
     $('#mobile-about').removeClass('hide');
     $('#mobile-login').removeClass('hide');
     $('#mobile-basketcontainer').removeClass('hide');
+    $('#mobile-cart').removeClass('hide');
 
-        //then use an if statement to filter them
+    //then use an if statement to filter them
     if(CurrentPage ===null || CurrentPage.length===1){
       $('#home').addClass('hide');
       $('#mobile-home').addClass('hide');
@@ -138,6 +142,9 @@ async function LoadDynamicNavbar(){
         $('#mobile-login').addClass('hide');
       }
       else if(CurrentPage.includes('checkout')){
+        $('#cart').addClass('hide');
+        $('#mobile-cart').addClass('hide');
+
         $('#checkout').addClass('hide');
         $('#mobile-basketcontainer').addClass('hide');
 

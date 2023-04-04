@@ -43,14 +43,32 @@
   }
   .checkout-totalCost {
     color: #ff8800;
-    font-size: 32px; /* increase the font size */
-    font-weight: bold; /* make the text bold */
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: self-start;
+    font-size: 1.3em; 
+    font-weight: bold; 
     text-align: center;
+    padding: 0.7em;
+    border-top: solid 1px black;
   }
-  
-
-    
-   
+ .checkout-subTotalcost, .checkout-taxCost{
+    color: #ff8800;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: self-start;
+    font-size: 1.3em; 
+    text-align: center;
+    padding: 0.7em;
+    border-top: solid 1px black;
+   }
+   .checkout-subTotalcost div, .checkout-taxCost div, .checkout-totalCost div{
+    width: 100%;
+   }
+  .checkout-useremail-err, .checkout-username-err, .checkout-userphone-err{
+    color: white;
+    font-weight: bold;
+  }
   .user-info {
   font-size: 16px;
   margin-bottom: 20px;
@@ -66,7 +84,11 @@
   overflow-y: scroll;
   border-radius: 10px;
   }
-  
+  .checkout-summary-cost{
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
+    width: 70%;
+  }
   label {
   display: block;
   margin-bottom: 10px;

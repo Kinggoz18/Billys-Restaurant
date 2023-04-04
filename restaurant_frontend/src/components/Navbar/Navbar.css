@@ -17,6 +17,9 @@
 .BasketContainer{
   z-index: 1;
 }
+#Users-Cart{
+  border-top: none !important;
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px)  {
   .mobile-navbar, .moblie-menu, .mobile_app__navbar-right{

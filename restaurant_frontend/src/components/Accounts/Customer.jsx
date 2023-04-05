@@ -1,6 +1,6 @@
 //React Imports
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 //Jquery import
 import  $  from "jquery";
 //Css import
@@ -20,7 +20,6 @@ let isNavOpen = false;
 //Defaul customer home
 export function CustomerNav(props){
     AccountData = LoadAccountInfo();
-    GetPastOrders();
     //Functiont to toggle mobile nav
     function ToggleMobileNav(){
       if(!isNavOpen){
@@ -35,6 +34,8 @@ export function CustomerNav(props){
         isNavOpen = false;
       }
     }
+    if (AccountData !== null && AccountData !== undefined) {
+    GetPastOrders();
     return(
         <div className="CustomerHome-Left">
             <span className="Toggle-user-accountNav"><i  onClick = {()=>ToggleMobileNav()} className="fa-solid fa-arrow-right-from-bracket"></i></span>
@@ -53,10 +54,15 @@ export function CustomerNav(props){
             </div>
             </div>
         </div>
-    )
+    )}
 }
 //Account Info Tab
 export function AccountInformation(props){
+  if (AccountData === null ||  AccountData === undefined) {
+    return(<Navigate to='/'/>)
+  }
+  else
+    {
     return(<form id="user-form">
         <h1>Account Settings</h1>
         <div>
@@ -89,6 +95,7 @@ export function AccountInformation(props){
         </div>
     </form>
     )
+    }
 }
 //Past Orders Tab
 export function PastOrders(props) {

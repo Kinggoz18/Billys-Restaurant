@@ -163,29 +163,32 @@ export class Account{
     async CreateAccount(AccountType, AccountToCreate) {
         let dataToReturn = null;
         try {
-            await fetch(this.#CreateUrls[AccountType], {
+            const response = await fetch(this.#CreateUrls[AccountType], {
                 method: "POST",
                 body: JSON.stringify(AccountToCreate),
                 headers: { "Content-Type": "application/json" }
-            }).then((response)=>{
-                if(response.status!=200){
-                    console.log(response.statusText);
-                    return null
-                }
-                return response.json();
-            }).then((data)=>{
+            });
+
+            if(response.status!=200){
+                console.log(response.statusText);
+                return null
+            }
+            else{
+                let data = await response.json();
                 if (data == null) {
                     return false;
                 } else if (data.emailAddress === "string" && data.password === "string") {
                     return false;
                 }
                 dataToReturn = data;
-            })
-        } catch (error) {
+                return dataToReturn;
+            }
+        }
+            catch (error) {
             console.error(error);
             return null;
         }
-        return dataToReturn;
+
     }
     // Function to delete an account : public
     async DeleteAccount(AccountType, AccId){
@@ -196,7 +199,6 @@ export class Account{
             params.append("id", AccId);
             await fetch(`${apiUrl}?${params}`, {
                 method: "DELETE",
-                headers: { "Content-Type": "application/json" }
             }).then((response)=>{
                 if(response.status!=200){
                     console.log(response.statusText);
@@ -287,7 +289,7 @@ export class AdminAccount extends Account{
     }
     //Deletes an Admin Account
     async DeleteAdmin(id){
-        await this.DeleteAccount("Admin", id).then(()=>{
+        await this.DeleteAccount("Admin", id).then((data)=>{
             this.#AccountInfo = null;
         });
     }

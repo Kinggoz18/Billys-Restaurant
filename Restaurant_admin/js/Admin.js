@@ -294,4 +294,74 @@ order.GetAllOrders()
     window.location.href = 'login.html';
   }
   document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
-  
+
+  import { Promo } from './Objects/ObjectExports.mjs';
+
+let adminpromo = new Promo.PromoObject();
+
+// Function to add promo
+async function addpromo(event){
+  event.preventDefault();
+
+  //getting data enter by the user from the html
+  let promoinfo = {
+    promoString : document.getElementById('promoString').value,
+    promoDiscount : document.getElementById('promoDiscount').value
+  }
+
+  //calling create promo method
+  await adminpromo.CreatePromo(promoinfo);
+  console.log("Promo has been added");
+  alert("Promo has been added");
+  window.location.reload();
+}
+
+//event listener for when addpromo button is clicked
+document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
+
+const deletePromoInput = document.getElementById("deletePromo"); // get the input element
+const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
+
+deletePromoBtn.addEventListener("click", async () => {
+  const promoToDelete = deletePromoInput.value; // get the value of the input field
+  if (!promoToDelete) {
+    alert("Please enter a promo name to delete.");
+    return;
+  }
+
+  const isDeleted = await adminpromo.DeletePromo(promoToDelete); // call the DeletePromo method with the promo name entered by the user
+
+  if (isDeleted) {
+    console.log("Promo deleted successfully!");
+    alert("Promo deleted successfully!");
+    window.location.reload();
+  } else {
+    console.log("Error deleting promo.");
+    alert("Error deleting promo.");
+  }
+});
+
+// Get the user ID from local storage
+let userRole = localStorage.getItem('userRole');
+let userId = "";
+if (userRole === 'admin') {
+  let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  userId = userInfo._id;
+}
+
+// Get all promos
+adminpromo.GetAllPromos(userId).then(promos => {
+  // Display all promos in the HTML
+  let promoContainer = document.getElementById('promo-container');
+  if (promos.length > 0) {
+    let promoList = document.createElement('ul');
+    for (let promo of promos) {
+      let promoItem = document.createElement('li');
+      promoItem.textContent = promo.promoString + ' - ' + promo.promoDiscount;
+      promoList.appendChild(promoItem);
+    }
+    promoContainer.appendChild(promoList);
+  } else {
+    promoContainer.textContent = 'No promos found.';
+  }
+});

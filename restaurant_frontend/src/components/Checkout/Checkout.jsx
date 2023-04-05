@@ -1,9 +1,9 @@
 /** React Imports */
 import React, { useState,useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { json, Navigate } from 'react-router-dom';
 
 /** Objects and helper function Imports */
-import {GetFromStorage} from '../LocalStorage'
+import {GetFromStorage, AddToStorage} from '../LocalStorage'
 import {Order, Accounts, NotificationObject, PromoObject} from '../Objects/ObjectExports.mjs'
 import { CalculateTotalCost } from '../Menu/Menu';
 import { formatCurrency } from '../Navbar/Navbar';
@@ -99,11 +99,12 @@ function Checkout() {
       });
       //Update the total cost 
       Order['TotalPrice'] = OrderCost + TaxCost;
-      OrderObj.CreateOrder(Order).then(data=>{
+      OrderObj.CreateOrder(Order).then(data=>{            //Post the order
         if(data!=null){
-          //Post the order
       if(AccountData!=null){
-        CustomerObj.UpdateCustomerPoint(AccountData['_id']);
+        CustomerObj.UpdateCustomerPoint(AccountData['_id']);  //Update the point in DB and in session 
+        AccountData.points += 10;
+        AddToStorage('AccountData', JSON.stringify(AccountData));
       }
         }
       });  

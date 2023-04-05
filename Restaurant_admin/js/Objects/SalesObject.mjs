@@ -22,5 +22,5 @@ export class SalesObject{
 // test the functions
 let sales = new SalesObject();
 await sales.getTotalSales();
-//getNumberOfOrders();
+
 

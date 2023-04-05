@@ -82,24 +82,30 @@ export class Reviews {
       throw new Error(`Unable to delete review with ID "${id}": ${response.statusText}`);
     }
 
-    const data = await response.json();
+    //const data = await response.json();
     console.log(`Deleted review with ID "${id}":`, data);
   }
 }
 
 // test the functions
-let reviews = new Reviews();
-/* 
-reviews.createReview({
-  Title: 'Test Review 1',
-  Description: 'This is a test review',
-  Rating: 4,
-  FirstName: 'Test User',
-  UserId: '1'
-}) */
-reviews.getAllReviews();
+/* let reviews = new Reviews();
+
+ reviews.createReview({
+    "_id": "",
+    "description": "Great food at drj!",
+    "rating": 3,
+    "name": "Will Big",
+    "userId": "4"
+});  
+//reviews.getAllReviews();
 
 
 //reviews.getReviewsByUser('1');
 
-//reviews.deleteReview('1');
+// Delete the review
+ const reviewIdToDelete = '49385397868294202380641PM';
+try {
+  await reviews.deleteReview(reviewIdToDelete);
+} catch (error) {
+  console.log(error.message);
+}  */

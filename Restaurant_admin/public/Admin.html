@@ -20,7 +20,8 @@
       <li><a href="#Menu-Section">Menu</a></li>
       <li><a href="#Orders-Section">Orders</a></li>
       <li><a href="#Sales-Section">Sales</a></li>
-      <li><input id = "logout-btn" type="button" value="Logout"> </li>
+      <li><a href="#Promo-Section">Promo</a></li>
+      <li><input id="logout-btn" type="button" value="Logout"> </li>
     </ul>
   </nav>
   <!-- Title -->
@@ -34,7 +35,7 @@
   <!-- Main -->
   <main>
     <section class="Profile-Section" id="Profile-Section">
-      <input id = "Delete-btn" type="button" value="Delete Account"><br><br>
+      <input id="Delete-btn" type="button" value="Delete Account"><br><br>
       <h2>Profile</h2>
       <form id="Profile">
         <div>
@@ -125,10 +126,11 @@
 
           <label for="search-box">Search for an order by Name:</label>
           <input type="text" id="search-box2">
+
         </div>
-        
+
         <ul id="total-order"></ul>
-        
+
       </div>
     </section>
 
@@ -138,6 +140,40 @@
       <div id="sales">
         <br><span id="total-sales"></span>
       </div>
+
+    </section>
+
+    <section class="Promo-Section" id="Promo-Section">
+      <br>
+      <h2>Promo</h2><br><br>
+
+      <h3>Add Promo</h3><br><br>
+      <form>
+        <div>
+          <label for="promoString">Enter Promo name:</label>
+          <input type="text" id="promoString" name="promoString"><br><br>
+        </div>
+
+        <div>
+          <label for="promoDiscount"> Enter Promo Discount:</label>
+          <input type="number" id="promoDiscount" name="promoDiscount">
+        </div>
+
+        <button id="AddPromoBTN">Add promo</button><br><br>
+      </form>
+
+      <h3>Delete Promo</h3>
+      <form>
+        <div>
+          <label for="deletePromo">Enter Promo name:</label>
+          <input type="text" id="deletePromo" name="deletepromo"><br><br>
+        </div>
+        <button id="DeletePromoBTN">Delete Promo</button><br><br>
+      </form>
+
+      <h3>Promos</h3>
+      <div id="promo-container"></div>
+
 
     </section>
   </main>

@@ -26,14 +26,15 @@ function Checkout() {
   //Checkout useSate variables
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
+  const [pointsApplied, setpointsApplied] = useState(false);
+
   const [OrderCost, setOrderCost] = useState(CalculateTotalCost());
   const [TaxCost, setTaxCost] = useState(ApplyTax(OrderCost));
   const [couponCode, setCouponCode] = useState('');
   const [popupVisible, setPopupVisible] = useState(false);
   const [couponPopupVisible, setCouponPopupVisible] = useState(false);
-  let PromoApplied = false;
-  const [popUpGenericMessage, setpopUpGenericMessage] = useState(false);
 
+  let PromoApplied = false;
   const [checkoutData, setCheckoutData] = useState(null);
   let data;
   //Monitor changes in checkout data
@@ -42,20 +43,33 @@ function Checkout() {
     setCheckoutData(data);
   }, []);
 
-
   if (!checkoutData) {
     return <div>Loading...</div>;
   }
   // Function to handle coupon selection
   function handleCouponSelection() {
     setCouponSelected(true);
-    setPointsSelected(false);
   }
 
   // Function to handle points selection
-  function handlePointsSelection() {
-    setPointsSelected(true);
-    setCouponSelected(false);
+  async function handlePointsSelection() {
+    if(!pointsApplied)
+    {
+      if(points < 50){
+        alert('Not enough points!');
+      }
+      else{
+        if(AccountData!=null){
+          CustomerObj.UseCustomersPoints(AccountData['_id']);
+          AccountData.points -= 50;
+          AddToStorage('AccountData', JSON.stringify(AccountData));
+          setpointsApplied(true);
+          setTaxCost(0);
+          setOrderCost(0); 
+        }
+      }
+      setPointsSelected(true);
+    }
   }
 
   // Function to handle placing order
@@ -98,7 +112,11 @@ function Checkout() {
         Order.items.push(current);
       });
       //Update the total cost 
-      Order['TotalPrice'] = OrderCost + TaxCost;
+      if(pointsApplied){
+        Order['TotalPrice'] = 0;
+      }else{
+        Order['TotalPrice'] = OrderCost + TaxCost;
+      }
       OrderObj.CreateOrder(Order).then(data=>{            //Post the order
         if(data!=null){
       if(AccountData!=null){
@@ -144,9 +162,11 @@ function Checkout() {
       points = AccountData['points'];
     }else{
       points = 0;
-    }
+  }
+
+    
   //Redirect to home page if the OrderCost is 0
-  if(OrderCost === 0){
+  if(OrderCost === 0 && !pointsApplied){
     return (
       <Navigate to="/"/>
     )
@@ -239,17 +259,14 @@ function Checkout() {
             </div>
           )}
   
-            
-    {pointsSelected && (
+    
+    {pointsSelected && pointsApplied && (
             <div className="overlay">
               <div className="points-modal">
                 <button className="close-btn" onClick={() => setPointsSelected(false)}>X</button>
-                <p>Cart Total Cost: {formatCurrency(OrderCost + TaxCost)}</p>
                 <p>Points available: {points}</p>
-                <p>Total after points: {formatCurrency(0)}</p>
+                <p>Total after points: {formatCurrency(OrderCost)}</p>
               </div>
-  
-  
             </div>
   
           )}

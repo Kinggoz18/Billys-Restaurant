@@ -114,9 +114,9 @@ function Checkout() {
       });
       //Update the total cost 
       if(pointsApplied){
-        Order['TotalPrice'] = 0;
+        Order['TotalPrice'] = formatCurrency(0);
       }else{
-        Order['TotalPrice'] = OrderCost + TaxCost;
+        Order['TotalPrice'] = formatCurrency((OrderCost + TaxCost).toFixed(2));
       }
       OrderObj.CreateOrder(Order).then(data=>{            //Post the order
       if(data!=null){

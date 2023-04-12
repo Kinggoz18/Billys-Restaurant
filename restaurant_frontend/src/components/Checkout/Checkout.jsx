@@ -27,7 +27,9 @@ function Checkout() {
   const [couponSelected, setCouponSelected] = useState(false);
   const [pointsSelected, setPointsSelected] = useState(false);
   const [pointsApplied, setpointsApplied] = useState(false);
-
+  const [OrderPlaced, setorderPlaced] = useState(false);
+  
+  const [points, setPoints] = useState(AccountData ? AccountData.points : 0);
   const [OrderCost, setOrderCost] = useState(CalculateTotalCost());
   const [TaxCost, setTaxCost] = useState(ApplyTax(OrderCost));
   const [couponCode, setCouponCode] = useState('');
@@ -60,9 +62,8 @@ function Checkout() {
       }
       else{
         if(AccountData!=null){
-          CustomerObj.UseCustomersPoints(AccountData['_id']);
-          AccountData.points -= 50;
-          AddToStorage('AccountData', JSON.stringify(AccountData));
+          let newPoint = points - 50;
+          setPoints(newPoint);
           setpointsApplied(true);
           setTaxCost(0);
           setOrderCost(0); 
@@ -118,8 +119,13 @@ function Checkout() {
         Order['TotalPrice'] = OrderCost + TaxCost;
       }
       OrderObj.CreateOrder(Order).then(data=>{            //Post the order
-        if(data!=null){
-      if(AccountData!=null){
+      if(data!=null){
+        if(pointsApplied){  //Update the points
+            AccountData.points -= 50;
+            AddToStorage('AccountData', JSON.stringify(AccountData));
+            CustomerObj.UseCustomersPoints(AccountData['_id']);
+          }
+      else if(AccountData!=null){
         CustomerObj.UpdateCustomerPoint(AccountData['_id']);  //Update the point in DB and in session 
         AccountData.points += 10;
         AddToStorage('AccountData', JSON.stringify(AccountData));
@@ -131,6 +137,7 @@ function Checkout() {
       //Wait 2 seconds then reset order cost on a successful order
       setTimeout(()=>{
         setOrderCost(0);
+        setorderPlaced(true);
       }, 2000);
     }
   }
@@ -157,16 +164,9 @@ function Checkout() {
     }
     setCouponPopupVisible(false);
   }
-  let points;
-  if(AccountData != null){
-      points = AccountData['points'];
-    }else{
-      points = 0;
-  }
-
     
   //Redirect to home page if the OrderCost is 0
-  if(OrderCost === 0 && !pointsApplied){
+  if(OrderCost === 0 && OrderPlaced){
     return (
       <Navigate to="/"/>
     )

@@ -37,7 +37,7 @@ async function updateUser(event) {
         let result = employeeAccount.GetEmployeeInfo;
         if (result != null) {
           alert('Success! Employee Updated');
-          AddToStorage("AccountData", result);
+          AddToStorage("AccountData", JSON.parse(result));
           window.location.reload()
         } else {
           alert('Employee not updated');

@@ -15,6 +15,7 @@ let AccObj = new Accounts.Account();
 let adminAccount = new Accounts.AdminAccount();
 let sales = new SalesObject();
 let adminpromo = new Promo.PromoObject();
+let AccountData = LoadAccountData();
 
 //HTML Variables
 const CreatMenuBtn = document.getElementById('createMenuBTN');
@@ -119,13 +120,6 @@ async function AddItem() {
 async function updateUser(event) {
   event.preventDefault();
 
-// Check if the user is logged in
-let userInfo = localStorage.getItem('userInfo');
-if (!userInfo) {
-  alert('Please log in to update your account.');
-  return;
-}
-
   // Get the password value
   let password = document.getElementById('password').value;
 
@@ -141,12 +135,7 @@ if (!userInfo) {
     }
 
     // Get the admin ID from local storage
-    let userRole = localStorage.getItem('userRole');
-    let adminId = "";
-    if (userRole === 'admin') {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      adminId = userInfo._id;
-    }
+    let adminId = AccountData['_id'];
 
     // Update the admin account
     if (adminId !== "") {
@@ -167,31 +156,15 @@ if (!userInfo) {
 }
 async function deleteUser(event){
   event.preventDefault();
-
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to delete your account.');
-    window.location.replace("../public/login.html");
-    return;
-  }
-
-  // Get the admin ID from local storage
-  let userRole = localStorage.getItem('userRole');
-  let adminId = "";
-  if (userRole === 'admin') {
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    adminId = userInfo._id;
-  }
-
+  let adminId = AccountData['_id'];
   // Delete the Admin account
-  if (adminId !== "") {
-    await adminAccount.DeleteAdmin(adminId).then(() => {
-      console.log('Success! Admin Deleted');
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('userRole');
+  if (adminId !== "" || adminId !== null) {
+    await adminAccount.DeleteAdmin(adminId).then(() => {   
+       
       alert('Success! Admin Deleted');
+      RemoveFromStorage('AccountData');
       window.location.replace("../public/login.html");
+
     }).catch((error) => {
       console.log('Error deleting Admin:', error);
       alert('Admin not deleted');
@@ -201,26 +174,16 @@ async function deleteUser(event){
 //Function to logout
 function logout(){
   // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
+  if (!IsInStorage("AccountData")) {
     alert('Please log in to log out.');
     return;
   }
-
-  // Get the user's role
-  let userRole = localStorage.getItem('userRole');
-
-  // Call the appropriate logout method based on the user's role
-  if (userRole === 'admin') {
-    console.log('Success! Admin Logged Out');
+  else{
+    // Remove user info from local storage and redirect to login page
+    RemoveFromStorage("AccountData");
+    window.location.href = 'login.html';
   }
-
-  // Remove user info from local storage and redirect to login page
-  localStorage.removeItem('userInfo');
-  localStorage.removeItem('userRole');
-  window.location.href = 'login.html';
 }
-
 
 // ******************************** Sales Functions ********************************************* //
 sales.getTotalSales().then(data => {
@@ -367,13 +330,7 @@ document.getElementById('DeletePromoBTN').addEventListener('click', deletePromo)
 
 
 // Get the user ID from local storage
-let userRole = localStorage.getItem('userRole');
-let userId = "";
-if (userRole === 'admin') {
-  let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  userId = userInfo._id;
-}
-
+let userId = AccountData['_id'];
 // Get all promos
 adminpromo.GetAllPromos(userId).then(promos => {
   // Display all promos in the HTML
@@ -390,3 +347,7 @@ adminpromo.GetAllPromos(userId).then(promos => {
     promoContainer.textContent = 'No promos found.';
   }
 });
+//Loads account data
+function LoadAccountData(){
+  return JSON.parse(GetFromStorage("AccountData"));
+}

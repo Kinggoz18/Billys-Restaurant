@@ -3,13 +3,16 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
-
+.admin-heading{
+  color: white;
+}
 main {
   margin: 0em 3em;
+  padding: 1em 0.5em;
   position: relative;
-  left: 23vw;
+  left: 20vw;
   max-width: 1000px;
-  top: 280px;
+  top: 150px;
 }
 
 header {

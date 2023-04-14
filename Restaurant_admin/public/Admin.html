@@ -3,16 +3,21 @@
 
 <head>
   <title>Admin Panel</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Javascript -->
+  <script src="../js/LocalStorage.js"></script>
+  <!--<script src="../js/ValidateLogin.js"></script> -->
+  
+  <script src="../js/Admin.js" type="module"></script>
+  <!-- CSS -->
   <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
-
 </head>
 
 <body id="page-top">
   <!-- Navigation -->
   <nav>
-    <h1>Hello Billy,</h1>
+    <div id="image-container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+    </div>
     <ul id="wrapper">
       <!-- Sidebar -->
       <li><a href="#Profile-Section">Profile</a></li>
@@ -27,10 +32,7 @@
   <!-- Title -->
   <header>
     <!-- Logo -->
-    <div id="image-container">
-      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
-    </div>
-    <h1>Admin Account</h1>
+    <h2 class="admin-heading">Admin Portal</h2>
   </header>
   <!-- Main -->
   <main>

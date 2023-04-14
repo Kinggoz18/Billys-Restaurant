@@ -28,18 +28,22 @@ const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the del
 const CreatMenuBtn = document.getElementById('createMenuBTN');
 const AddMenuItem = document.getElementById('AddMenuItemBTN');
 const DeleteMenuBtn = document.getElementById('DeleteMenuBTN');
+let DeleteMenuItemBTN = document.getElementById('DeleteMenuItemBTN');
 
 // Global Event Listeners
 document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
 document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
 document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
 document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
+
 //Event Listener to create a menu
-CreatMenuBtn.addEventListener('click', CreateMenu);
+CreatMenuBtn.addEventListener('click', (event)=>CreateMenu(event));
 //Event Listener to Add a menu
 AddMenuItem.addEventListener('click', AddItem);
 //Event Listener to delete a menu
-DeleteMenuBtn.addEventListener('click', DeleteMenu);
+DeleteMenuBtn.addEventListener('click', (event)=>DeleteMenu(event));
+//Event Listener to delete a menu item
+DeleteMenuItemBTN.addEventListener('click', (event)=>DeleteMenuItem(event));
 //Event listner for .....
 document.getElementById("Profile").addEventListener("submit", function (event) {
   event.preventDefault();
@@ -49,19 +53,37 @@ document.getElementById("Profile").addEventListener("submit", function (event) {
 
 
 // ******************************** Menu Functions ********************************************* //
-let menuList = document.getElementById('MenuItemMenu');
+let menuList = document.querySelectorAll('.MenuItemMenu');
 let MenuData = await MenuObj.GetAllMenu();
-if(MenuData!=null){
-  let current = "<option value=0>Select Item Menu</option>";
+let MenuItemList = document.querySelector('.MenuItemSelect');
+//Populate the menu lists
+if (MenuData != null) {
+  let current = "<option value='0'>Select a Menu</option>";
   MenuData.forEach(element => {
-    let name = element['name'];
-    current += `<option value=${name}>${name}</option>`
+    let name = element.name;
+    current += `<option value='${name}'>${name}</option>`;
   });
-  menuList.innerHTML = current;
+
+  menuList.forEach(list => {
+    list.innerHTML = current;
+  });
 }
 
+//populate the menu item lists
+if(MenuData !== null){
+  let current = "<option value='0'>Select menu item to remove</option>";
+  MenuData.forEach(element => {
+    element['foodList'].forEach(x=>{
+      let name = x.name;
+      let id = x._id
+      current += `<option value='${name}' data-id="${id}">${name}</option>`;
+    })
+  });
+  MenuItemList.innerHTML = current;
+}
 //Function to Add a menu
-async function CreateMenu() {
+async function CreateMenu(event) {
+  event.preventDefault();
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
     alert('No Menu Selected');
@@ -76,7 +98,8 @@ async function CreateMenu() {
   }
 }
 //Function to delete a menu
-async function DeleteMenu() {
+async function DeleteMenu(event) {
+  event.preventDefault();
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
    console.log ('Throw error here! No Menu Selected');
@@ -122,7 +145,20 @@ async function AddItem() {
   }
   MenuItemObj.AddMenuItem(ItemToCreate, image);
 }
-
+//Function to delete a menu item
+async function DeleteMenuItem(event){
+  event.preventDefault();
+  let select = event.target.previousElementSibling;
+  let target = select.options[select.selectedIndex];
+  let id = target.dataset.id;;
+  let result = await MenuItemObj.DeleteMenuItem(id);
+  
+  if(result!=true){
+    console.log("An error occured!");
+  }else{
+    window.location.reload();
+  }
+}
 // ******************************** User Functions ********************************************* //
 async function updateUser(event) {
   event.preventDefault();

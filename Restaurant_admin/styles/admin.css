@@ -14,7 +14,9 @@ main {
   max-width: 1000px;
   top: 150px;
 }
-
+.hide{
+  display: none !important;
+}
 header {
   align-items: center;
   display: flex;
@@ -30,6 +32,17 @@ header {
 
 section {
   margin: 0em 0em 3em 0em;
+}
+.Delete-MenuItem{
+  display: grid;
+  grid-template-columns: 100%;
+}
+.Delete-MenuItem *{
+  margin: 0.5em;
+}
+.Delete-MenuItem button{
+  width: 20%;
+  height: 2em;
 }
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px) {

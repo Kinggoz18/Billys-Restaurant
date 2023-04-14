@@ -5,7 +5,6 @@
   <title>Employee Panel</title>
   <!-- CSS -->
   <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
-  <link rel="stylesheet" href="../styles/login.css">
   <!-- Javascript -->
   <script src="../js/LocalStorage.js"></script>
    <!--<script src="../js/ValidateLogin.js"></script> -->
@@ -15,26 +14,24 @@
 <body id="page-top">
   <!-- Navigation -->
   <nav>
-    <h1>Hello Employee,</h1>
+    <div id="image-container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" >
+    </div>
     <ul id="wrapper">
       <!-- Sidebar -->
       <li><a href="#Profile-Section">Profile</a></li>
       <li><a href="#Orders-Section">Orders</a></li>
+      <li><input id = "Delete-btn" type="button" value="Delete Account"><br><br></li>
       <li><input id = "logout-btn" type="button" value="Logout"> </li>
     </ul>
   </nav>
   <!-- Title -->
   <header>
-    <!-- Logo -->
-    <div id="image-container">
-      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
-    </div>
-    <h1>Employee Account</h1>
+    <h2>Employee Portal</h2>
   </header>
   <!-- Main -->
   <main>
     <section class="Profile-Section" id="Profile-Section">
-      <input id = "Delete-btn" type="button" value="Delete Account"><br><br>
       <h2>Profile</h2>
       <form id="Profile">
         <div>
@@ -75,7 +72,7 @@
           <input type="text" id="search-box">
         </div>
 
-        <ul id="total-order"></ul>
+        <ul id="emp-total-order"></ul>
 
       </div>
     </section>

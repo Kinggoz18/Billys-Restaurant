@@ -18,7 +18,7 @@ export class MenuObject{
      #MenuItem = null;
      //API urls
      #urls = {
-         Get: "http://chigozie107-001-site1.itempurl.com/Menu/GetMenu/",
+         Get: "http://chigozie107-001-site1.itempurl.com/Menu/GetMenu",
          GetAll: "http://chigozie107-001-site1.itempurl.com/Menu/GetAllMenu",
          Delete: "http://chigozie107-001-site1.itempurl.com/Menu/DeleteMenu",
          Create: "http://chigozie107-001-site1.itempurl.com/Menu/AddMenu",

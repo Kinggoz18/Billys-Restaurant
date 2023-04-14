@@ -277,6 +277,7 @@ order.GetAllOrders()
     let userInfo = localStorage.getItem('userInfo');
     if (!userInfo) {
       alert('Please log in to log out.');
+      window.location.href = 'login.html';
       return;
     }
   
@@ -319,27 +320,31 @@ async function addpromo(event){
 //event listener for when addpromo button is clicked
 document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
 
-const deletePromoInput = document.getElementById("deletePromo"); // get the input element
-const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
 
-deletePromoBtn.addEventListener("click", async () => {
-  const promoToDelete = deletePromoInput.value; // get the value of the input field
-  if (!promoToDelete) {
-    alert("Please enter a promo name to delete.");
-    return;
-  }
+// define a function to handle the deletion of a promo
+async function deletePromo(event) {
+  event.preventDefault();
 
-  const isDeleted = await adminpromo.DeletePromo(promoToDelete); // call the DeletePromo method with the promo name entered by the user
+  // get the promo code from the input field
+  const promoCode = document.getElementById('deletePromo').value;
+  // call the DeletePromo method on the PromoObject
+  const result = await adminpromo.DeletePromo(promoCode);
 
-  if (isDeleted) {
-    console.log("Promo deleted successfully!");
-    alert("Promo deleted successfully!");
+  // check if the promo was deleted successfully
+  if (result) {
+    console.log('Promo deleted successfully');
+    alert('Promo deleted successfully');
     window.location.reload();
   } else {
-    console.log("Error deleting promo.");
-    alert("Error deleting promo.");
+    console.log('Error deleting promo');
+    alert('Error deleting promo');
   }
-});
+}
+
+// add an event listener to the Delete Promo button
+document.getElementById('DeletePromoBTN').addEventListener('click', deletePromo);
+
+
 
 // Get the user ID from local storage
 let userRole = localStorage.getItem('userRole');

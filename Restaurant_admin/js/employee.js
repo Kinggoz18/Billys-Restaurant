@@ -4,17 +4,10 @@
 import { Accounts } from './Objects/ObjectExports.mjs';
 
 let employeeAccount = new Accounts.EmployeeAccount();
+let AccountData = LoadAccountData();
 
 async function updateUser(event) {
   event.preventDefault();
-
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to update your account.');
-    window.location.replace("../public/login.html");
-    return;
-  }
 
   // Get the password value
   let password = document.getElementById('password').value;
@@ -125,11 +118,15 @@ let order = new OrderObject();
 
 order.GetAllOrders().then(data => {
   let orderList = document.getElementById("emp-total-order");
-  data.forEach(order => {
+  for(let i =0; i < data.length; i++){
+    if(i == 15){
+      console.log("STOP");
+    }
+    let order = data[i];
     let orderItem = document.createElement("li");
     let itemString = "";
     order.items.forEach(item => {
-      itemString += `<li>Name: ${item.name}</li><li>Price: $${item.price.toFixed(2)}</li><li>Quantity: ${item.orderCount}</li>`;
+      itemString += `<div>Name: ${item.name}</div><div>Price: $${item.price.toFixed(2)}</div><div>Quantity: ${item.orderCount}</div>`;
     });
     orderItem.innerHTML = `
       <h3>Customer Name: ${order.customerName}</h3>
@@ -140,7 +137,7 @@ order.GetAllOrders().then(data => {
         </ul>
       </ul>`;
     orderList.appendChild(orderItem);
-  });
+  }
 
   // Add search functionality
   let searchBox = document.getElementById("search-box");
@@ -158,6 +155,11 @@ order.GetAllOrders().then(data => {
 }).catch(error => {
   console.log(error);
 });
+
+//Loads account data
+function LoadAccountData(){
+  return JSON.parse(GetFromStorage("AccountData"));
+}
 
 /* let idleTime = 0;
 let timerId;

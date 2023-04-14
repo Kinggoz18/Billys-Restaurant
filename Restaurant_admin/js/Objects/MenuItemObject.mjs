@@ -176,6 +176,7 @@ export class MenuItemObject{
             console.log(error);
             return null;
         }
+        return true
     }
     //Convert an image to Base64 using its path
    async #convertImageToBase64_Path(file) {

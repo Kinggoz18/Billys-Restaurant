@@ -3,15 +3,20 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
-
+.admin-heading{
+  color: white;
+}
 main {
   margin: 0em 3em;
+  padding: 1em 0.5em;
   position: relative;
-  left: 23vw;
+  left: 20vw;
   max-width: 1000px;
-  top: 280px;
+  top: 150px;
 }
-
+.hide{
+  display: none !important;
+}
 header {
   align-items: center;
   display: flex;
@@ -28,7 +33,17 @@ header {
 section {
   margin: 0em 0em 3em 0em;
 }
-
+.Delete-MenuItem{
+  display: grid;
+  grid-template-columns: 100%;
+}
+.Delete-MenuItem *{
+  margin: 0.5em;
+}
+.Delete-MenuItem button{
+  width: 20%;
+  height: 2em;
+}
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px) {
   nav {
@@ -51,8 +66,18 @@ section {
   #image-container img {
     width: 100%;
   }
-
-
+  /* Order styling*/
+  section{
+    border: solid 2px black;
+    max-height: 500px;
+    overflow-x: scroll;
+    padding: 1em;
+  }
+  #total-order li{
+    border: solid 2px black;
+    padding: 1em;
+    margin: 0.5em 0em;
+  }
   #wrapper a {
     color: white;
     text-decoration: none;
@@ -81,6 +106,7 @@ section {
 
   #Delete-btn{
     text-align: right;
+    background-color: red !important;
   }
 
   form div {

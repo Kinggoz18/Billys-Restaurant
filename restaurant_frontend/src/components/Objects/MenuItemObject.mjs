@@ -169,8 +169,10 @@ export class MenuItemObject{
                     return null
                 }
                 return true;
-            }).then(()=>{
-                this.#MenuItem = null;
+            }).then((data)=>{
+                if(data === true){
+                    this.#MenuItem = null;
+                }
             });
         }
         catch(error){

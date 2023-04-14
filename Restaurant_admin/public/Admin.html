@@ -2,18 +2,21 @@
 <html lang="en">
 
 <head>
-  <title>Admin Panel</title>
+  <title>Admin Protal</title>
+  <!-- Javascript -->
+  <script src="../js/LocalStorage.js"></script>
+  <!--<script src="../js/ValidateLogin.js"></script> -->
+  <script src="../js/Admin.js" type="module"></script>
+  <!-- CSS -->
   <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
-  <script src="../js/Admin.js" defer type="module"></script>
-  <script src="../js/test.js"></script>
-
-  <!-- Add any CSS and JavaScript files needed -->
 </head>
 
 <body id="page-top">
   <!-- Navigation -->
   <nav>
-    <h1>Hello Billy,</h1>
+    <div id="image-container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" >
+    </div>
     <ul id="wrapper">
       <!-- Sidebar -->
       <li><a href="#Profile-Section">Profile</a></li>
@@ -22,45 +25,43 @@
       <li><a href="#Sales-Section">Sales</a></li>
       <li><a href="#Promo-Section">Promo</a></li>
       <li><input id="logout-btn" type="button" value="Logout"> </li>
+      <li><input id="Delete-btn" type="button" value="Delete Account"></li>
     </ul>
   </nav>
   <!-- Title -->
   <header>
     <!-- Logo -->
-    <div id="image-container">
-      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
-    </div>
-    <h1>Admin Account</h1>
+    <h2 class="admin-heading">Admin Portal</h2>
   </header>
   <!-- Main -->
   <main>
     <section class="Profile-Section" id="Profile-Section">
-      <input id="Delete-btn" type="button" value="Delete Account"><br><br>
-      <h2>Profile</h2>
+      <h2>Update Profile Information</h2>
       <form id="Profile">
         <div>
           <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName"><br><br>
+          <input type="text" id="firstName" name="firstName">
         </div>
 
         <div>
           <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName"><br><br>
+          <input type="text" id="lastName" name="lastName">
         </div>
 
         <div>
           <label for="emailAddress">Email Address:</label>
-          <input type="email" id="emailAddress" name="emailAddress"><br><br>
+          <input type="email" id="emailAddress" name="emailAddress">
         </div>
 
         <div>
-          <label for="oldPassword">New Password:</label>
-          <input type="password" id="password" name="password"><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
+          <p>Important: Please enter existing password or new password to confirm account update.</p>
         </div>
 
         <div>
           <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber"><br><br>
+          <input type="tel" id="phoneNumber" name="phoneNumber">
         </div>
 
         <button id="saveBtn">Save</button>
@@ -69,7 +70,7 @@
     </section>
     <section class="Menu-Section" id="Menu-Section">
       <br>
-      <h2>Edit Your Menu</h2>
+      <h2>Edit Menu</h2>
       <div id="menu">
         <h3>Create Menu</h3>
         <form>
@@ -94,7 +95,7 @@
           </div>
           <div>
             <label for="MenuItemMenu">Item Menu</label>
-            <select id="MenuItemMenu"></select>
+            <select id="MenuItemMenu" class="MenuItemMenu"></select>
           </div>
           <div>
             <label for="MenuItemImage">Please select an Item Image to upload</label>
@@ -102,6 +103,14 @@
           </div>
           <button id="AddMenuItemBTN">Add Item</button>
         </form>
+        <div class="Delete-MenuItem">
+          <h3>Delete a Menu Item</h3>
+          <label for="DeleteMenuItem">Item Name</label>
+          <select id="DeleteMenuItem" class="MenuItemSelect"></select>
+          <button id="DeleteMenuItemBTN">Remove Item</button>
+        </div>
+      </form>
+    </div>
       </div>
       <div id="deleteMenu">
         <br>
@@ -109,7 +118,7 @@
         <form>
           <div>
             <label for="DeleteMenuName">Menu Name</label>
-            <select id="DeleteMenuName"></select>
+            <select id="DeleteMenuName" class="MenuItemMenu"></select>
           </div>
           <button id="DeleteMenuBTN">Delete Menu</button>
         </form>
@@ -118,15 +127,14 @@
 
     <section class="Orders-Section" id="Orders-Section">
       <br>
-      <h2>Order</h2>
-      <div id="order">
+      <h2>Order History</h2>
+      <div id="order-tab">
         <div>
           <label for="search-box">Search for an order by ID:</label>
           <input type="text" id="search-box"><br><br>
 
           <label for="search-box">Search for an order by Name:</label>
           <input type="text" id="search-box2">
-
         </div>
 
         <ul id="total-order"></ul>

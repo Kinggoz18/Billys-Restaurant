@@ -2,152 +2,107 @@
 
 //imports
 import { Accounts } from './Objects/ObjectExports.mjs';
-
-let adminAccount = new Accounts.AdminAccount();
-
-async function updateUser(event) {
-  event.preventDefault();
-
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to update your account.');
-    return;
-  }
-
-  // Get the password value
-  let password = document.getElementById('password').value;
-
-  // If password field is not empty, update the admin account
-  if (password !== "") {
-    let AccountInfo = {
-      _id: "",
-      firstName: document.getElementById('firstName').value,
-      lastName: document.getElementById('lastName').value,
-      phoneNumber: document.getElementById('phoneNumber').value,
-      emailAddress: document.getElementById('emailAddress').value,
-      password: password
-    }
-
-    // Get the admin ID from local storage
-    let userRole = localStorage.getItem('userRole');
-    let adminId = "";
-    if (userRole === 'admin') {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      adminId = userInfo._id;
-    }
-
-    // Update the admin account
-    if (adminId !== "") {
-      await adminAccount.UpdateAdmin(adminId, AccountInfo).then(() => {
-        console.log('Success! Admin Updated');
-        let result = adminAccount.GetAdminInfo;
-        if (result != null) {
-          alert('Success! Admin Updated');
-        } else {
-          alert('admin not updated');
-        }
-      }).catch((error) => {
-        console.log('Error updating admin:', error);
-        alert('Admin not updated');
-      });
-    }
-  }
-}
-async function deleteUser(event){
-  event.preventDefault();
-
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to delete your account.');
-    window.location.replace("../public/login.html");
-    return;
-  }
-
-  // Get the admin ID from local storage
-  let userRole = localStorage.getItem('userRole');
-  let adminId = "";
-  if (userRole === 'admin') {
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    adminId = userInfo._id;
-  }
-
-  // Delete the Admin account
-  if (adminId !== "") {
-    await adminAccount.DeleteAdmin(adminId).then(() => {
-      console.log('Success! Admin Deleted');
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('userRole');
-      alert('Success! Admin Deleted');
-      window.location.replace("../public/login.html");
-    }).catch((error) => {
-      console.log('Error deleting Admin:', error);
-      alert('Admin not deleted');
-    });
-  }
-}
-
-// Add event listener to the "Save" and "Delete" button
-document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
-document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
-
+import { SalesObject } from './Objects/SalesObject.mjs';
 import { Menu, MenuItem} from './Objects/ObjectExports.mjs';
+import { OrderObject } from './Objects/OrderObject.mjs';
+import { Promo } from './Objects/ObjectExports.mjs';
 
 //Global variables
 let MenuObj = new Menu.MenuObject();
+let order = new OrderObject();
 let MenuItemObj = new MenuItem.MenuItemObject();
 let AccObj = new Accounts.Account();
+let adminAccount = new Accounts.AdminAccount();
+let sales = new SalesObject();
+let adminpromo = new Promo.PromoObject();
+let AccountData = LoadAccountData();
+//Load the account data into the placeholders
+document.getElementById('firstName').placeholder = AccountData['firstName'];
+document.getElementById('lastName').placeholder = AccountData['lastName'];
+document.getElementById('phoneNumber').placeholder = AccountData['phoneNumber'];
+document.getElementById('emailAddress').placeholder = AccountData['emailAddress'];
 
+//HTML Variables
+const deletePromoInput = document.getElementById("deletePromo"); // get the input element
+const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
+const CreatMenuBtn = document.getElementById('createMenuBTN');
+const AddMenuItem = document.getElementById('AddMenuItemBTN');
+const DeleteMenuBtn = document.getElementById('DeleteMenuBTN');
+let DeleteMenuItemBTN = document.getElementById('DeleteMenuItemBTN');
 
-window.addEventListener("DOMContentLoaded", async () => {
-  let CreatMenuBtn = document.getElementById('createMenuBTN');
-  let AddMenuItem = document.getElementById('AddMenuItemBTN')
-  //Event listner for .....
-  document.getElementById("Profile").addEventListener("submit", function (event) {
-    event.preventDefault();
-    checkPassword();
-  });
+// Global Event Listeners
+document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
+document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
+document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
+document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
 
-  //Populate the menu ItemList
-  let menuList = document.getElementById('MenuItemMenu');
-  await MenuObj.GetAllMenu().then((data) => {
-    let current = "<option value=0>Select Item Menu</option>";
-    data.forEach(element => {
-      let name = element['name'];
-      current += `<option value=${name}>${name}</option>`
-    });
-    menuList.innerHTML = current;
-  })
-  //Event Listener to create a menu
-  CreatMenuBtn.addEventListener('click', CreateMenu);
-  //Event Listener to Add a menu
-  AddMenuItem.addEventListener('click', AddItem);
-  //Event Listener to delete a menu
-  DeleteMenuBtn.addEventListener('click', DeleteMenu);
+//Event Listener to create a menu
+CreatMenuBtn.addEventListener('click', (event)=>CreateMenu(event));
+//Event Listener to Add a menu
+AddMenuItem.addEventListener('click', AddItem);
+//Event Listener to delete a menu
+DeleteMenuBtn.addEventListener('click', (event)=>DeleteMenu(event));
+//Event Listener to delete a menu item
+DeleteMenuItemBTN.addEventListener('click', (event)=>DeleteMenuItem(event));
+//Event listner for .....
+document.getElementById("Profile").addEventListener("submit", function (event) {
+  event.preventDefault();
+  checkPassword();
 });
 
+
+
+// ******************************** Menu Functions ********************************************* //
+let menuList = document.querySelectorAll('.MenuItemMenu');
+let MenuData = await MenuObj.GetAllMenu();
+let MenuItemList = document.querySelector('.MenuItemSelect');
+//Populate the menu lists
+if (MenuData != null) {
+  let current = "<option value='0'>Select a Menu</option>";
+  MenuData.forEach(element => {
+    let name = element.name;
+    current += `<option value='${name}'>${name}</option>`;
+  });
+
+  menuList.forEach(list => {
+    list.innerHTML = current;
+  });
+}
+
+//populate the menu item lists
+if(MenuData !== null){
+  let current = "<option value='0'>Select menu item to remove</option>";
+  MenuData.forEach(element => {
+    element['foodList'].forEach(x=>{
+      let name = x.name;
+      let id = x._id
+      current += `<option value='${name}' data-id="${id}">${name}</option>`;
+    })
+  });
+  MenuItemList.innerHTML = current;
+}
 //Function to Add a menu
-async function CreateMenu() {
+async function CreateMenu(event) {
+  event.preventDefault();
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
+    alert('No Menu Selected');
     return;
   }
   else {
     await MenuObj.AddMenu(menuName).then(() => {
-      console.log('Throw Success here! Menu Created');
+      alert('Menu Created!');
       window.location.reload();
     });
 
   }
 }
-
 //Function to delete a menu
-async function DeleteMenu() {
+async function DeleteMenu(event) {
+  event.preventDefault();
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
+   console.log ('Throw error here! No Menu Selected');
     return;
   }
   else {
@@ -158,8 +113,6 @@ async function DeleteMenu() {
 
   }
 }
-
-
 //Function to Add a menu item
 async function AddItem() {
   let name = document.getElementById('MenuItemName').value;
@@ -192,12 +145,89 @@ async function AddItem() {
   }
   MenuItemObj.AddMenuItem(ItemToCreate, image);
 }
+//Function to delete a menu item
+async function DeleteMenuItem(event){
+  event.preventDefault();
+  let select = event.target.previousElementSibling;
+  let target = select.options[select.selectedIndex];
+  let id = target.dataset.id;;
+  let result = await MenuItemObj.DeleteMenuItem(id);
+  
+  if(result!=true){
+    console.log("An error occured!");
+  }else{
+    window.location.reload();
+  }
+}
+// ******************************** User Functions ********************************************* //
+async function updateUser(event) {
+  event.preventDefault();
 
-//function to Get Sales and Number of orders from api
-import { SalesObject } from './Objects/SalesObject.mjs';
+  // Get the password value
+  let password = document.getElementById('password').value;
 
-let sales = new SalesObject();
+  // If password field is not empty, update the admin account
+  if (password !== "") {
+    let AccountInfo = {
+      _id: "",
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      emailAddress: document.getElementById('emailAddress').value,
+      password: password
+    }
 
+    // Get the admin ID from local storage
+    let adminId = AccountData['_id'];
+
+    // Update the admin account
+    if (adminId !== "") {
+      await adminAccount.UpdateAdmin(adminId, AccountInfo).then(() => {
+        let result = adminAccount.GetAdminInfo;
+        if (result != null) {
+          alert('Success! Admin Updated');
+        } else {
+          alert('admin not updated');
+        }
+      }).catch((error) => {
+        console.log('Error updating admin:', error);
+        alert('Admin not updated');
+      });
+    }
+  }
+}
+async function deleteUser(event){
+  event.preventDefault();
+  let adminId = AccountData['_id'];
+  // Delete the Admin account
+  if (adminId !== "" || adminId !== null) {
+    await adminAccount.DeleteAdmin(adminId).then(() => {   
+
+      alert('Success! Admin Deleted');
+      RemoveFromStorage('AccountData');
+      window.location.replace("../public/login.html");
+
+    }).catch((error) => {
+      console.log('Error deleting Admin:', error);
+      alert('Admin not deleted');
+    });
+  }
+}
+//Function to logout
+function logout(){
+  // Check if the user is logged in
+  if (!IsInStorage("AccountData")) {
+    alert('Please log in to log out.');
+    return;
+  }
+  else{
+    // Remove user info from local storage and redirect to login page
+    RemoveFromStorage("AccountData");
+    window.location.href = 'login.html';
+  }
+}
+
+// ******************************** Sales Functions ********************************************* //
 sales.getTotalSales().then(data => {
   let totalSalesElement = document.getElementById("total-sales");
   let formattedData = `Total Sales: $${data.getTotalSales.toFixed(2)}, Number of Orders: ${data.getNumberOfOrders}`;
@@ -206,12 +236,8 @@ sales.getTotalSales().then(data => {
   console.log(error);
 });
 
-import { OrderObject } from './Objects/OrderObject.mjs';
-
-let order = new OrderObject();
-
-order.GetAllOrders()
-  .then(data => {
+// ******************************** Order Functions ********************************************* //
+order.GetAllOrders().then(data => {
     // Sort orders by createdAt in descending order
     data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     
@@ -224,19 +250,19 @@ order.GetAllOrders()
       let orderItem = document.createElement("li");
       let itemString = "";
       order.items.forEach(item => {
-        itemString += `<li>Name: ${item.name}</li><li>Price: $${item.price.toFixed(2)}</li><li>Quantity: ${item.orderCount}</li>`;
+        itemString += `<div>Name: ${item.name}</div><div>Price: $${item.price.toFixed(2)}</div><div>Quantity: ${item.orderCount}</div>`;
       });
       orderItem.innerHTML = `
         <h3>Order ID: ${order._id}</h3>
-        <ul>
-          <li>Customer Name: ${order.customerName}</li>
-          <li>Phone Number: ${order.phoneNumber}</li>
-          <li>Email: ${order.customerEmail}</li>
-          <li>Items:</li>
-          <ul>
+        <div>
+          <div>Customer Name: ${order.customerName}</div>
+          <div>Phone Number: ${order.phoneNumber}</div>
+          <div>Email: ${order.customerEmail}</div>
+          <div>Items:</div>
+          <div>
             ${itemString}
-          </ul>
-        </ul>`;
+          </div>
+        </div>`;
       orderList.appendChild(orderItem);
     });
 
@@ -272,33 +298,7 @@ order.GetAllOrders()
     console.log(error);
   });
 
-  async function logout(){
-    // Check if the user is logged in
-    let userInfo = localStorage.getItem('userInfo');
-    if (!userInfo) {
-      alert('Please log in to log out.');
-      return;
-    }
-  
-    // Get the user's role
-    let userRole = localStorage.getItem('userRole');
-  
-    // Call the appropriate logout method based on the user's role
-    if (userRole === 'admin') {
-      console.log('Success! Admin Logged Out');
-    }
-  
-    // Remove user info from local storage and redirect to login page
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
-  }
-  document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
-
-  import { Promo } from './Objects/ObjectExports.mjs';
-
-let adminpromo = new Promo.PromoObject();
-
+// ******************************** Promo Functions ********************************************* //
 // Function to add promo
 async function addpromo(event){
   event.preventDefault();
@@ -311,16 +311,9 @@ async function addpromo(event){
 
   //calling create promo method
   await adminpromo.CreatePromo(promoinfo);
-  console.log("Promo has been added");
   alert("Promo has been added");
   window.location.reload();
 }
-
-//event listener for when addpromo button is clicked
-document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
-
-const deletePromoInput = document.getElementById("deletePromo"); // get the input element
-const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
 
 deletePromoBtn.addEventListener("click", async () => {
   const promoToDelete = deletePromoInput.value; // get the value of the input field
@@ -332,7 +325,6 @@ deletePromoBtn.addEventListener("click", async () => {
   const isDeleted = await adminpromo.DeletePromo(promoToDelete); // call the DeletePromo method with the promo name entered by the user
 
   if (isDeleted) {
-    console.log("Promo deleted successfully!");
     alert("Promo deleted successfully!");
     window.location.reload();
   } else {
@@ -342,13 +334,7 @@ deletePromoBtn.addEventListener("click", async () => {
 });
 
 // Get the user ID from local storage
-let userRole = localStorage.getItem('userRole');
-let userId = "";
-if (userRole === 'admin') {
-  let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  userId = userInfo._id;
-}
-
+let userId = AccountData['_id'];
 // Get all promos
 adminpromo.GetAllPromos(userId).then(promos => {
   // Display all promos in the HTML
@@ -365,3 +351,7 @@ adminpromo.GetAllPromos(userId).then(promos => {
     promoContainer.textContent = 'No promos found.';
   }
 });
+//Loads account data
+function LoadAccountData(){
+  return JSON.parse(GetFromStorage("AccountData"));
+}

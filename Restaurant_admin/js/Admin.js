@@ -2,18 +2,131 @@
 
 //imports
 import { Accounts } from './Objects/ObjectExports.mjs';
+import { SalesObject } from './Objects/SalesObject.mjs';
+import { Menu, MenuItem} from './Objects/ObjectExports.mjs';
+import { OrderObject } from './Objects/OrderObject.mjs';
+import { Promo } from './Objects/ObjectExports.mjs';
 
+//Global variables
+let MenuObj = new Menu.MenuObject();
+let order = new OrderObject();
+let MenuItemObj = new MenuItem.MenuItemObject();
+let AccObj = new Accounts.Account();
 let adminAccount = new Accounts.AdminAccount();
+let sales = new SalesObject();
+let adminpromo = new Promo.PromoObject();
 
+//HTML Variables
+const deletePromoInput = document.getElementById("deletePromo"); // get the input element
+const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
+const CreatMenuBtn = document.getElementById('createMenuBTN');
+const AddMenuItem = document.getElementById('AddMenuItemBTN');
+const DeleteMenuBtn = document.getElementById('DeleteMenuBTN');
+
+// Global Event Listeners
+document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
+document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
+document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
+document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
+//Event Listener to create a menu
+CreatMenuBtn.addEventListener('click', CreateMenu);
+//Event Listener to Add a menu
+AddMenuItem.addEventListener('click', AddItem);
+//Event Listener to delete a menu
+DeleteMenuBtn.addEventListener('click', DeleteMenu);
+//Event listner for .....
+document.getElementById("Profile").addEventListener("submit", function (event) {
+  event.preventDefault();
+  checkPassword();
+});
+
+
+
+// ******************************** Menu Functions ********************************************* //
+let menuList = document.getElementById('MenuItemMenu');
+let MenuData = await MenuObj.GetAllMenu();
+if(MenuData!=null){
+  let current = "<option value=0>Select Item Menu</option>";
+  MenuData.forEach(element => {
+    let name = element['name'];
+    current += `<option value=${name}>${name}</option>`
+  });
+  menuList.innerHTML = current;
+}
+
+//Function to Add a menu
+async function CreateMenu() {
+  let menuName = document.getElementById('MenuName').value;
+  if (menuName === "" || menuName.length === 0 || menuName === null) {
+    console.log('Throw error here! No Menu Selected');
+    return;
+  }
+  else {
+    await MenuObj.AddMenu(menuName).then(() => {
+      console.log('Throw Success here! Menu Created');
+      window.location.reload();
+    });
+
+  }
+}
+//Function to delete a menu
+async function DeleteMenu() {
+  let menuName = document.getElementById('MenuName').value;
+  if (menuName === "" || menuName.length === 0 || menuName === null) {
+    console.log('Throw error here! No Menu Selected');
+    return;
+  }
+  else {
+    await MenuObj.DeleteMenu(menuName).then(() => {
+      console.log('Throw Success here! Menu Deleted');
+      window.location.reload();
+    });
+
+  }
+}
+//Function to Add a menu item
+async function AddItem() {
+  let name = document.getElementById('MenuItemName').value;
+  let price = document.getElementById('MenuItemPrice').value;
+  let menu = document.getElementById('MenuItemMenu').value;
+  let image = document.getElementById('MenuItemImage').files[0];;
+  if (name === '') {
+    console.log('Name not selected. Throwing Error!');
+    return;
+  }
+  if (price === '') {
+    console.log('Price not selected. Throwing Error!');
+    return;
+  }
+  if (menu == 0) {
+    console.log('Menu not selected. Throwing Error!');
+    return;
+  }
+  if (image === "" || image === null) {
+    console.log('Image not selected. Throwing Error!');
+    return;
+  }
+  let ItemToCreate = {
+    _id: null,
+    Name: name,
+    Price: price,
+    Menu: menu,
+    OrderCount: 0,
+    ImageLink: ""
+  }
+  MenuItemObj.AddMenuItem(ItemToCreate, image);
+}
+
+// ******************************** User Functions ********************************************* //
 async function updateUser(event) {
   event.preventDefault();
 
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to update your account.');
-    return;
-  }
+// Check if the user is logged in
+let userInfo = localStorage.getItem('userInfo');
+if (!userInfo) {
+  alert('Please log in to update your account.');
+  return;
+}
 
   // Get the password value
   let password = document.getElementById('password').value;
@@ -87,117 +200,31 @@ async function deleteUser(event){
     });
   }
 }
-
-// Add event listener to the "Save" and "Delete" button
-document.getElementById('Delete-btn').addEventListener('click',(event) => deleteUser(event));
-document.getElementById('saveBtn').addEventListener('click', (event) => updateUser(event));
-
-import { Menu, MenuItem} from './Objects/ObjectExports.mjs';
-
-//Global variables
-let MenuObj = new Menu.MenuObject();
-let MenuItemObj = new MenuItem.MenuItemObject();
-let AccObj = new Accounts.Account();
-
-
-window.addEventListener("DOMContentLoaded", async () => {
-  let CreatMenuBtn = document.getElementById('createMenuBTN');
-  let AddMenuItem = document.getElementById('AddMenuItemBTN')
-  //Event listner for .....
-  document.getElementById("Profile").addEventListener("submit", function (event) {
-    event.preventDefault();
-    checkPassword();
-  });
-
-  //Populate the menu ItemList
-  let menuList = document.getElementById('MenuItemMenu');
-  await MenuObj.GetAllMenu().then((data) => {
-    let current = "<option value=0>Select Item Menu</option>";
-    data.forEach(element => {
-      let name = element['name'];
-      current += `<option value=${name}>${name}</option>`
-    });
-    menuList.innerHTML = current;
-  })
-  //Event Listener to create a menu
-  CreatMenuBtn.addEventListener('click', CreateMenu);
-  //Event Listener to Add a menu
-  AddMenuItem.addEventListener('click', AddItem);
-  //Event Listener to delete a menu
-  DeleteMenuBtn.addEventListener('click', DeleteMenu);
-});
-
-//Function to Add a menu
-async function CreateMenu() {
-  let menuName = document.getElementById('MenuName').value;
-  if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
+//Function to logout
+function logout(){
+  // Check if the user is logged in
+  let userInfo = localStorage.getItem('userInfo');
+  if (!userInfo) {
+    alert('Please log in to log out.');
     return;
   }
-  else {
-    await MenuObj.AddMenu(menuName).then(() => {
-      console.log('Throw Success here! Menu Created');
-      window.location.reload();
-    });
 
-  }
-}
+  // Get the user's role
+  let userRole = localStorage.getItem('userRole');
 
-//Function to delete a menu
-async function DeleteMenu() {
-  let menuName = document.getElementById('MenuName').value;
-  if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
-    return;
+  // Call the appropriate logout method based on the user's role
+  if (userRole === 'admin') {
+    console.log('Success! Admin Logged Out');
   }
-  else {
-    await MenuObj.DeleteMenu(menuName).then(() => {
-      console.log('Throw Success here! Menu Deleted');
-      window.location.reload();
-    });
 
-  }
+  // Remove user info from local storage and redirect to login page
+  localStorage.removeItem('userInfo');
+  localStorage.removeItem('userRole');
+  window.location.href = 'login.html';
 }
 
 
-//Function to Add a menu item
-async function AddItem() {
-  let name = document.getElementById('MenuItemName').value;
-  let price = document.getElementById('MenuItemPrice').value;
-  let menu = document.getElementById('MenuItemMenu').value;
-  let image = document.getElementById('MenuItemImage').files[0];;
-  if (name === '') {
-    console.log('Name not selected. Throwing Error!');
-    return;
-  }
-  if (price === '') {
-    console.log('Price not selected. Throwing Error!');
-    return;
-  }
-  if (menu == 0) {
-    console.log('Menu not selected. Throwing Error!');
-    return;
-  }
-  if (image === "" || image === null) {
-    console.log('Image not selected. Throwing Error!');
-    return;
-  }
-  let ItemToCreate = {
-    _id: null,
-    Name: name,
-    Price: price,
-    Menu: menu,
-    OrderCount: 0,
-    ImageLink: ""
-  }
-  MenuItemObj.AddMenuItem(ItemToCreate, image);
-}
-
-//function to Get Sales and Number of orders from api
-import { SalesObject } from './Objects/SalesObject.mjs';
-
-let sales = new SalesObject();
-
+// ******************************** Sales Functions ********************************************* //
 sales.getTotalSales().then(data => {
   let totalSalesElement = document.getElementById("total-sales");
   let formattedData = `Total Sales: $${data.getTotalSales.toFixed(2)}, Number of Orders: ${data.getNumberOfOrders}`;
@@ -206,12 +233,8 @@ sales.getTotalSales().then(data => {
   console.log(error);
 });
 
-import { OrderObject } from './Objects/OrderObject.mjs';
-
-let order = new OrderObject();
-
-order.GetAllOrders()
-  .then(data => {
+// ******************************** Order Functions ********************************************* //
+order.GetAllOrders().then(data => {
     // Sort orders by createdAt in descending order
     data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     
@@ -224,19 +247,19 @@ order.GetAllOrders()
       let orderItem = document.createElement("li");
       let itemString = "";
       order.items.forEach(item => {
-        itemString += `<li>Name: ${item.name}</li><li>Price: $${item.price.toFixed(2)}</li><li>Quantity: ${item.orderCount}</li>`;
+        itemString += `<div>Name: ${item.name}</div><div>Price: $${item.price.toFixed(2)}</div><div>Quantity: ${item.orderCount}</div>`;
       });
       orderItem.innerHTML = `
         <h3>Order ID: ${order._id}</h3>
-        <ul>
-          <li>Customer Name: ${order.customerName}</li>
-          <li>Phone Number: ${order.phoneNumber}</li>
-          <li>Email: ${order.customerEmail}</li>
-          <li>Items:</li>
-          <ul>
+        <div>
+          <div>Customer Name: ${order.customerName}</div>
+          <div>Phone Number: ${order.phoneNumber}</div>
+          <div>Email: ${order.customerEmail}</div>
+          <div>Items:</div>
+          <div>
             ${itemString}
-          </ul>
-        </ul>`;
+          </div>
+        </div>`;
       orderList.appendChild(orderItem);
     });
 
@@ -272,33 +295,7 @@ order.GetAllOrders()
     console.log(error);
   });
 
-  async function logout(){
-    // Check if the user is logged in
-    let userInfo = localStorage.getItem('userInfo');
-    if (!userInfo) {
-      alert('Please log in to log out.');
-      return;
-    }
-  
-    // Get the user's role
-    let userRole = localStorage.getItem('userRole');
-  
-    // Call the appropriate logout method based on the user's role
-    if (userRole === 'admin') {
-      console.log('Success! Admin Logged Out');
-    }
-  
-    // Remove user info from local storage and redirect to login page
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
-  }
-  document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
-
-  import { Promo } from './Objects/ObjectExports.mjs';
-
-let adminpromo = new Promo.PromoObject();
-
+// ******************************** Promo Functions ********************************************* //
 // Function to add promo
 async function addpromo(event){
   event.preventDefault();
@@ -315,12 +312,6 @@ async function addpromo(event){
   alert("Promo has been added");
   window.location.reload();
 }
-
-//event listener for when addpromo button is clicked
-document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
-
-const deletePromoInput = document.getElementById("deletePromo"); // get the input element
-const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
 
 deletePromoBtn.addEventListener("click", async () => {
   const promoToDelete = deletePromoInput.value; // get the value of the input field

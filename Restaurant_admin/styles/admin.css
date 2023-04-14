@@ -28,7 +28,6 @@ header {
 section {
   margin: 0em 0em 3em 0em;
 }
-
 /***************************************** BREAKPOINT for Large devices ********************************************************/
 @media screen and (min-width: 1010px) {
   nav {
@@ -51,8 +50,18 @@ section {
   #image-container img {
     width: 100%;
   }
-
-
+  /* Order styling*/
+  section{
+    border: solid 2px black;
+    max-height: 500px;
+    overflow-x: scroll;
+    padding: 1em;
+  }
+  #total-order li{
+    border: solid 2px black;
+    padding: 1em;
+    margin: 0.5em 0em;
+  }
   #wrapper a {
     color: white;
     text-decoration: none;
@@ -81,6 +90,7 @@ section {
 
   #Delete-btn{
     text-align: right;
+    background-color: red !important;
   }
 
   form div {

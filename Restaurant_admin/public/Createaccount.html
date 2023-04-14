@@ -8,43 +8,50 @@
   <script src="../js/createaccount.js" defer type="module"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="/Restaurant_admin/styles/create.css">
-  <link rel="stylesheet" href="../styles/login.css">
 
 </head>
 
 <body>
+  <div class="logo-container">
+    <div id="image-container">
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" >
+    </div>
   <h1>Create Account</h1>
-  <form id="createAccountForm">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" />
-
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" />
-
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="tel" id="phoneNumber" name="phoneNumber" />
-
-    <label for="emailAddress">Email Address:</label>
-    <input type="email" id="emailAddress" name="emailAddress" />
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"/>
-
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" />
-
-    <label for="role">Role:</label>
-    <select id="role" name="role">
-      <option value="Default">Choose a Role</option>
-      <option value="admin">Admin</option>
-      <option value="employee">Employee</option>
-    </select><br><br>
-
-    <label for="adminPassword">Admin Password:</label>
-    <input type="password" id="adminPassword" name="adminPassword"><br>
-
-    <button id="createAccountBtn">Create Account</button>
-  </form>
+  </div>
+  <main>
+    <form id="createAccountForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" />
+  
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" />
+  
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="tel" id="phoneNumber" name="phoneNumber" />
+  
+      <label for="emailAddress">Email Address:</label>
+      <input type="email" id="emailAddress" name="emailAddress" />
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"/>
+  
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" />
+  
+      <label for="role">Role:</label>
+      <select id="role" name="role">
+        <option value="Default">Choose a Role</option>
+        <option value="admin">Admin</option>
+        <option value="employee">Employee</option>
+      </select><br><br>
+  
+      <label for="adminPassword">Admin Password:</label>
+      <input type="password" id="adminPassword" name="adminPassword"><br>
+  
+      <button id="createAccountBtn">Create Account</button>
+      <p>Already have an account? <a href="login.html">Login</a>.</p>
+    </form>
+  </main>
 </body>
 
 </html>

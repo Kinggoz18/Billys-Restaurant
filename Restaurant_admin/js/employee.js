@@ -124,7 +124,7 @@ import { OrderObject } from './Objects/OrderObject.mjs';
 let order = new OrderObject();
 
 order.GetAllOrders().then(data => {
-  let orderList = document.getElementById("total-order");
+  let orderList = document.getElementById("emp-total-order");
   data.forEach(order => {
     let orderItem = document.createElement("li");
     let itemString = "";

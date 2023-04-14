@@ -158,31 +158,15 @@ async function updateUser(event) {
 }
 async function deleteUser(event){
   event.preventDefault();
-
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to delete your account.');
-    window.location.replace("../public/login.html");
-    return;
-  }
-
-  // Get the admin ID from local storage
-  let userRole = localStorage.getItem('userRole');
-  let adminId = "";
-  if (userRole === 'admin') {
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    adminId = userInfo._id;
-  }
-
+  let adminId = AccountData['_id'];
   // Delete the Admin account
-  if (adminId !== "") {
-    await adminAccount.DeleteAdmin(adminId).then(() => {
-      console.log('Success! Admin Deleted');
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('userRole');
+  if (adminId !== "" || adminId !== null) {
+    await adminAccount.DeleteAdmin(adminId).then(() => {   
+       
       alert('Success! Admin Deleted');
+      RemoveFromStorage('AccountData');
       window.location.replace("../public/login.html");
+
     }).catch((error) => {
       console.log('Error deleting Admin:', error);
       alert('Admin not deleted');

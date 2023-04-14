@@ -16,6 +16,11 @@ let adminAccount = new Accounts.AdminAccount();
 let sales = new SalesObject();
 let adminpromo = new Promo.PromoObject();
 let AccountData = LoadAccountData();
+//Load the account data into the placeholders
+document.getElementById('firstName').placeholder = AccountData['firstName'];
+document.getElementById('lastName').placeholder = AccountData['lastName'];
+document.getElementById('phoneNumber').placeholder = AccountData['phoneNumber'];
+document.getElementById('emailAddress').placeholder = AccountData['emailAddress'];
 
 //HTML Variables
 const CreatMenuBtn = document.getElementById('createMenuBTN');
@@ -57,12 +62,12 @@ if(MenuData!=null){
 async function CreateMenu() {
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
+    alert('No Menu Selected');
     return;
   }
   else {
     await MenuObj.AddMenu(menuName).then(() => {
-      console.log('Throw Success here! Menu Created');
+      alert('Menu Created!');
       window.location.reload();
     });
 
@@ -72,7 +77,7 @@ async function CreateMenu() {
 async function DeleteMenu() {
   let menuName = document.getElementById('MenuName').value;
   if (menuName === "" || menuName.length === 0 || menuName === null) {
-    console.log('Throw error here! No Menu Selected');
+   console.log ('Throw error here! No Menu Selected');
     return;
   }
   else {
@@ -140,7 +145,6 @@ async function updateUser(event) {
     // Update the admin account
     if (adminId !== "") {
       await adminAccount.UpdateAdmin(adminId, AccountInfo).then(() => {
-        console.log('Success! Admin Updated');
         let result = adminAccount.GetAdminInfo;
         if (result != null) {
           alert('Success! Admin Updated');
@@ -160,7 +164,7 @@ async function deleteUser(event){
   // Delete the Admin account
   if (adminId !== "" || adminId !== null) {
     await adminAccount.DeleteAdmin(adminId).then(() => {   
-       
+
       alert('Success! Admin Deleted');
       RemoveFromStorage('AccountData');
       window.location.replace("../public/login.html");
@@ -295,7 +299,6 @@ async function addpromo(event){
 
   //calling create promo method
   await adminpromo.CreatePromo(promoinfo);
-  console.log("Promo has been added");
   alert("Promo has been added");
   window.location.reload();
 }
@@ -313,10 +316,9 @@ async function deletePromo(event) {
   // call the DeletePromo method on the PromoObject
   const result = await adminpromo.DeletePromo(promoCode);
 
-  // check if the promo was deleted successfully
-  if (result) {
-    console.log('Promo deleted successfully');
-    alert('Promo deleted successfully');
+  if (isDeleted) {
+    console.log("Promo deleted successfully!");
+    alert("Promo deleted successfully!");
     window.location.reload();
   } else {
     console.log('Error deleting promo');

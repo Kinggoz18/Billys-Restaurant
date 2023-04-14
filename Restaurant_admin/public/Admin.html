@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-  <title>Admin Panel</title>
+  <title>Admin Protal</title>
   <!-- Javascript -->
   <script src="../js/LocalStorage.js"></script>
   <!--<script src="../js/ValidateLogin.js"></script> -->
-  
   <script src="../js/Admin.js" type="module"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
@@ -16,7 +15,7 @@
   <!-- Navigation -->
   <nav>
     <div id="image-container">
-      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" />
+      <img src="/Restaurant_admin/images/DRM.png" alt="Drum Rock Logo" >
     </div>
     <ul id="wrapper">
       <!-- Sidebar -->
@@ -41,27 +40,28 @@
       <form id="Profile">
         <div>
           <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName"><br><br>
+          <input type="text" id="firstName" name="firstName">
         </div>
 
         <div>
           <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName"><br><br>
+          <input type="text" id="lastName" name="lastName">
         </div>
 
         <div>
           <label for="emailAddress">Email Address:</label>
-          <input type="email" id="emailAddress" name="emailAddress"><br><br>
+          <input type="email" id="emailAddress" name="emailAddress">
         </div>
 
         <div>
-          <label for="oldPassword">New Password:</label>
-          <input type="password" id="password" name="password"><br><br>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password">
+          <p>Important: Please enter existing password or new password to confirm account update.</p>
         </div>
 
         <div>
           <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber"><br><br>
+          <input type="tel" id="phoneNumber" name="phoneNumber">
         </div>
 
         <button id="saveBtn">Save</button>

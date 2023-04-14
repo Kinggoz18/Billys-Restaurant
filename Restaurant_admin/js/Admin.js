@@ -23,6 +23,8 @@ document.getElementById('phoneNumber').placeholder = AccountData['phoneNumber'];
 document.getElementById('emailAddress').placeholder = AccountData['emailAddress'];
 
 //HTML Variables
+const deletePromoInput = document.getElementById("deletePromo"); // get the input element
+const deletePromoBtn = document.getElementById("DeletePromoBTN"); // get the delete promo button element
 const CreatMenuBtn = document.getElementById('createMenuBTN');
 const AddMenuItem = document.getElementById('AddMenuItemBTN');
 const DeleteMenuBtn = document.getElementById('DeleteMenuBTN');
@@ -283,7 +285,7 @@ order.GetAllOrders().then(data => {
     searchBox2.addEventListener("keyup", function () {
       let query = searchBox2.value.toLowerCase();
       orderList.childNodes.forEach(orderItem => {
-        let customerName = orderItem.querySelector("li:nth-child(1)").textContent;
+        let customerName = orderItem.querySelector("div:nth-child(1)").textContent;
         if (customerName.toLowerCase().includes(query)) {
           orderItem.style.display = "block";
         } else {
@@ -296,33 +298,7 @@ order.GetAllOrders().then(data => {
     console.log(error);
   });
 
-  async function logout(){
-    // Check if the user is logged in
-    let userInfo = localStorage.getItem('userInfo');
-    if (!userInfo) {
-      alert('Please log in to log out.');
-      window.location.href = 'login.html';
-      return;
-    }
-  
-    // Get the user's role
-    let userRole = localStorage.getItem('userRole');
-  
-    // Call the appropriate logout method based on the user's role
-    if (userRole === 'admin') {
-      console.log('Success! Admin Logged Out');
-    }
-  
-    // Remove user info from local storage and redirect to login page
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
-  }
-  document.getElementById('logout-btn').addEventListener('click', (event) => logout(event));
-
-import { Promo } from './Objects/ObjectExports.mjs';
-
-
+// ******************************** Promo Functions ********************************************* //
 // Function to add promo
 async function addpromo(event){
   event.preventDefault();
@@ -339,33 +315,23 @@ async function addpromo(event){
   window.location.reload();
 }
 
-//event listener for when addpromo button is clicked
-document.getElementById('AddPromoBTN').addEventListener('click', (event) => addpromo(event));
+deletePromoBtn.addEventListener("click", async () => {
+  const promoToDelete = deletePromoInput.value; // get the value of the input field
+  if (!promoToDelete) {
+    alert("Please enter a promo name to delete.");
+    return;
+  }
 
-
-// define a function to handle the deletion of a promo
-async function deletePromo(event) {
-  event.preventDefault();
-
-  // get the promo code from the input field
-  const promoCode = document.getElementById('deletePromo').value;
-  // call the DeletePromo method on the PromoObject
-  const result = await adminpromo.DeletePromo(promoCode);
+  const isDeleted = await adminpromo.DeletePromo(promoToDelete); // call the DeletePromo method with the promo name entered by the user
 
   if (isDeleted) {
-    console.log("Promo deleted successfully!");
     alert("Promo deleted successfully!");
     window.location.reload();
   } else {
-    console.log('Error deleting promo');
-    alert('Error deleting promo');
+    console.log("Error deleting promo.");
+    alert("Error deleting promo.");
   }
-}
-
-// add an event listener to the Delete Promo button
-document.getElementById('DeletePromoBTN').addEventListener('click', deletePromo);
-
-
+});
 
 // Get the user ID from local storage
 let userId = AccountData['_id'];

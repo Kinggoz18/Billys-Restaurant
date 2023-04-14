@@ -6,10 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/Restaurant_admin/styles/admin.css">
-  <script src="../js/Admin.js" defer type="module"></script>
-  <script src="../js/test.js"></script>
 
-  <!-- Add any CSS and JavaScript files needed -->
 </head>
 
 <body id="page-top">
@@ -24,6 +21,7 @@
       <li><a href="#Sales-Section">Sales</a></li>
       <li><a href="#Promo-Section">Promo</a></li>
       <li><input id="logout-btn" type="button" value="Logout"> </li>
+      <li><input id="Delete-btn" type="button" value="Delete Account"></li>
     </ul>
   </nav>
   <!-- Title -->
@@ -37,8 +35,7 @@
   <!-- Main -->
   <main>
     <section class="Profile-Section" id="Profile-Section">
-      <input id="Delete-btn" type="button" value="Delete Account"><br><br>
-      <h2>Profile</h2>
+      <h2>Update Profile Information</h2>
       <form id="Profile">
         <div>
           <label for="firstName">First Name:</label>
@@ -71,7 +68,7 @@
     </section>
     <section class="Menu-Section" id="Menu-Section">
       <br>
-      <h2>Edit Your Menu</h2>
+      <h2>Edit Menu</h2>
       <div id="menu">
         <h3>Create Menu</h3>
         <form>
@@ -120,15 +117,14 @@
 
     <section class="Orders-Section" id="Orders-Section">
       <br>
-      <h2>Order</h2>
-      <div id="order">
+      <h2>Order History</h2>
+      <div id="order-tab">
         <div>
           <label for="search-box">Search for an order by ID:</label>
           <input type="text" id="search-box"><br><br>
 
           <label for="search-box">Search for an order by Name:</label>
           <input type="text" id="search-box2">
-
         </div>
 
         <ul id="total-order"></ul>

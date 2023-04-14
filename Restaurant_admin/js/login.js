@@ -24,8 +24,7 @@ async function LoginAccount(event) {
         let result = adminAccount.GetAdminInfo;
         if (result != null) {
           console.log('Success! Admin logged in');
-          localStorage.setItem('userRole', 'admin');
-          localStorage.setItem('userInfo', JSON.stringify(result));
+          AddToStorage("AccountData", JSON.stringify(result));
           window.location.replace("../public/Admin.html");
         } else {
           alert('Account not found. Please check your email and password.');
@@ -36,8 +35,7 @@ async function LoginAccount(event) {
         let result = employeeAccount.GetEmployeeInfo;
         if (result != null) {
           console.log('Success! Employee logged in');
-          localStorage.setItem('userRole', 'employee');
-          localStorage.setItem('userInfo', JSON.stringify(result));
+          AddToStorage("AccountData", JSON.stringify(result));
           window.location.replace("../public/Employee.html");
         } else {
           alert('Account not found. Please check your email and password.');

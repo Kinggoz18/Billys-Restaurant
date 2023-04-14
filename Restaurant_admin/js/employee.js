@@ -6,12 +6,16 @@ import { Accounts } from './Objects/ObjectExports.mjs';
 let employeeAccount = new Accounts.EmployeeAccount();
 let AccountData = LoadAccountData();
 
+//Load the account data into the placeholders
+document.getElementById('firstName').placeholder = AccountData['firstName'];
+document.getElementById('lastName').placeholder = AccountData['lastName'];
+document.getElementById('phoneNumber').placeholder = AccountData['phoneNumber'];
+document.getElementById('emailAddress').placeholder = AccountData['emailAddress'];
+
 async function updateUser(event) {
   event.preventDefault();
-
   // Get the password value
   let password = document.getElementById('password').value;
-
   // If password field is not empty, update the employee account
   if (password !== "") {
     let AccountInfo = {
@@ -24,12 +28,7 @@ async function updateUser(event) {
     }
 
     // Get the employee ID from local storage
-    let userRole = localStorage.getItem('userRole');
-    let employeeId = "";
-    if (userRole === 'employee') {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      employeeId = userInfo._id;
-    }
+    let employeeId = AccountData['_id'];
 
     // Update the employee account
     if (employeeId !== "") {
@@ -38,6 +37,8 @@ async function updateUser(event) {
         let result = employeeAccount.GetEmployeeInfo;
         if (result != null) {
           alert('Success! Employee Updated');
+          AddToStorage("AccountData", JSON.parse(result));
+          window.location.reload()
         } else {
           alert('Employee not updated');
         }
@@ -52,29 +53,15 @@ async function updateUser(event) {
 async function deleteUser(event){
   event.preventDefault();
 
-  // Check if the user is logged in
-  let userInfo = localStorage.getItem('userInfo');
-  if (!userInfo) {
-    alert('Please log in to delete your account.');
-    window.location.replace("../public/login.html");
-    return;
-  }
-
   // Get the employee ID from local storage
-  let userRole = localStorage.getItem('userRole');
-  let employeeId = "";
-  if (userRole === 'employee') {
-    let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    employeeId = userInfo._id;
-  }
+  let employeeId = AccountData['_id'];
 
   // Delete the employee account
   if (employeeId !== "") {
     await employeeAccount.DeleteEmployee(employeeId).then(() => {
       console.log('Success! Employee Deleted');
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('userRole');
       alert('Success! Employee Deleted');
+      RemoveFromStorage("AccountData");
       window.location.href = 'login.html';
     }).catch((error) => {
       console.log('Error deleting employee:', error);
